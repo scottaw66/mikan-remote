@@ -24,19 +24,23 @@ cd MikanProtocol && swift test
 cd MikanServer && xcodegen generate && xcodebuild -scheme MikanServer -configuration Release build
 # Copy built app to /Applications:
 APP_PATH=$(xcodebuild -scheme MikanServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
-cp -R "$APP_PATH/MikanServer.app" /Applications/MikanServer.app
+rm -rf /Applications/MikanServer.app && cp -R "$APP_PATH/MikanServer.app" /Applications/MikanServer.app
 
 # MikanRemote (iOS) — must deploy to physical iPhone (not simulator)
 cd MikanRemote && xcodegen generate && open MikanRemote.xcodeproj
 # Then build and run to device from Xcode (Cmd+R)
 ```
 
+## Important: Accessibility Permission
+
+After each MikanServer rebuild and install, macOS invalidates the Accessibility permission even though System Settings still shows it as ON. The user must **toggle Accessibility OFF then ON** for MikanServer in System Settings > Privacy & Security > Accessibility after each new build. Without this, trackpad mouse control silently fails.
+
 ## Key Conventions
 
 - Both Xcode projects use **xcodegen** — edit `project.yml`, then `xcodegen generate` to regenerate `.xcodeproj`. Sources are auto-discovered from the source directories.
 - Deployment targets: macOS 14.0, iOS 17.0 (required for `@Observable`)
 - WebSocket protocol: JSON messages with `"type"` field. See `MikanProtocol/Sources/MikanProtocol/Messages.swift`.
-- MikanServer requires **Accessibility permission** for CGEvent mouse control (System Settings > Privacy & Security > Accessibility).
+- MikanServer requires **Accessibility permission** for mouse control via CGWarpMouseCursorPosition (System Settings > Privacy & Security > Accessibility). Permission must be re-toggled after each rebuild.
 - MikanRemote requires a **physical iPhone** for testing — simulator is impractical since mouse control and URL opening fight with the simulator on the same Mac.
 - App icons: source SVGs at repo root (`icon.svg` for remote, `icon-server.svg` for server). Teal rings = server, orange rings = remote.
 
