@@ -2,67 +2,47 @@
 
 ## Prerequisites
 
-- Xcode 16+ (with matching iOS simulator runtime installed)
+- Xcode 16+ with matching iOS platform installed
 - xcodegen (`brew install xcodegen` if not already installed)
 - macOS 14.0+
+- A physical iPhone (iOS 17.0+) on the same Wi-Fi network as your Mac
+- An Apple Developer account (free or paid) for signing the iOS app to your device
 
 ## Part 1: MikanServer (Mac)
 
-### Build and Run from Xcode
+MikanServer is already built and installed at `/Applications/MikanServer.app`. Just double-click to launch.
+
+If you need to rebuild from source:
 
 ```bash
 cd MikanServer
 xcodegen generate
-open MikanServer.xcodeproj
+xcodebuild -scheme MikanServer -configuration Release build
+
+# Copy to Applications
+APP_PATH=$(xcodebuild -scheme MikanServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
+cp -R "$APP_PATH/MikanServer.app" /Applications/MikanServer.app
 ```
-
-In Xcode, select the **MikanServer** scheme and press **Cmd+R** to build and run.
-
-### Build from Command Line and Run as App Bundle
-
-```bash
-cd MikanServer
-xcodegen generate
-xcodebuild -scheme MikanServer -configuration Debug build
-```
-
-The built app bundle lands in DerivedData. To find it and copy it somewhere convenient:
-
-```bash
-# Find the built .app
-APP_PATH=$(xcodebuild -scheme MikanServer -configuration Debug -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
-cp -R "$APP_PATH/MikanServer.app" ~/Desktop/MikanServer.app
-```
-
-Then double-click `MikanServer.app` on your Desktop to launch it. You can also drag it to `/Applications` if you want.
 
 ### First Launch — Grant Accessibility Permission
 
-On first run, MikanServer needs Accessibility permission to control the mouse:
+MikanServer needs Accessibility permission to control the mouse. CGEvent calls silently fail without it — there's no prompt.
 
-1. macOS will **not** prompt automatically — CGEvent calls silently fail without permission
-2. Go to **System Settings > Privacy & Security > Accessibility**
-3. Click the **+** button, navigate to the MikanServer app, and add it
-4. Toggle it **on**
-5. You may need to quit and relaunch MikanServer for the permission to take effect
+1. Go to **System Settings > Privacy & Security > Accessibility**
+2. Click the **+** button, navigate to `/Applications/MikanServer.app`, and add it
+3. Toggle it **on**
+4. Quit and relaunch MikanServer
 
 ### Verify It's Running
 
-- A menu bar icon appears: **antenna icon** (with a slash when no client is connected)
+- An **antenna icon** appears in the menu bar (slashed when no client is connected)
 - Click it — you should see "Waiting for connection..."
-- Check Console.app or the Xcode debug console for: `Mikan server listening on port XXXXX`
 
-## Part 2: MikanRemote (iOS Simulator)
+## Part 2: MikanRemote (iPhone)
 
-### Install iOS Simulator Runtime (if needed)
+The iOS app must be run on a physical iPhone. The simulator won't work for this project — moving the cursor and opening URLs on the same Mac you're using the simulator on makes testing impossible.
 
-If you see "no destinations found" errors when building:
-
-1. Open **Xcode > Settings > Components** (or Platforms)
-2. Download the **iOS simulator runtime** that matches your Xcode version
-3. Wait for the download to complete (~5-10 GB)
-
-### Build and Run
+### Build and Deploy to iPhone
 
 ```bash
 cd MikanRemote
@@ -72,80 +52,82 @@ open MikanRemote.xcodeproj
 
 In Xcode:
 
-1. Select the **MikanRemote** scheme
-2. Pick a simulator destination (e.g., **iPhone 16**)
-3. Press **Cmd+R** to build and run
+1. Connect your iPhone via USB (or set up wireless debugging)
+2. Select the **MikanRemote** scheme
+3. Select your **iPhone** as the destination (not a simulator)
+4. If prompted, set a development team in **Signing & Capabilities** (your Apple ID works for free provisioning)
+5. Press **Cmd+R** to build and run on the device
 
 ### Approve Local Network Access
 
-When the app launches in the simulator, iOS will prompt:
+On first launch, iOS will prompt:
 
 > "MikanRemote would like to find and connect to devices on your local network."
 
-Tap **Allow**. Without this, Bonjour browsing won't work.
+Tap **Allow**. Without this, Bonjour discovery won't work.
 
-## Part 3: Testing the Connection
+## Part 3: Testing
 
-### Automatic Discovery
+Make sure your Mac and iPhone are on the **same Wi-Fi network**.
 
-With MikanServer running on your Mac and MikanRemote in the simulator:
+### Connection
 
-1. MikanRemote should show "Scanning for Mikan servers..."
-2. Within a few seconds, it should auto-connect (since there's one server)
-3. The status bar shows a green dot and your Mac's hostname
-4. The menu bar icon on Mac changes to the connected antenna (no slash)
-5. Click the menu bar icon — it should show "Connected: ..."
+1. Launch MikanServer on your Mac (if not already running)
+2. Launch MikanRemote on your iPhone
+3. The app should show "Scanning for Mikan servers..."
+4. Within a few seconds, it auto-connects
+5. The status bar shows a green dot and your Mac's hostname
+6. The Mac menu bar icon changes to the connected antenna (no slash)
 
-### Testing Mouse Control
+### Mouse Control
 
-In the simulator, interact with the trackpad area (the large gray rounded rectangle):
+On the trackpad area (large gray rounded rectangle on the iPhone):
 
-- **Click and drag** on the trackpad area → cursor moves on your Mac
-- **Single tap** → left click at the current cursor position
-- **Option+tap** (hold Option for second touch) → right click
-- **Option+drag** → scroll
+- **Drag finger** → cursor moves on Mac
+- **Single tap** → left click
+- **Two-finger tap** → right click
+- **Two-finger drag** → scroll
 
-Note: Since the simulator runs on the same Mac, you're controlling your own cursor. This can feel recursive — the cursor moves while you're trying to use the simulator. This is expected and normal for local testing.
+### Action Buttons
 
-### Testing Action Buttons
+- Default buttons appear at the bottom: **Netflix** and **YouTube**
+- Tap **Netflix** → default browser opens netflix.com on Mac
+- Tap **YouTube** → default browser opens youtube.com on Mac
 
-- Default buttons should appear at the bottom: **Netflix** and **YouTube**
-- Tap **Netflix** → your default browser opens netflix.com
-- Tap **YouTube** → your default browser opens youtube.com
+### Action Editor
 
-### Testing Action Editor
-
-1. Click the **Mikan menu bar icon** on your Mac
+1. On your Mac, click the **Mikan menu bar icon**
 2. Click **Edit Actions...**
-3. The action editor window opens
-4. Add a new action (click **+**), set a label and URL
-5. Click **Save**
-6. The new button should appear on the iPhone immediately (no reconnect needed)
+3. Add a new action (click **+**), set a label and URL, click **Save**
+4. The new button should appear on the iPhone immediately — no reconnect needed
 
-### Testing Reconnection
+### Reconnection
 
-1. Quit MikanServer (menu bar icon > Quit)
-2. MikanRemote should show "Scanning for Mikan servers..." or "Connecting..."
+1. Quit MikanServer on Mac (menu bar > Quit)
+2. iPhone should show scanning/disconnected state
 3. Relaunch MikanServer
-4. MikanRemote should auto-reconnect within a few seconds
+4. iPhone auto-reconnects within a few seconds
 
 ## Troubleshooting
 
-**"No destinations found" when building MikanRemote:**
-Install the iOS simulator runtime via Xcode > Settings > Components.
+**iPhone doesn't discover the Mac:**
+- Ensure both devices are on the same Wi-Fi network
+- Ensure MikanServer is running (check for menu bar icon)
+- Ensure you approved the local network permission on the iPhone
+- Try Settings > Apps > MikanRemote > Local Network and toggle it on
 
-**Simulator doesn't discover the Mac server:**
-- Ensure MikanServer is running (check for the menu bar icon)
-- Check that you approved the local network permission prompt in the simulator
-- Try resetting the simulator (Device > Erase All Content and Settings) and relaunch
-
-**Cursor doesn't move when dragging on trackpad:**
+**Cursor doesn't move when dragging:**
 - Grant Accessibility permission to MikanServer (see Part 1)
-- Quit and relaunch MikanServer after granting permission
+- Quit and relaunch MikanServer after granting
+
+**Can't build to iPhone — signing error:**
+- In Xcode, select the MikanRemote target > Signing & Capabilities
+- Set Team to your Apple ID
+- If using free provisioning, you may need to change the bundle ID to something unique
 
 **Action buttons don't appear:**
-- Check the Xcode console for MikanRemote — look for `actionConfig` messages
-- Verify MikanServer has a valid `actions.json` (or reset to defaults in the editor)
+- Check the Xcode console for the iPhone run — look for connection messages
+- Verify MikanServer has actions configured (Edit Actions... > Reset to Defaults > Save)
 
 **xcodegen not found:**
 ```bash
