@@ -8,16 +8,7 @@ final class MenuBarManager {
     var sensitivity: Double = 1.0
     private let mouseController = MouseController()
 
-    var statusText: String {
-        if server.isClientConnected, let name = server.clientName {
-            return "Connected: \(name)"
-        }
-        return "Waiting for connection..."
-    }
-
-    var isConnected: Bool { server.isClientConnected }
-
-    func start() throws {
+    init() {
         server.onClientMessage = { [weak self] message in
             self?.handleMessage(message)
         }
@@ -27,8 +18,17 @@ final class MenuBarManager {
             server.send(.serverStatus(connected: true, hostname: hostname))
             server.send(.actionConfig(actions: actionStore.actions))
         }
-        try server.start()
+        try? server.start()
     }
+
+    var statusText: String {
+        if server.isClientConnected, let name = server.clientName {
+            return "Connected: \(name)"
+        }
+        return "Waiting for connection..."
+    }
+
+    var isConnected: Bool { server.isClientConnected }
 
     func pushActions() {
         server.send(.actionConfig(actions: actionStore.actions))

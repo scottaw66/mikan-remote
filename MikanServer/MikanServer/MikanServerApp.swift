@@ -45,8 +45,5 @@ private struct MenuBarContentView: View {
         Button("Quit") {
             NSApplication.shared.terminate(nil)
         }
-        .onAppear {
-            try? manager.start()
-        }
     }
 }
