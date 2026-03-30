@@ -8,7 +8,9 @@ final class MouseController {
         let newX = current.x + CGFloat(Double(deltaX) * sensitivity)
         let newY = current.y + CGFloat(Double(deltaY) * sensitivity)
         let point = CGPoint(x: newX, y: newY)
-        CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: point, mouseButton: .left)?.post(tap: .cghidEventTap)
+        CGWarpMouseCursorPosition(point)
+        // Re-associate mouse to prevent cursor freeze after warp
+        CGAssociateMouseAndMouseCursorPosition(1)
     }
 
     func click(button: MouseButton) {

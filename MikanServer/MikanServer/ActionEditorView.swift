@@ -68,10 +68,11 @@ struct ActionRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            if let icon = action.icon, !icon.isEmpty {
-                Image(systemName: icon)
-                    .frame(width: 20)
-            }
+            Image(systemName: action.icon ?? "questionmark.square.dashed")
+                .font(.title2)
+                .foregroundStyle(action.icon != nil ? .primary : .tertiary)
+                .frame(width: 28)
+
             VStack(alignment: .leading, spacing: 2) {
                 TextField("Label", text: Binding(
                     get: { action.label },
@@ -89,12 +90,19 @@ struct ActionRow: View {
                 .foregroundStyle(.secondary)
             }
 
-            TextField("SF Symbol", text: Binding(
-                get: { action.icon ?? "" },
-                set: { action = Action(id: action.id, label: action.label, url: action.url, icon: $0.isEmpty ? nil : $0) }
-            ))
-            .textFieldStyle(.roundedBorder)
-            .frame(width: 120)
+            Spacer()
+
+            HStack(spacing: 4) {
+                Image(systemName: "apple.logo")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                TextField("Icon name", text: Binding(
+                    get: { action.icon ?? "" },
+                    set: { action = Action(id: action.id, label: action.label, url: action.url, icon: $0.isEmpty ? nil : $0) }
+                ))
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 140)
+            }
         }
         .padding(.vertical, 4)
     }

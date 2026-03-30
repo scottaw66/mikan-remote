@@ -5,10 +5,14 @@ import MikanProtocol
 final class MenuBarManager {
     let server = WebSocketServer()
     let actionStore = ActionStore()
-    var sensitivity: Double = 1.0
+    var sensitivity: Double {
+        didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity") }
+    }
     private let mouseController = MouseController()
 
     init() {
+        let stored = UserDefaults.standard.double(forKey: "sensitivity")
+        self.sensitivity = stored > 0 ? stored : 10.0
         server.onClientMessage = { [weak self] message in
             self?.handleMessage(message)
         }
@@ -22,8 +26,8 @@ final class MenuBarManager {
     }
 
     var statusText: String {
-        if server.isClientConnected, let name = server.clientName {
-            return "Connected: \(name)"
+        if server.isClientConnected {
+            return "Connected: \(server.clientName ?? "iPhone")"
         }
         return "Waiting for connection..."
     }

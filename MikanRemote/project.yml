@@ -39,6 +39,8 @@ targets:
         SWIFT_VERSION: "5.9"
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
         INFOPLIST_FILE: MikanRemote/Info.plist
+        DEVELOPMENT_TEAM: CK52C8CDVM
+        CODE_SIGN_STYLE: Automatic
     info:
       path: MikanRemote/Info.plist
       properties:
