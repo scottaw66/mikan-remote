@@ -18,3 +18,5 @@ public struct Action: Codable, Equatable, Sendable {
         Action(id: "youtube", label: "YouTube", url: "https://youtube.com", icon: "play.rectangle"),
     ]
 }
+
+extension Action: Identifiable {}
