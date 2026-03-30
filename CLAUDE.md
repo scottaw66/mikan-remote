@@ -10,9 +10,9 @@ Mikan Remote is an iPhone-to-Mac remote control for streaming video. Trackpad-st
 
 Three components:
 
-- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse via CGEvent, opens URLs via NSWorkspace. Built with xcodegen.
+- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse/keyboard via CGEvent, opens URLs via NSWorkspace. Built with xcodegen.
 - **MikanRemote** (`MikanRemote/`) — iOS thin client. Discovers Mac via Bonjour, connects over WebSocket, provides trackpad surface (UIKit multi-touch) and action buttons. No local state. Built with xcodegen.
-- **MikanProtocol** (`MikanProtocol/`) — Swift Package shared by both apps. Defines `ClientMessage`, `ServerMessage`, `Action`, `MouseButton` as Codable types with flat JSON encoding using a `type` discriminator field.
+- **MikanProtocol** (`MikanProtocol/`) — Swift Package shared by both apps. Defines `ClientMessage` (mouseMove, mouseClick, mouseScroll, openURL, performCommand), `ServerMessage`, `Action`, `MouseButton` as Codable types with flat JSON encoding using a `type` discriminator field.
 
 ## Build Commands
 
@@ -40,7 +40,7 @@ After each MikanServer rebuild and install, macOS invalidates the Accessibility 
 - Both Xcode projects use **xcodegen** — edit `project.yml`, then `xcodegen generate` to regenerate `.xcodeproj`. Sources are auto-discovered from the source directories.
 - Deployment targets: macOS 14.0, iOS 17.0 (required for `@Observable`)
 - WebSocket protocol: JSON messages with `"type"` field. See `MikanProtocol/Sources/MikanProtocol/Messages.swift`.
-- MikanServer requires **Accessibility permission** for mouse control via CGWarpMouseCursorPosition (System Settings > Privacy & Security > Accessibility). Permission must be re-toggled after each rebuild.
+- MikanServer requires **Accessibility permission** for mouse/keyboard control via CGEvent (System Settings > Privacy & Security > Accessibility). Permission must be re-toggled after each rebuild.
 - MikanRemote requires a **physical iPhone** for testing — simulator is impractical since mouse control and URL opening fight with the simulator on the same Mac.
 - App icons: source SVGs at repo root (`icon.svg` for remote, `icon-server.svg` for server). Teal rings = server, orange rings = remote.
 
