@@ -10,6 +10,7 @@
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
 		4CADAF3E6B62BA9EF7233FDB /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 92F7A56EF7DDFA61E02BE4F9 /* MikanProtocol */; };
 		AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */; };
+		CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */; };
 		E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2EC16723F3F73D57BB88E8 /* ContentView.swift */; };
 		F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D501735732C0F3972B840E /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
@@ -20,6 +21,7 @@
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPickerView.swift; sourceTree = "<group>"; };
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadView.swift; sourceTree = "<group>"; };
 		EF2EC16723F3F73D57BB88E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F81E16098698A4D19E486103 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -52,6 +54,7 @@
 				16C11006B0EF45589B98CFFB /* Info.plist */,
 				4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */,
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
+				DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */,
 			);
 			path = MikanRemote;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 				E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */,
 				AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */,
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
+				CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
