@@ -11,6 +11,7 @@
 		4605FF249E5E0A4557669716 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BDF9298436FB77BD2C71E7 /* MouseController.swift */; };
 		5B83D2E8DEE959AD03C276E9 /* ActionEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5431ED9DF5612C39229C1032 /* ActionEditorView.swift */; };
 		5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */; };
+		659023ED75792DC80E5E43D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0861EFFAFDD4594057241677 /* Assets.xcassets */; };
 		65B95BB5536540C656321921 /* MouseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */; };
 		B1F5B104C9FF9C6AE99ED519 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 04E96947E7EDE027F13FC437 /* MikanProtocol */; };
 		B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0861EFFAFDD4594057241677 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19207263A69A90A7C17BABE1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
 		402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
 		5431ED9DF5612C39229C1032 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				5431ED9DF5612C39229C1032 /* ActionEditorView.swift */,
 				A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */,
+				0861EFFAFDD4594057241677 /* Assets.xcassets */,
 				8ED08DB4B2729A4845954551 /* Info.plist */,
 				B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */,
 				757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */,
@@ -122,6 +125,7 @@
 			buildConfigurationList = 04183C4F69D6EC87E8DEE102 /* Build configuration list for PBXNativeTarget "MikanServer" */;
 			buildPhases = (
 				72ED3B090BA80A304B5003AA /* Sources */,
+				46C0DD37E3A0D22239719402 /* Resources */,
 				B93A9FC620D87E773962BEBF /* Frameworks */,
 			);
 			buildRules = (
@@ -189,6 +193,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		46C0DD37E3A0D22239719402 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				659023ED75792DC80E5E43D3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		72ED3B090BA80A304B5003AA /* Sources */ = {
