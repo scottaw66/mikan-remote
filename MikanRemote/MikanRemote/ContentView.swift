@@ -57,11 +57,11 @@ struct ContentView: View {
                 .padding(.vertical, 4)
 
                 // Action buttons
-                if !connectionManager.actions.isEmpty {
-                    ActionButtonsView(actions: connectionManager.actions) { action in
-                        connectionManager.send(.openURL(url: action.url))
-                    }
-                }
+                ActionButtonsView(
+                    actions: connectionManager.actions,
+                    onCommand: { connectionManager.send(.performCommand(command: $0)) },
+                    onOpenURL: { connectionManager.send(.openURL(url: $0)) }
+                )
             }
         }
     }

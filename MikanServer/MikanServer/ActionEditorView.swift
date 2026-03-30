@@ -27,7 +27,7 @@ struct ActionEditorView: View {
                 Button {
                     let new = Action(
                         id: UUID().uuidString,
-                        label: "New Action",
+                        label: "New Shortcut",
                         url: "https://example.com"
                     )
                     store.actions.append(new)
@@ -59,7 +59,7 @@ struct ActionEditorView: View {
             }
             .padding(12)
         }
-        .frame(minWidth: 450, minHeight: 300)
+        .frame(minWidth: 400, minHeight: 250)
     }
 }
 
@@ -67,42 +67,21 @@ struct ActionRow: View {
     @Binding var action: Action
 
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: action.icon ?? "questionmark.square.dashed")
-                .font(.title2)
-                .foregroundStyle(action.icon != nil ? .primary : .tertiary)
-                .frame(width: 28)
+        VStack(alignment: .leading, spacing: 4) {
+            TextField("Label", text: Binding(
+                get: { action.label },
+                set: { action = Action(id: action.id, label: $0, url: action.url, icon: action.icon) }
+            ))
+            .textFieldStyle(.plain)
+            .font(.headline)
 
-            VStack(alignment: .leading, spacing: 2) {
-                TextField("Label", text: Binding(
-                    get: { action.label },
-                    set: { action = Action(id: action.id, label: $0, url: action.url, icon: action.icon) }
-                ))
-                .textFieldStyle(.plain)
-                .font(.headline)
-
-                TextField("URL", text: Binding(
-                    get: { action.url },
-                    set: { action = Action(id: action.id, label: action.label, url: $0, icon: action.icon) }
-                ))
-                .textFieldStyle(.plain)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            }
-
-            Spacer()
-
-            HStack(spacing: 4) {
-                Image(systemName: "apple.logo")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
-                TextField("Icon name", text: Binding(
-                    get: { action.icon ?? "" },
-                    set: { action = Action(id: action.id, label: action.label, url: action.url, icon: $0.isEmpty ? nil : $0) }
-                ))
-                .textFieldStyle(.roundedBorder)
-                .frame(width: 140)
-            }
+            TextField("URL", text: Binding(
+                get: { action.url },
+                set: { action = Action(id: action.id, label: action.label, url: $0, icon: action.icon) }
+            ))
+            .textFieldStyle(.plain)
+            .font(.caption)
+            .foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
     }

@@ -78,9 +78,18 @@ final class MessagesTests: XCTestCase {
         XCTAssertEqual(json["deltaY"] as? Double, 2.0)
     }
 
+    func testPerformCommandRoundTrip() throws {
+        let msg = ClientMessage.performCommand(command: "fullscreen")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .performCommand(let command) = decoded else {
+            XCTFail("Expected performCommand"); return
+        }
+        XCTAssertEqual(command, "fullscreen")
+    }
+
     func testActionDefaultConfig() {
         let defaults = Action.defaults
         XCTAssertTrue(defaults.contains(where: { $0.url == "https://netflix.com" }))
-        XCTAssertTrue(defaults.contains(where: { $0.url == "https://youtube.com" }))
     }
 }

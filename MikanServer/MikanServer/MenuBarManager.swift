@@ -50,6 +50,20 @@ final class MenuBarManager {
             if let url = URL(string: urlString) {
                 NSWorkspace.shared.open(url)
             }
+        case .performCommand(let command):
+            handleCommand(command)
+        }
+    }
+
+    private func handleCommand(_ command: String) {
+        switch command {
+        case "fullscreen":
+            // Ctrl+Cmd+F — standard macOS fullscreen toggle
+            mouseController.sendKeyPress(keyCode: 3, flags: [.maskCommand, .maskControl])
+        case "escape":
+            mouseController.sendKeyPress(keyCode: 53, flags: [])
+        default:
+            print("Unknown command: \(command)")
         }
     }
 }

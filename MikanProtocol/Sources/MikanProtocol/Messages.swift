@@ -10,9 +10,10 @@ public enum ClientMessage: Codable, Sendable {
     case mouseClick(button: MouseButton)
     case mouseScroll(deltaX: Float, deltaY: Float)
     case openURL(url: String)
+    case performCommand(command: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, button, url
+        case type, deltaX, deltaY, button, url, command
     }
 
     public init(from decoder: Decoder) throws {
@@ -33,6 +34,9 @@ public enum ClientMessage: Codable, Sendable {
         case "openURL":
             let url = try container.decode(String.self, forKey: .url)
             self = .openURL(url: url)
+        case "performCommand":
+            let command = try container.decode(String.self, forKey: .command)
+            self = .performCommand(command: command)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -58,6 +62,9 @@ public enum ClientMessage: Codable, Sendable {
         case .openURL(let url):
             try container.encode("openURL", forKey: .type)
             try container.encode(url, forKey: .url)
+        case .performCommand(let command):
+            try container.encode("performCommand", forKey: .type)
+            try container.encode(command, forKey: .command)
         }
     }
 }

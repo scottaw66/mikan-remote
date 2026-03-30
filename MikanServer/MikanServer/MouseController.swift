@@ -28,4 +28,15 @@ final class MouseController {
             event.post(tap: .cghidEventTap)
         }
     }
+
+    func sendKeyPress(keyCode: UInt16, flags: CGEventFlags) {
+        if let down = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: true) {
+            down.flags = flags
+            down.post(tap: .cghidEventTap)
+        }
+        if let up = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false) {
+            up.flags = flags
+            up.post(tap: .cghidEventTap)
+        }
+    }
 }
