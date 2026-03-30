@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3CD50C704F7EB6BA824400F4 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 365FD4F79A7140F7F5D3F395 /* MikanProtocol */; };
+		4605FF249E5E0A4557669716 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BDF9298436FB77BD2C71E7 /* MouseController.swift */; };
 		5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */; };
+		65B95BB5536540C656321921 /* MouseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */; };
 		B1F5B104C9FF9C6AE99ED519 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 04E96947E7EDE027F13FC437 /* MikanProtocol */; };
 		C9BF3348C79B8796E7798248 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */; };
 		EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */; };
@@ -26,12 +28,14 @@
 
 /* Begin PBXFileReference section */
 		19207263A69A90A7C17BABE1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
+		402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
 		757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanServerApp.swift; sourceTree = "<group>"; };
 		8ED08DB4B2729A4845954551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStore.swift; sourceTree = "<group>"; };
 		AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStoreTests.swift; sourceTree = "<group>"; };
 		B07C693ABC9B6A78B3C43A34 /* MikanServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikanServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFD93D997A5DBC97275FA8DC /* MikanServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7BDF9298436FB77BD2C71E7 /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */,
+				402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */,
 			);
 			path = MikanServerTests;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 				A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */,
 				8ED08DB4B2729A4845954551 /* Info.plist */,
 				757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */,
+				C7BDF9298436FB77BD2C71E7 /* MouseController.swift */,
 			);
 			path = MikanServer;
 			sourceTree = "<group>";
@@ -182,6 +188,7 @@
 			files = (
 				EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */,
 				5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */,
+				4605FF249E5E0A4557669716 /* MouseController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9BF3348C79B8796E7798248 /* ActionStoreTests.swift in Sources */,
+				65B95BB5536540C656321921 /* MouseControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
