@@ -47,5 +47,8 @@ fastlane/test_output
 timeline.xctimeline
 playground.xcworkspace
 
+# Claude
+.claude/
+
 # Superpowers
 .superpowers/

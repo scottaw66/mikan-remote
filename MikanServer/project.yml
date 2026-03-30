@@ -1,0 +1,54 @@
+name: MikanServer
+options:
+  bundleIdPrefix: com.mikan
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15"
+
+packages:
+  MikanProtocol:
+    path: ../MikanProtocol
+
+targets:
+  MikanServer:
+    type: application
+    platform: macOS
+    sources:
+      - MikanServer
+    dependencies:
+      - package: MikanProtocol
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mikan.MikanServer
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        INFOPLIST_FILE: MikanServer/Info.plist
+        DEVELOPMENT_TEAM: CK52C8CDVM
+        CODE_SIGN_STYLE: Automatic
+      configs:
+        Debug:
+          ENABLE_TESTABILITY: YES
+    info:
+      path: MikanServer/Info.plist
+      properties:
+        CFBundleDisplayName: MikanServer
+        LSUIElement: YES
+        NSPrincipalClass: NSApplication
+        NSLocalNetworkUsageDescription: "MikanServer needs local network access to accept connections from Mikan Remote."
+        NSBonjourServices:
+          - _mikan._tcp
+
+  MikanServerTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - MikanServerTests
+    dependencies:
+      - target: MikanServer
+      - package: MikanProtocol
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mikan.MikanServerTests
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        GENERATE_INFOPLIST_FILE: YES

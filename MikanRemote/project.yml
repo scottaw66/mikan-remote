@@ -1,0 +1,50 @@
+name: MikanRemote
+options:
+  bundleIdPrefix: com.mikan
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15"
+
+packages:
+  MikanProtocol:
+    path: ../MikanProtocol
+
+schemes:
+  MikanRemote:
+    build:
+      targets:
+        MikanRemote: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+targets:
+  MikanRemote:
+    type: application
+    platform: iOS
+    sources:
+      - MikanRemote
+    dependencies:
+      - package: MikanProtocol
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mikan.MikanRemote
+        SWIFT_VERSION: "5.9"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        INFOPLIST_FILE: MikanRemote/Info.plist
+        DEVELOPMENT_TEAM: CK52C8CDVM
+        CODE_SIGN_STYLE: Automatic
+    info:
+      path: MikanRemote/Info.plist
+      properties:
+        CFBundleDisplayName: MikanRemote
+        NSLocalNetworkUsageDescription: "Mikan Remote needs local network access to find and connect to your Mac."
+        NSBonjourServices:
+          - _mikan._tcp

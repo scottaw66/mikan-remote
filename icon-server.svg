@@ -1,0 +1,37 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0f0f1e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="52%" r="28%">
+      <stop offset="0%" stop-color="#FF8C00" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF8C00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fruitShine" cx="40%" cy="38%" r="50%">
+      <stop offset="0%" stop-color="#FFB347"/>
+      <stop offset="50%" stop-color="#FF9F1C"/>
+      <stop offset="100%" stop-color="#E07800"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
+  <rect width="1024" height="1024" rx="224" fill="url(#glow)"/>
+  <!-- Teal dashed signal rings -->
+  <circle cx="512" cy="520" r="280" stroke="#26C6DA" stroke-width="16" fill="none" opacity="0.4" stroke-dasharray="30 20"/>
+  <circle cx="512" cy="520" r="350" stroke="#26C6DA" stroke-width="13" fill="none" opacity="0.28" stroke-dasharray="30 20"/>
+  <circle cx="512" cy="520" r="420" stroke="#26C6DA" stroke-width="10" fill="none" opacity="0.16" stroke-dasharray="30 20"/>
+  <!-- Mikan -->
+  <ellipse cx="512" cy="530" rx="200" ry="195" fill="url(#fruitShine)"/>
+  <ellipse cx="460" cy="475" rx="65" ry="45" fill="rgba(255,255,255,0.18)" transform="rotate(-15 460 475)"/>
+  <!-- Segments -->
+  <path d="M512 335 Q495 530 512 725" stroke="#D07000" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M355 435 Q512 510 669 435" stroke="#D07000" stroke-width="2" fill="none" opacity="0.2"/>
+  <path d="M355 625 Q512 550 669 625" stroke="#D07000" stroke-width="2" fill="none" opacity="0.2"/>
+  <!-- Stem + leaf -->
+  <path d="M512 340 Q510 295 506 270" stroke="#2D6016" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <ellipse cx="542" cy="290" rx="42" ry="17" fill="#43A047" transform="rotate(-25 542 290)"/>
+  <path d="M525 290 L555 282" stroke="#2E7D32" stroke-width="2" fill="none" opacity="0.6"/>
+  <!-- Beacon dot -->
+  <circle cx="512" cy="175" r="16" fill="#26C6DA" opacity="0.8"/>
+  <circle cx="512" cy="175" r="8" fill="white" opacity="0.9"/>
+</svg>
