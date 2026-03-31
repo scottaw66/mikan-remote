@@ -1,3 +1,4 @@
+import AppKit
 import CoreGraphics
 import MikanProtocol
 
@@ -9,8 +10,11 @@ final class MouseController {
         let newY = current.y + CGFloat(Double(deltaY) * sensitivity)
         let point = CGPoint(x: newX, y: newY)
         CGWarpMouseCursorPosition(point)
-        // Re-associate mouse to prevent cursor freeze after warp
         CGAssociateMouseAndMouseCursorPosition(1)
+        // Post a mouseMoved event so apps (video players) detect cursor activity
+        if let moveEvent = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: point, mouseButton: .left) {
+            moveEvent.post(tap: .cghidEventTap)
+        }
     }
 
     func click(button: MouseButton) {
@@ -27,6 +31,28 @@ final class MouseController {
         if let event = CGEvent(scrollWheelEvent2Source: nil, units: .pixel, wheelCount: 2, wheel1: Int32(deltaY), wheel2: Int32(deltaX), wheel3: 0) {
             event.post(tap: .cghidEventTap)
         }
+    }
+
+    func sendMediaKey(_ keyType: Int32) {
+        // NX_KEYTYPE_SOUND_UP = 0, NX_KEYTYPE_SOUND_DOWN = 1, NX_KEYTYPE_MUTE = 7
+        func postSystemKey(_ down: Bool) {
+            let flags = down ? 0xa00 : 0xb00
+            let data1 = Int((Int(keyType) << 16) | flags)
+            let event = NSEvent.otherEvent(
+                with: .systemDefined,
+                location: .zero,
+                modifierFlags: NSEvent.ModifierFlags(rawValue: UInt(flags)),
+                timestamp: 0,
+                windowNumber: 0,
+                context: nil,
+                subtype: 8,
+                data1: data1,
+                data2: -1
+            )
+            event?.cgEvent?.post(tap: .cghidEventTap)
+        }
+        postSystemKey(true)
+        postSystemKey(false)
     }
 
     func sendKeyPress(keyCode: UInt16, flags: CGEventFlags) {

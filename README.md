@@ -5,8 +5,12 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 ## Features
 
 - Trackpad-style mouse control from your iPhone
+- Volume control buttons (simulates Mac media keys)
+- Fullscreen toggle and Escape command buttons
 - Configurable quick-action buttons (open URLs in default browser)
+- Large custom cursor overlay — appears on movement, fades after 10s inactivity
 - Automatic discovery via Bonjour — no IP address needed
+- Auto-reconnects when app returns from background
 - Menu bar app on Mac — stays out of the way
 
 ## Requirements

@@ -116,6 +116,21 @@ final class ConnectionManager {
         }
     }
 
+    func attemptReconnect() {
+        // Called when app returns to foreground — force reconnection if needed
+        guard !isConnected else { return }
+        connection?.cancel()
+        connection = nil
+        // If we have a discovered server, reconnect immediately
+        if let server = discoveredServers.first, discoveredServers.count == 1 {
+            connect(to: server)
+        } else {
+            // Restart browsing to rediscover
+            stopBrowsing()
+            startBrowsing()
+        }
+    }
+
     private func handleDisconnect() {
         heartbeatTask?.cancel()
         heartbeatTask = nil
@@ -123,8 +138,6 @@ final class ConnectionManager {
         hostname = nil
         actions = []
         connection = nil
-        // Let the browser find the server again rather than reconnecting to a stale endpoint
-        // The browseResultsChangedHandler will auto-connect when the server reappears
     }
 
     private func receiveMessage() {

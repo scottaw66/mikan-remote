@@ -5,14 +5,12 @@ import UIKit
 struct TrackpadView: UIViewRepresentable {
     var onMove: (Float, Float) -> Void
     var onTap: () -> Void
-    var onTwoFingerTap: () -> Void
     var onScroll: (Float, Float) -> Void
 
     func makeUIView(context: Context) -> TrackpadUIView {
         let view = TrackpadUIView()
         view.onMove = onMove
         view.onTap = onTap
-        view.onTwoFingerTap = onTwoFingerTap
         view.onScroll = onScroll
         view.isMultipleTouchEnabled = true
         view.backgroundColor = UIColor.secondarySystemBackground
@@ -23,7 +21,6 @@ struct TrackpadView: UIViewRepresentable {
     func updateUIView(_ uiView: TrackpadUIView, context: Context) {
         uiView.onMove = onMove
         uiView.onTap = onTap
-        uiView.onTwoFingerTap = onTwoFingerTap
         uiView.onScroll = onScroll
     }
 }
@@ -31,7 +28,6 @@ struct TrackpadView: UIViewRepresentable {
 final class TrackpadUIView: UIView {
     var onMove: ((Float, Float) -> Void)?
     var onTap: (() -> Void)?
-    var onTwoFingerTap: (() -> Void)?
     var onScroll: ((Float, Float) -> Void)?
 
     private var previousTouchLocation: CGPoint?
@@ -90,14 +86,9 @@ final class TrackpadUIView: UIView {
                     if let touch = touches.first {
                         let endLoc = touch.location(in: self)
                         let dist = hypot(endLoc.x - startLoc.x, endLoc.y - startLoc.y)
-                        if dist < tapDistanceThreshold {
-                            if allTouches.count >= 2 || isTwoFingerDrag {
-                                feedbackGenerator.impactOccurred()
-                                onTwoFingerTap?()
-                            } else {
-                                feedbackGenerator.impactOccurred()
-                                onTap?()
-                            }
+                        if dist < tapDistanceThreshold && allTouches.count < 2 && !isTwoFingerDrag {
+                            feedbackGenerator.impactOccurred()
+                            onTap?()
                         }
                     }
                 }

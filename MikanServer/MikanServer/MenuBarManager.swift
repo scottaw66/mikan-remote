@@ -9,6 +9,7 @@ final class MenuBarManager {
         didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity") }
     }
     private let mouseController = MouseController()
+    private let cursorOverlay = CursorOverlayController()
 
     init() {
         let stored = UserDefaults.standard.double(forKey: "sensitivity")
@@ -42,6 +43,9 @@ final class MenuBarManager {
         switch message {
         case .mouseMove(let dx, let dy):
             mouseController.move(deltaX: dx, deltaY: dy, sensitivity: sensitivity)
+            if let pos = CGEvent(source: nil)?.location {
+                cursorOverlay.showCursor(at: pos)
+            }
         case .mouseClick(let button):
             mouseController.click(button: button)
         case .mouseScroll(let dx, let dy):
@@ -62,6 +66,10 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 3, flags: [.maskCommand, .maskControl])
         case "escape":
             mouseController.sendKeyPress(keyCode: 53, flags: [])
+        case "volumeUp":
+            mouseController.sendMediaKey(0)
+        case "volumeDown":
+            mouseController.sendMediaKey(1)
         default:
             print("Unknown command: \(command)")
         }

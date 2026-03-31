@@ -10,8 +10,8 @@ Mikan Remote is an iPhone-to-Mac remote control for streaming video. Trackpad-st
 
 Three components:
 
-- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse/keyboard via CGEvent, opens URLs via NSWorkspace. Built with xcodegen.
-- **MikanRemote** (`MikanRemote/`) — iOS thin client. Discovers Mac via Bonjour, connects over WebSocket, provides trackpad surface (UIKit multi-touch) and action buttons. No local state. Built with xcodegen.
+- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse/keyboard via CGEvent, simulates media keys, renders a custom cursor overlay, opens URLs via NSWorkspace. Built with xcodegen.
+- **MikanRemote** (`MikanRemote/`) — iOS thin client. Discovers Mac via Bonjour, connects over WebSocket, provides trackpad surface (UIKit multi-touch) and action buttons. Auto-reconnects on foreground. No local state. Built with xcodegen.
 - **MikanProtocol** (`MikanProtocol/`) — Swift Package shared by both apps. Defines `ClientMessage` (mouseMove, mouseClick, mouseScroll, openURL, performCommand), `ServerMessage`, `Action`, `MouseButton` as Codable types with flat JSON encoding using a `type` discriminator field.
 
 ## Build Commands

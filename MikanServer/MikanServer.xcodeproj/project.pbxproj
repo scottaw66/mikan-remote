@@ -17,6 +17,7 @@
 		B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */; };
 		BCB8856380A144224FAB609C /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */; };
 		C9BF3348C79B8796E7798248 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */; };
+		D97AEB977C9A4A254F48EAC2 /* CursorOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */; };
 		EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		0861EFFAFDD4594057241677 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorOverlayController.swift; sourceTree = "<group>"; };
 		19207263A69A90A7C17BABE1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
 		402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
 		5431ED9DF5612C39229C1032 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				5431ED9DF5612C39229C1032 /* ActionEditorView.swift */,
 				A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */,
 				0861EFFAFDD4594057241677 /* Assets.xcassets */,
+				0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */,
 				8ED08DB4B2729A4845954551 /* Info.plist */,
 				B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */,
 				757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */,
@@ -216,6 +219,7 @@
 			files = (
 				5B83D2E8DEE959AD03C276E9 /* ActionEditorView.swift in Sources */,
 				EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */,
+				D97AEB977C9A4A254F48EAC2 /* CursorOverlayController.swift in Sources */,
 				B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */,
 				5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */,
 				4605FF249E5E0A4557669716 /* MouseController.swift in Sources */,

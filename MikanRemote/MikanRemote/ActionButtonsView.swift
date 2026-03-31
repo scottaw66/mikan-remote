@@ -11,10 +11,16 @@ struct ActionButtonsView: View {
         VStack(spacing: 8) {
             // Command buttons — fixed, not editable
             HStack(spacing: 10) {
+                IconButton(icon: "speaker.minus") {
+                    onCommand("volumeDown")
+                }
+                IconButton(icon: "speaker.plus") {
+                    onCommand("volumeUp")
+                }
                 CommandButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right") {
                     onCommand("fullscreen")
                 }
-                CommandButton(label: "Esc", icon: "escape") {
+                CommandButton(label: "Escape", icon: "escape") {
                     onCommand("escape")
                 }
             }
@@ -32,6 +38,21 @@ struct ActionButtonsView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 6)
+    }
+}
+
+private struct IconButton: View {
+    let icon: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.body)
+                .frame(width: 44, height: 36)
+        }
+        .buttonStyle(.bordered)
+        .tint(.secondary)
     }
 }
 

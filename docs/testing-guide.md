@@ -83,16 +83,18 @@ Make sure your Mac and iPhone are on the **same Wi-Fi network**.
 
 On the trackpad area (large gray rounded rectangle on the iPhone):
 
-- **Drag finger** → cursor moves on Mac
+- **Drag finger** → cursor moves on Mac (a large orange cursor overlay appears)
 - **Single tap** → left click
-- **Two-finger tap** → right click
 - **Two-finger drag** → scroll
 
-### Action Buttons
+The custom cursor overlay auto-hides after 10 seconds of no movement.
 
-- Default buttons appear at the bottom: **Netflix** and **YouTube**
-- Tap **Netflix** → default browser opens netflix.com on Mac
-- Tap **YouTube** → default browser opens youtube.com on Mac
+### Command & Action Buttons
+
+- **Vol−** / **Vol+** → Mac system volume (icon-only buttons)
+- **Fullscreen** → toggles macOS fullscreen (Ctrl+Cmd+F)
+- **Escape** → sends Escape key
+- **Netflix** / **YouTube** → open URLs in default browser on Mac
 
 ### Action Editor
 
@@ -107,6 +109,13 @@ On the trackpad area (large gray rounded rectangle on the iPhone):
 2. iPhone should show scanning/disconnected state
 3. Relaunch MikanServer
 4. iPhone auto-reconnects within a few seconds
+
+### Background/Foreground Reconnection
+
+1. Switch away from MikanRemote (go to home screen or another app)
+2. Wait 30+ seconds
+3. Switch back to MikanRemote
+4. App should automatically reconnect without needing to kill and relaunch
 
 ## Troubleshooting
 
