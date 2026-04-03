@@ -19,6 +19,17 @@ struct MikanServerApp: App {
             ActionEditorView(store: manager.actionStore, onSave: { manager.pushActions() })
         }
         .defaultSize(width: 500, height: 400)
+
+        Window("Pairing Code", id: "pairing-code") {
+            if let code = manager.pairingStore.pendingCode {
+                PairingCodeView(code: code)
+            } else {
+                Text("No pairing in progress.")
+                    .padding()
+            }
+        }
+        .defaultSize(width: 300, height: 260)
+        .windowResizability(.contentSize)
     }
 }
 
