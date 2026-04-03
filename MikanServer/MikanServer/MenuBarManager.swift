@@ -102,6 +102,10 @@ final class MenuBarManager {
             mouseController.sendMediaKey(0)
         case "volumeDown":
             mouseController.sendMediaKey(1)
+        case "arrowLeft":
+            mouseController.sendKeyPress(keyCode: 123, flags: [])
+        case "arrowRight":
+            mouseController.sendKeyPress(keyCode: 124, flags: [])
         default:
             print("Unknown command: \(command)")
         }

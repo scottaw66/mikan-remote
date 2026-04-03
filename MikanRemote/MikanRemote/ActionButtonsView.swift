@@ -17,6 +17,12 @@ struct ActionButtonsView: View {
                 IconButton(icon: "speaker.plus") {
                     onCommand("volumeUp")
                 }
+                IconButton(icon: "arrowtriangle.backward.fill") {
+                    onCommand("arrowLeft")
+                }
+                IconButton(icon: "arrowtriangle.forward.fill") {
+                    onCommand("arrowRight")
+                }
                 CommandButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right") {
                     onCommand("fullscreen")
                 }
