@@ -78,11 +78,23 @@ private struct MenuBarContentView: View {
                 dismiss()
             }
 
+            if !manager.pairingStore.pairedDeviceIds.isEmpty {
+                Button("Unpair All Devices") {
+                    manager.pairingStore.unpairAll()
+                }
+            }
+
             Button("Quit") {
                 manager.server.stop()
                 NSApplication.shared.terminate(nil)
             }
         }
         .padding()
+        .onAppear {
+            manager.onShowPairingWindow = { [openWindow] in
+                NSApp.activate(ignoringOtherApps: true)
+                openWindow(id: "pairing-code")
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@ import MikanProtocol
 final class MenuBarManager {
     let server = WebSocketServer()
     let actionStore = ActionStore()
+    let pairingStore = PairingStore()
+    var onShowPairingWindow: (() -> Void)?
     var sensitivity: Double {
         didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity") }
     }
@@ -18,10 +20,10 @@ final class MenuBarManager {
             self?.handleMessage(message)
         }
         server.onConnectionChanged = { [weak self] connected, _ in
-            guard let self, connected else { return }
-            let hostname = ProcessInfo.processInfo.hostName
-            server.send(.serverStatus(connected: true, hostname: hostname))
-            server.send(.actionConfig(actions: actionStore.actions))
+            guard let self else { return }
+            if !connected {
+                pairingStore.clearPending()
+            }
         }
         try? server.start()
     }
@@ -56,6 +58,36 @@ final class MenuBarManager {
             }
         case .performCommand(let command):
             handleCommand(command)
+        case .hello(let deviceId):
+            handleHello(deviceId)
+        case .pairResponse(let code):
+            handlePairResponse(code)
+        }
+    }
+
+    private func handleHello(_ deviceId: String) {
+        if pairingStore.isDevicePaired(deviceId) {
+            // Known device — send config immediately
+            let hostname = ProcessInfo.processInfo.hostName
+            server.send(.serverStatus(connected: true, hostname: hostname))
+            server.send(.actionConfig(actions: actionStore.actions))
+        } else {
+            // Unknown device — require pairing
+            let code = pairingStore.generateCode(for: deviceId)
+            print("Pairing code: \(code)")
+            server.send(.pairRequired)
+            onShowPairingWindow?()
+        }
+    }
+
+    private func handlePairResponse(_ code: String) {
+        if pairingStore.validateCode(code) {
+            server.send(.pairAccepted)
+            let hostname = ProcessInfo.processInfo.hostName
+            server.send(.serverStatus(connected: true, hostname: hostname))
+            server.send(.actionConfig(actions: actionStore.actions))
+        } else {
+            server.send(.pairRejected(reason: "Invalid code"))
         }
     }
 
