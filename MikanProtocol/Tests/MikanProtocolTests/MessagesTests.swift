@@ -88,6 +88,54 @@ final class MessagesTests: XCTestCase {
         XCTAssertEqual(command, "fullscreen")
     }
 
+    func testHelloRoundTrip() throws {
+        let msg = ClientMessage.hello(deviceId: "test-uuid-123")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .hello(let deviceId) = decoded else {
+            XCTFail("Expected hello"); return
+        }
+        XCTAssertEqual(deviceId, "test-uuid-123")
+    }
+
+    func testPairResponseRoundTrip() throws {
+        let msg = ClientMessage.pairResponse(code: "1234")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .pairResponse(let code) = decoded else {
+            XCTFail("Expected pairResponse"); return
+        }
+        XCTAssertEqual(code, "1234")
+    }
+
+    func testPairRequiredRoundTrip() throws {
+        let msg = ServerMessage.pairRequired
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .pairRequired = decoded else {
+            XCTFail("Expected pairRequired"); return
+        }
+    }
+
+    func testPairAcceptedRoundTrip() throws {
+        let msg = ServerMessage.pairAccepted
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .pairAccepted = decoded else {
+            XCTFail("Expected pairAccepted"); return
+        }
+    }
+
+    func testPairRejectedRoundTrip() throws {
+        let msg = ServerMessage.pairRejected(reason: "Invalid code")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .pairRejected(let reason) = decoded else {
+            XCTFail("Expected pairRejected"); return
+        }
+        XCTAssertEqual(reason, "Invalid code")
+    }
+
     func testActionDefaultConfig() {
         let defaults = Action.defaults
         XCTAssertTrue(defaults.contains(where: { $0.url == "https://netflix.com" }))

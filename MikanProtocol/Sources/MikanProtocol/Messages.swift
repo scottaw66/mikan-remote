@@ -11,9 +11,11 @@ public enum ClientMessage: Codable, Sendable {
     case mouseScroll(deltaX: Float, deltaY: Float)
     case openURL(url: String)
     case performCommand(command: String)
+    case hello(deviceId: String)
+    case pairResponse(code: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, button, url, command
+        case type, deltaX, deltaY, button, url, command, deviceId, code
     }
 
     public init(from decoder: Decoder) throws {
@@ -37,6 +39,12 @@ public enum ClientMessage: Codable, Sendable {
         case "performCommand":
             let command = try container.decode(String.self, forKey: .command)
             self = .performCommand(command: command)
+        case "hello":
+            let deviceId = try container.decode(String.self, forKey: .deviceId)
+            self = .hello(deviceId: deviceId)
+        case "pairResponse":
+            let code = try container.decode(String.self, forKey: .code)
+            self = .pairResponse(code: code)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -65,6 +73,12 @@ public enum ClientMessage: Codable, Sendable {
         case .performCommand(let command):
             try container.encode("performCommand", forKey: .type)
             try container.encode(command, forKey: .command)
+        case .hello(let deviceId):
+            try container.encode("hello", forKey: .type)
+            try container.encode(deviceId, forKey: .deviceId)
+        case .pairResponse(let code):
+            try container.encode("pairResponse", forKey: .type)
+            try container.encode(code, forKey: .code)
         }
     }
 }
@@ -72,9 +86,12 @@ public enum ClientMessage: Codable, Sendable {
 public enum ServerMessage: Codable, Sendable {
     case actionConfig(actions: [Action])
     case serverStatus(connected: Bool, hostname: String)
+    case pairRequired
+    case pairAccepted
+    case pairRejected(reason: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, actions, connected, hostname
+        case type, actions, connected, hostname, reason
     }
 
     public init(from decoder: Decoder) throws {
@@ -88,6 +105,13 @@ public enum ServerMessage: Codable, Sendable {
             let connected = try container.decode(Bool.self, forKey: .connected)
             let hostname = try container.decode(String.self, forKey: .hostname)
             self = .serverStatus(connected: connected, hostname: hostname)
+        case "pairRequired":
+            self = .pairRequired
+        case "pairAccepted":
+            self = .pairAccepted
+        case "pairRejected":
+            let reason = try container.decode(String.self, forKey: .reason)
+            self = .pairRejected(reason: reason)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -106,6 +130,13 @@ public enum ServerMessage: Codable, Sendable {
             try container.encode("serverStatus", forKey: .type)
             try container.encode(connected, forKey: .connected)
             try container.encode(hostname, forKey: .hostname)
+        case .pairRequired:
+            try container.encode("pairRequired", forKey: .type)
+        case .pairAccepted:
+            try container.encode("pairAccepted", forKey: .type)
+        case .pairRejected(let reason):
+            try container.encode("pairRejected", forKey: .type)
+            try container.encode(reason, forKey: .reason)
         }
     }
 }
