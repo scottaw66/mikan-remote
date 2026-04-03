@@ -5,7 +5,7 @@ final class CursorOverlayController {
     private var cursorView: CursorView?
     private var hideTimer: Timer?
     private let hideDelay: TimeInterval = 10.0
-    private let cursorSize: CGFloat = 120
+    private let cursorSize: CGFloat = 140
 
     func showCursor(at point: CGPoint) {
         if window == nil {
@@ -75,19 +75,21 @@ private final class CursorView: NSView {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
 
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        let red = NSColor.red.cgColor
 
-        // Outer ring — bright orange, thick
-        let outerRadius: CGFloat = 45
-        ctx.setStrokeColor(NSColor(red: 1.0, green: 0.4, blue: 0.0, alpha: 0.9).cgColor)
+        // Outer ring — solid red, thick
+        let outerRadius: CGFloat = 50
+        ctx.setStrokeColor(red)
         ctx.setLineWidth(5.0)
         ctx.addArc(center: center, radius: outerRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
         ctx.strokePath()
 
-        // Center dot
-        let dotRadius: CGFloat = 8
-        ctx.setFillColor(NSColor(red: 1.0, green: 0.4, blue: 0.0, alpha: 0.95).cgColor)
+        // Center ring — hollow (stroke only, no fill)
+        let dotRadius: CGFloat = 10
+        ctx.setStrokeColor(red)
+        ctx.setLineWidth(3.0)
         ctx.addArc(center: center, radius: dotRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.fillPath()
+        ctx.strokePath()
 
         // White outline on outer ring for contrast on dark backgrounds
         ctx.setStrokeColor(NSColor.white.withAlphaComponent(0.5).cgColor)
