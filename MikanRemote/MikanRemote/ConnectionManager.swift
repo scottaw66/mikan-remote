@@ -14,8 +14,19 @@ final class ConnectionManager {
     private(set) var isConnected = false
     private(set) var hostname: String?
     private(set) var actions: [Action] = []
+    private(set) var pairingRequired = false
+    private(set) var pairingFailed = false
 
     var onServerMessage: ((ServerMessage) -> Void)?
+
+    private var deviceId: String {
+        if let id = UserDefaults.standard.string(forKey: "mikan.deviceId") {
+            return id
+        }
+        let id = UUID().uuidString
+        UserDefaults.standard.set(id, forKey: "mikan.deviceId")
+        return id
+    }
 
     func startBrowsing() {
         guard browser == nil else { return }
@@ -62,6 +73,7 @@ final class ConnectionManager {
                     self?.isConnected = true
                     self?.startHeartbeat()
                     self?.receiveMessage()
+                    self?.send(.hello(deviceId: self?.deviceId ?? ""))
                 case .waiting:
                     // Connection is waiting (e.g. network issue) — treat as disconnected
                     self?.handleDisconnect()
@@ -86,6 +98,13 @@ final class ConnectionManager {
         isConnected = false
         hostname = nil
         actions = []
+        pairingRequired = false
+        pairingFailed = false
+    }
+
+    func submitPairingCode(_ code: String) {
+        pairingFailed = false
+        send(.pairResponse(code: code))
     }
 
     func send(_ message: ClientMessage) {
@@ -137,6 +156,8 @@ final class ConnectionManager {
         isConnected = false
         hostname = nil
         actions = []
+        pairingRequired = false
+        pairingFailed = false
         connection = nil
     }
 
@@ -167,6 +188,14 @@ final class ConnectionManager {
             actions = newActions
         case .serverStatus(connected: _, hostname: let name):
             hostname = name
+        case .pairRequired:
+            pairingRequired = true
+            pairingFailed = false
+        case .pairAccepted:
+            pairingRequired = false
+            pairingFailed = false
+        case .pairRejected:
+            pairingFailed = true
         }
         onServerMessage?(message)
     }

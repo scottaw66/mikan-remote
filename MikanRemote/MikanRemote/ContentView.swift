@@ -4,6 +4,7 @@ import MikanProtocol
 
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
+    @State private var pairingCode = ""
 
     var body: some View {
         VStack(spacing: 0) {
@@ -24,6 +25,41 @@ struct ContentView: View {
                         .padding()
                     Spacer()
                 }
+            } else if connectionManager.pairingRequired {
+                Spacer()
+                VStack(spacing: 16) {
+                    Image(systemName: "lock.shield")
+                        .font(.system(size: 40))
+                        .foregroundStyle(.tint)
+
+                    Text("Enter Pairing Code")
+                        .font(.headline)
+
+                    Text("Check your Mac for the 4-digit code.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    TextField("Code", text: $pairingCode)
+                        .keyboardType(.numberPad)
+                        .font(.system(size: 32, weight: .bold, design: .monospaced))
+                        .multilineTextAlignment(.center)
+                        .frame(width: 160)
+                        .textFieldStyle(.roundedBorder)
+
+                    if connectionManager.pairingFailed {
+                        Text("Wrong code. Try again.")
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+
+                    Button("Pair") {
+                        connectionManager.submitPairingCode(pairingCode)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(pairingCode.count < 4)
+                }
+                .padding()
+                Spacer()
             } else {
                 // Status bar
                 HStack {
