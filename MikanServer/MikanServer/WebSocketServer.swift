@@ -7,6 +7,7 @@ import MikanProtocol
 final class WebSocketServer {
     private var listener: NWListener?
     private var activeConnection: NWConnection?
+    private var pingTimer: DispatchSourceTimer?
     private(set) var isClientConnected = false
     private(set) var clientName: String?
 
@@ -36,6 +37,7 @@ final class WebSocketServer {
     }
 
     func stop() {
+        stopPingTimer()
         // Send WebSocket close frame before cancelling
         if let connection = activeConnection {
             let closeMeta = NWProtocolWebSocket.Metadata(opcode: .close)
@@ -74,8 +76,10 @@ final class WebSocketServer {
                 self?.isClientConnected = true
                 self?.onConnectionChanged?(true, self?.clientName)
                 self?.receiveMessage(on: connection)
+                self?.startPingTimer(for: connection)
             case .cancelled, .failed:
                 print("Client disconnected")
+                self?.stopPingTimer()
                 self?.isClientConnected = false
                 self?.clientName = nil
                 self?.onConnectionChanged?(false, nil)
@@ -104,5 +108,40 @@ final class WebSocketServer {
                 self?.receiveMessage(on: connection)
             }
         }
+    }
+
+    // MARK: - Keepalive
+
+    private func startPingTimer(for connection: NWConnection) {
+        stopPingTimer()
+        let timer = DispatchSource.makeTimerSource(queue: .main)
+        timer.schedule(deadline: .now() + 5, repeating: 5)
+        timer.setEventHandler { [weak self] in
+            self?.sendPing(on: connection)
+        }
+        pingTimer = timer
+        timer.resume()
+    }
+
+    private func stopPingTimer() {
+        pingTimer?.cancel()
+        pingTimer = nil
+    }
+
+    private func sendPing(on connection: NWConnection) {
+        let meta = NWProtocolWebSocket.Metadata(opcode: .ping)
+        meta.setPongHandler(.main) { [weak self] error in
+            if let error = error {
+                print("Pong error: \(error) — dropping connection")
+                connection.cancel()
+            }
+        }
+        let context = NWConnection.ContentContext(identifier: "ping", metadata: [meta])
+        connection.send(content: Data(), contentContext: context, completion: .contentProcessed({ error in
+            if let error = error {
+                print("Ping send error: \(error)")
+                connection.cancel()
+            }
+        }))
     }
 }

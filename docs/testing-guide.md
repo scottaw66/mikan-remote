@@ -128,6 +128,13 @@ App shortcut buttons (smaller, below commands):
 3. Relaunch MikanServer
 4. iPhone auto-reconnects within a few seconds
 
+### Disconnect Detection
+
+1. Connect MikanRemote to MikanServer
+2. On the Mac, verify the menu bar shows "Connected: iPhone"
+3. On the iPhone, swipe-kill MikanRemote from the app switcher
+4. Within ~5 seconds, the Mac menu bar should update to "Waiting for connection..."
+
 ### Background/Foreground Reconnection
 
 1. Switch away from MikanRemote (go to home screen or another app)
@@ -145,7 +152,7 @@ App shortcut buttons (smaller, below commands):
 
 **Cursor doesn't move when dragging:**
 - Grant Accessibility permission to MikanServer (see Part 1)
-- After each rebuild, toggle Accessibility OFF then ON in System Settings — macOS invalidates the permission on reinstall even though it still shows as ON
+- If control stops working after a rebuild, try toggling Accessibility OFF then ON in System Settings
 - Quit and relaunch MikanServer after granting
 
 **Pairing code window doesn't appear on Mac:**

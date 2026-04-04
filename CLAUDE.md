@@ -33,19 +33,20 @@ cd MikanRemote && xcodegen generate && open MikanRemote.xcodeproj
 
 ## Important: Accessibility Permission
 
-After each MikanServer rebuild and install, macOS invalidates the Accessibility permission even though System Settings still shows it as ON. The user must **toggle Accessibility OFF then ON** for MikanServer in System Settings > Privacy & Security > Accessibility after each new build. Without this, trackpad mouse control silently fails.
+MikanServer requires Accessibility permission for mouse/keyboard control. Grant it once in System Settings > Privacy & Security > Accessibility. If trackpad control silently stops working after a rebuild, try toggling the permission OFF then ON.
 
 ## Key Conventions
 
 - Both Xcode projects use **xcodegen** — edit `project.yml`, then `xcodegen generate` to regenerate `.xcodeproj`. Sources are auto-discovered from the source directories.
 - Deployment targets: macOS 14.0, iOS 17.0 (required for `@Observable`)
 - WebSocket protocol: JSON messages with `"type"` field. See `MikanProtocol/Sources/MikanProtocol/Messages.swift`.
-- MikanServer requires **Accessibility permission** for mouse/keyboard control via CGEvent (System Settings > Privacy & Security > Accessibility). Permission must be re-toggled after each rebuild.
+- MikanServer requires **Accessibility permission** for mouse/keyboard control via CGEvent (System Settings > Privacy & Security > Accessibility). If control stops working after a rebuild, toggle the permission off and on.
 - MikanRemote requires a **physical iPhone** for testing — simulator is impractical since mouse control and URL opening fight with the simulator on the same Mac.
 - App icons: source SVGs at repo root (`icon.svg` for remote, `icon-server.svg` for server). Teal rings = server, orange rings = remote.
 - **Security pairing:** On first connect, the server generates a 4-digit code shown in a floating window. The client sends `hello(deviceId:)` on connect; unknown devices receive `pairRequired` and must submit the code via `pairResponse`. Paired UUIDs are stored in `~/Library/Application Support/MikanServer/paired-devices.json`. Use "Unpair All Devices" in the menu bar to reset.
 - **Cursor overlay size** is configurable via the server menu bar dropdown (60–300pt range, persisted to UserDefaults). Default is 120pt.
 - **Networking** runs on a background queue — do not dispatch back to MainActor unnecessarily; the existing pattern uses `DispatchQueue.main.async` only for UI updates.
+- **WebSocket keepalive:** The server sends WebSocket pings every 5 seconds. If a pong is not received (e.g. client app killed), the connection is immediately dropped.
 
 ## Key Files
 
