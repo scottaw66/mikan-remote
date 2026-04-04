@@ -27,8 +27,7 @@ final class MouseControllerTests: XCTestCase {
     func testClickDoesNotCrash() {
         let controller = MouseController()
         // Just verify it doesn't throw/crash — click at current position
-        controller.click(button: .left)
-        controller.click(button: .right)
+        controller.click()
     }
 
     func testScrollDoesNotCrash() {

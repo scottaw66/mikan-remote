@@ -43,6 +43,7 @@ MikanServer requires Accessibility permission for mouse/keyboard control. Grant 
 - MikanServer requires **Accessibility permission** for mouse/keyboard control via CGEvent (System Settings > Privacy & Security > Accessibility). If control stops working after a rebuild, toggle the permission off and on.
 - MikanRemote requires a **physical iPhone** for testing — simulator is impractical since mouse control and URL opening fight with the simulator on the same Mac.
 - App icons: source SVGs at repo root (`icon.svg` for remote, `icon-server.svg` for server). Teal rings = server, orange rings = remote.
+- **No right-click.** Right-click is permanently removed from the protocol, server, and client. The `MouseButton` enum no longer exists. `mouseClick` has no parameter — it is always a left click. Do NOT reintroduce right-click under any circumstances.
 - **Security pairing:** On first connect, the server generates a 4-digit code shown in a floating window. The client sends `hello(deviceId:)` on connect; unknown devices receive `pairRequired` and must submit the code via `pairResponse`. Paired UUIDs are stored in `~/Library/Application Support/MikanServer/paired-devices.json`. Use "Unpair All Devices" in the menu bar to reset.
 - **Cursor overlay size** is configurable via the server menu bar dropdown (60–300pt range, persisted to UserDefaults). Default is 120pt.
 - **Networking** runs on a background queue — do not dispatch back to MainActor unnecessarily; the existing pattern uses `DispatchQueue.main.async` only for UI updates.

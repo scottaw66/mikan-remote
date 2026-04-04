@@ -96,7 +96,7 @@ To force re-pairing: click the menu bar icon on the Mac and choose **Unpair All 
 On the trackpad area (large gray rounded rectangle on the iPhone):
 
 - **Drag finger** → cursor moves on Mac (a red cursor overlay appears)
-- **Single tap** → left click
+- **Single tap** → left click (right-click is not supported and must never be added)
 - **Two-finger drag** → scroll
 
 The cursor overlay auto-hides after 10 seconds of no movement. Its size (60–300pt) is adjustable from the Mac menu bar dropdown.

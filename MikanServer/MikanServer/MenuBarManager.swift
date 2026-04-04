@@ -59,8 +59,8 @@ final class MenuBarManager {
             if let pos = CGEvent(source: nil)?.location {
                 cursorOverlay.showCursor(at: pos)
             }
-        case .mouseClick(let button):
-            mouseController.click(button: button)
+        case .mouseClick:
+            mouseController.click()
         case .mouseScroll(let dx, let dy):
             mouseController.scroll(deltaX: dx, deltaY: dy)
         case .openURL(let urlString):

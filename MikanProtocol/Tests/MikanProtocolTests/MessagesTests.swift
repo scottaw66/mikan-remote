@@ -15,13 +15,12 @@ final class MessagesTests: XCTestCase {
     }
 
     func testMouseClickRoundTrip() throws {
-        let msg = ClientMessage.mouseClick(button: .left)
+        let msg = ClientMessage.mouseClick
         let data = try JSONEncoder().encode(msg)
         let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
-        guard case .mouseClick(let button) = decoded else {
+        guard case .mouseClick = decoded else {
             XCTFail("Expected mouseClick"); return
         }
-        XCTAssertEqual(button, .left)
     }
 
     func testMouseScrollRoundTrip() throws {

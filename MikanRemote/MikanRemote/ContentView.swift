@@ -84,7 +84,7 @@ struct ContentView: View {
                         connectionManager.send(.mouseMove(deltaX: dx, deltaY: dy))
                     },
                     onTap: {
-                        connectionManager.send(.mouseClick(button: .left))
+                        connectionManager.send(.mouseClick)
                     },
                     onScroll: { dx, dy in
                         connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))

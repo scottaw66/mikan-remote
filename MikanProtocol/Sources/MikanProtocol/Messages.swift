@@ -1,13 +1,8 @@
 import Foundation
 
-public enum MouseButton: String, Codable, Sendable {
-    case left
-    case right
-}
-
 public enum ClientMessage: Codable, Sendable {
     case mouseMove(deltaX: Float, deltaY: Float)
-    case mouseClick(button: MouseButton)
+    case mouseClick
     case mouseScroll(deltaX: Float, deltaY: Float)
     case openURL(url: String)
     case performCommand(command: String)
@@ -15,7 +10,7 @@ public enum ClientMessage: Codable, Sendable {
     case pairResponse(code: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, button, url, command, deviceId, code
+        case type, deltaX, deltaY, url, command, deviceId, code
     }
 
     public init(from decoder: Decoder) throws {
@@ -27,8 +22,7 @@ public enum ClientMessage: Codable, Sendable {
             let dy = try container.decode(Float.self, forKey: .deltaY)
             self = .mouseMove(deltaX: dx, deltaY: dy)
         case "mouseClick":
-            let button = try container.decode(MouseButton.self, forKey: .button)
-            self = .mouseClick(button: button)
+            self = .mouseClick
         case "mouseScroll":
             let dx = try container.decode(Float.self, forKey: .deltaX)
             let dy = try container.decode(Float.self, forKey: .deltaY)
@@ -60,9 +54,8 @@ public enum ClientMessage: Codable, Sendable {
             try container.encode("mouseMove", forKey: .type)
             try container.encode(dx, forKey: .deltaX)
             try container.encode(dy, forKey: .deltaY)
-        case .mouseClick(let button):
+        case .mouseClick:
             try container.encode("mouseClick", forKey: .type)
-            try container.encode(button, forKey: .button)
         case .mouseScroll(let dx, let dy):
             try container.encode("mouseScroll", forKey: .type)
             try container.encode(dx, forKey: .deltaX)

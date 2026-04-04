@@ -1,6 +1,5 @@
 import AppKit
 import CoreGraphics
-import MikanProtocol
 
 final class MouseController {
 
@@ -17,14 +16,10 @@ final class MouseController {
         }
     }
 
-    func click(button: MouseButton) {
+    func click() {
         let current = CGEvent(source: nil)?.location ?? .zero
-        let (down, up): (CGEventType, CGEventType) = button == .left
-            ? (.leftMouseDown, .leftMouseUp)
-            : (.rightMouseDown, .rightMouseUp)
-        let cgButton: CGMouseButton = button == .left ? .left : .right
-        CGEvent(mouseEventSource: nil, mouseType: down, mouseCursorPosition: current, mouseButton: cgButton)?.post(tap: .cghidEventTap)
-        CGEvent(mouseEventSource: nil, mouseType: up, mouseCursorPosition: current, mouseButton: cgButton)?.post(tap: .cghidEventTap)
+        CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: current, mouseButton: .left)?.post(tap: .cghidEventTap)
+        CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: current, mouseButton: .left)?.post(tap: .cghidEventTap)
     }
 
     func scroll(deltaX: Float, deltaY: Float) {
