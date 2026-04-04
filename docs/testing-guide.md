@@ -79,21 +79,39 @@ Make sure your Mac and iPhone are on the **same Wi-Fi network**.
 5. The status bar shows a green dot and your Mac's hostname
 6. The Mac menu bar icon changes to the connected antenna (no slash)
 
+### Security Pairing (First Connection)
+
+The first time a device connects, the server requires a one-time pairing code:
+
+1. On the iPhone, a "Enter Pairing Code" screen appears
+2. On the Mac, a floating window shows a 4-digit code
+3. Type the code into the iPhone and tap **Pair**
+4. On success the normal trackpad UI appears
+5. Subsequent connections from the same device skip pairing automatically
+
+To force re-pairing: click the menu bar icon on the Mac and choose **Unpair All Devices**.
+
 ### Mouse Control
 
 On the trackpad area (large gray rounded rectangle on the iPhone):
 
-- **Drag finger** → cursor moves on Mac (a large orange cursor overlay appears)
+- **Drag finger** → cursor moves on Mac (a red cursor overlay appears)
 - **Single tap** → left click
 - **Two-finger drag** → scroll
 
-The custom cursor overlay auto-hides after 10 seconds of no movement.
+The cursor overlay auto-hides after 10 seconds of no movement. Its size (60–300pt) is adjustable from the Mac menu bar dropdown.
 
 ### Command & Action Buttons
 
-- **Vol−** / **Vol+** → Mac system volume (icon-only buttons)
+Above the trackpad (compact row):
+- **Vol−** / **Vol+** → Mac system volume
+
+Below the trackpad (command row):
+- **Left arrow** / **Right arrow** → seek video ±5 seconds (YouTube, etc.)
 - **Fullscreen** → toggles macOS fullscreen (Ctrl+Cmd+F)
 - **Escape** → sends Escape key
+
+App shortcut buttons (smaller, below commands):
 - **Netflix** / **YouTube** → open URLs in default browser on Mac
 
 ### Action Editor
@@ -127,7 +145,16 @@ The custom cursor overlay auto-hides after 10 seconds of no movement.
 
 **Cursor doesn't move when dragging:**
 - Grant Accessibility permission to MikanServer (see Part 1)
+- After each rebuild, toggle Accessibility OFF then ON in System Settings — macOS invalidates the permission on reinstall even though it still shows as ON
 - Quit and relaunch MikanServer after granting
+
+**Pairing code window doesn't appear on Mac:**
+- Check MikanServer is the active/frontmost app; the pairing window opens automatically
+- If it doesn't appear, click the menu bar icon — it opens when the client connects
+
+**iPhone stuck on pairing screen after entering correct code:**
+- Verify the code matches exactly what the Mac floating window shows
+- If you entered a wrong code first, try again — the same code remains valid
 
 **Can't build to iPhone — signing error:**
 - In Xcode, select the MikanRemote target > Signing & Capabilities

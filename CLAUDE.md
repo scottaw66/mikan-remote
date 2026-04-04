@@ -10,9 +10,9 @@ Mikan Remote is an iPhone-to-Mac remote control for streaming video. Trackpad-st
 
 Three components:
 
-- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse/keyboard via CGEvent, simulates media keys, renders a custom cursor overlay, opens URLs via NSWorkspace. Built with xcodegen.
+- **MikanServer** (`MikanServer/`) — macOS menu bar app. Advertises via Bonjour, runs a WebSocket server (Network.framework), controls mouse/keyboard via CGEvent, simulates media keys, renders a custom cursor overlay, opens URLs via NSWorkspace. Manages device pairing (PairingStore persists paired UUIDs to disk). Built with xcodegen.
 - **MikanRemote** (`MikanRemote/`) — iOS thin client. Discovers Mac via Bonjour, connects over WebSocket, provides trackpad surface (UIKit multi-touch) and action buttons. Auto-reconnects on foreground. No local state. Built with xcodegen.
-- **MikanProtocol** (`MikanProtocol/`) — Swift Package shared by both apps. Defines `ClientMessage` (mouseMove, mouseClick, mouseScroll, openURL, performCommand), `ServerMessage`, `Action`, `MouseButton` as Codable types with flat JSON encoding using a `type` discriminator field.
+- **MikanProtocol** (`MikanProtocol/`) — Swift Package shared by both apps. Defines `ClientMessage` (mouseMove, mouseClick, mouseScroll, openURL, performCommand, hello, pairResponse), `ServerMessage` (including pairRequired, pairAccepted, pairRejected), `Action`, `MouseButton` as Codable types with flat JSON encoding using a `type` discriminator field.
 
 ## Build Commands
 
@@ -43,6 +43,9 @@ After each MikanServer rebuild and install, macOS invalidates the Accessibility 
 - MikanServer requires **Accessibility permission** for mouse/keyboard control via CGEvent (System Settings > Privacy & Security > Accessibility). Permission must be re-toggled after each rebuild.
 - MikanRemote requires a **physical iPhone** for testing — simulator is impractical since mouse control and URL opening fight with the simulator on the same Mac.
 - App icons: source SVGs at repo root (`icon.svg` for remote, `icon-server.svg` for server). Teal rings = server, orange rings = remote.
+- **Security pairing:** On first connect, the server generates a 4-digit code shown in a floating window. The client sends `hello(deviceId:)` on connect; unknown devices receive `pairRequired` and must submit the code via `pairResponse`. Paired UUIDs are stored in `~/Library/Application Support/MikanServer/paired-devices.json`. Use "Unpair All Devices" in the menu bar to reset.
+- **Cursor overlay size** is configurable via the server menu bar dropdown (60–300pt range, persisted to UserDefaults). Default is 120pt.
+- **Networking** runs on a background queue — do not dispatch back to MainActor unnecessarily; the existing pattern uses `DispatchQueue.main.async` only for UI updates.
 
 ## Key Files
 

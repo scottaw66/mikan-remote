@@ -2,38 +2,50 @@
 import SwiftUI
 import MikanProtocol
 
+struct VolumeButtonsView: View {
+    let onCommand: (String) -> Void
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Spacer()
+            Button { onCommand("volumeDown") } label: {
+                Image(systemName: "speaker.minus")
+                    .font(.caption2)
+                    .frame(width: 36, height: 28)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("volumeUp") } label: {
+                Image(systemName: "speaker.plus")
+                    .font(.caption2)
+                    .frame(width: 36, height: 28)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+        }
+        .padding(.horizontal)
+    }
+}
+
 struct ActionButtonsView: View {
     let actions: [Action]
     let onCommand: (String) -> Void
     let onOpenURL: (String) -> Void
 
     var body: some View {
-        VStack(spacing: 8) {
-            // Command buttons — fixed, not editable
-            HStack(spacing: 10) {
-                IconButton(icon: "speaker.minus") {
-                    onCommand("volumeDown")
-                }
-                IconButton(icon: "speaker.plus") {
-                    onCommand("volumeUp")
-                }
-                IconButton(icon: "arrowtriangle.backward.fill") {
-                    onCommand("arrowLeft")
-                }
-                IconButton(icon: "arrowtriangle.forward.fill") {
-                    onCommand("arrowRight")
-                }
-                CommandButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right") {
-                    onCommand("fullscreen")
-                }
-                CommandButton(label: "Escape", icon: "escape") {
-                    onCommand("escape")
-                }
+        VStack(spacing: 6) {
+            // Command buttons — 4 across
+            HStack(spacing: 8) {
+                IconButton(icon: "arrow.up.left.and.arrow.down.right") { onCommand("fullscreen") }
+                IconButton(icon: "arrowtriangle.backward.fill") { onCommand("arrowLeft") }
+                IconButton(icon: "arrowtriangle.forward.fill") { onCommand("arrowRight") }
+                IconButton(icon: "escape") { onCommand("escape") }
             }
 
             // URL shortcut buttons — configurable from server
             if !actions.isEmpty {
-                HStack(spacing: 10) {
+                HStack(spacing: 8) {
                     ForEach(actions) { action in
                         URLButton(action: action) {
                             onOpenURL(action.url)
@@ -54,30 +66,9 @@ private struct IconButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.body)
-                .frame(width: 44, height: 36)
-        }
-        .buttonStyle(.bordered)
-        .tint(.secondary)
-    }
-}
-
-private struct CommandButton: View {
-    let label: String
-    let icon: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.caption)
-                Text(label)
-                    .font(.caption)
-                    .lineLimit(1)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 36)
+                .font(.caption)
+                .frame(maxWidth: .infinity)
+                .frame(height: 32)
         }
         .buttonStyle(.bordered)
         .tint(.secondary)
@@ -90,17 +81,17 @@ private struct URLButton: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 6) {
+            HStack(spacing: 4) {
                 if let icon = action.icon, !icon.isEmpty {
                     Image(systemName: icon)
-                        .font(.caption)
+                        .font(.caption2)
                 }
                 Text(action.label)
-                    .font(.caption)
+                    .font(.caption2)
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 36)
+            .frame(height: 28)
         }
         .buttonStyle(.bordered)
         .tint(.accentColor)

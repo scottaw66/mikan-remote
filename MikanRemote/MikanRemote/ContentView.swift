@@ -1,10 +1,10 @@
 // MikanRemote/MikanRemote/ContentView.swift
 import SwiftUI
+import UIKit
 import MikanProtocol
 
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
-    @State private var pairingCode = ""
 
     var body: some View {
         VStack(spacing: 0) {
@@ -39,29 +39,27 @@ struct ContentView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
 
-                    TextField("Code", text: $pairingCode)
-                        .keyboardType(.numberPad)
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
-                        .multilineTextAlignment(.center)
-                        .frame(width: 160)
-                        .textFieldStyle(.roundedBorder)
+                    AutoFocusCodeField { code in
+                        connectionManager.submitPairingCode(code)
+                    }
+                    .frame(width: 160, height: 50)
 
                     if connectionManager.pairingFailed {
                         Text("Wrong code. Try again.")
                             .font(.caption)
                             .foregroundStyle(.red)
                     }
-
-                    Button("Pair") {
-                        connectionManager.submitPairingCode(pairingCode)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(pairingCode.count < 4)
                 }
                 .padding()
                 Spacer()
+            } else if connectionManager.hostname == nil {
+                // Connected but waiting for server handshake
+                Spacer()
+                ProgressView("Authenticating...")
+                    .padding()
+                Spacer()
             } else {
-                // Status bar
+                // Status bar + volume
                 HStack {
                     Circle()
                         .fill(.green)
@@ -72,7 +70,13 @@ struct ContentView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 8)
+                .padding(.top, 8)
+                .padding(.bottom, 2)
+
+                VolumeButtonsView(
+                    onCommand: { connectionManager.send(.performCommand(command: $0)) }
+                )
+                .padding(.bottom, 4)
 
                 // Trackpad
                 TrackpadView(
@@ -96,6 +100,55 @@ struct ContentView: View {
                     onOpenURL: { connectionManager.send(.openURL(url: $0)) }
                 )
             }
+        }
+    }
+}
+
+// UIKit wrapper — becomeFirstResponder() via didMoveToWindow is the only reliable auto-focus on iOS
+private class AutoFocusTextField: UITextField {
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window != nil {
+            becomeFirstResponder()
+        }
+    }
+}
+
+private struct AutoFocusCodeField: UIViewRepresentable {
+    let onSubmit: (String) -> Void
+
+    func makeUIView(context: Context) -> UITextField {
+        let tf = AutoFocusTextField()
+        tf.keyboardType = .numberPad
+        tf.font = UIFont.monospacedSystemFont(ofSize: 32, weight: .bold)
+        tf.textAlignment = .center
+        tf.borderStyle = .roundedRect
+        tf.placeholder = "Code"
+        tf.delegate = context.coordinator
+        return tf
+    }
+
+    func updateUIView(_ uiView: UITextField, context: Context) {}
+
+    func makeCoordinator() -> Coordinator { Coordinator(onSubmit: onSubmit) }
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        let onSubmit: (String) -> Void
+        init(onSubmit: @escaping (String) -> Void) { self.onSubmit = onSubmit }
+
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            let current = textField.text ?? ""
+            let updated = (current as NSString).replacingCharacters(in: range, with: string)
+            let filtered = String(updated.prefix(4).filter(\.isNumber))
+            if filtered.count == 4 {
+                textField.text = filtered
+                onSubmit(filtered)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    textField.text = ""
+                }
+                return false
+            }
+            return filtered == updated
         }
     }
 }

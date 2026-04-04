@@ -1,4 +1,5 @@
 import AppKit
+import SwiftUI
 import MikanProtocol
 
 @Observable
@@ -6,16 +7,25 @@ final class MenuBarManager {
     let server = WebSocketServer()
     let actionStore = ActionStore()
     let pairingStore = PairingStore()
-    var onShowPairingWindow: (() -> Void)?
     var sensitivity: Double {
         didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity") }
     }
+    var cursorSize: Double {
+        didSet {
+            UserDefaults.standard.set(cursorSize, forKey: "cursorSize")
+            cursorOverlay.updateSize(CGFloat(cursorSize))
+        }
+    }
     private let mouseController = MouseController()
     private let cursorOverlay = CursorOverlayController()
+    private var pairingPanel: NSPanel?
 
     init() {
         let stored = UserDefaults.standard.double(forKey: "sensitivity")
         self.sensitivity = stored > 0 ? stored : 10.0
+        let storedSize = UserDefaults.standard.double(forKey: "cursorSize")
+        self.cursorSize = storedSize > 0 ? storedSize : 140.0
+        cursorOverlay.updateSize(CGFloat(self.cursorSize))
         server.onClientMessage = { [weak self] message in
             self?.handleMessage(message)
         }
@@ -23,6 +33,7 @@ final class MenuBarManager {
             guard let self else { return }
             if !connected {
                 pairingStore.clearPending()
+                dismissPairingPanel()
             }
         }
         try? server.start()
@@ -76,12 +87,13 @@ final class MenuBarManager {
             let code = pairingStore.generateCode(for: deviceId)
             print("Pairing code: \(code)")
             server.send(.pairRequired)
-            onShowPairingWindow?()
+            showPairingPanel(code: code)
         }
     }
 
     private func handlePairResponse(_ code: String) {
         if pairingStore.validateCode(code) {
+            dismissPairingPanel()
             server.send(.pairAccepted)
             let hostname = ProcessInfo.processInfo.hostName
             server.send(.serverStatus(connected: true, hostname: hostname))
@@ -89,6 +101,29 @@ final class MenuBarManager {
         } else {
             server.send(.pairRejected(reason: "Invalid code"))
         }
+    }
+
+    private func showPairingPanel(code: String) {
+        dismissPairingPanel()
+        let panel = NSPanel(
+            contentRect: NSRect(x: 0, y: 0, width: 300, height: 220),
+            styleMask: [.titled, .closable, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        panel.title = "Pairing Code"
+        panel.isFloatingPanel = true
+        panel.hidesOnDeactivate = false
+        panel.level = .floating
+        panel.contentView = NSHostingView(rootView: PairingCodeView(code: code))
+        panel.center()
+        panel.orderFrontRegardless()
+        pairingPanel = panel
+    }
+
+    private func dismissPairingPanel() {
+        pairingPanel?.close()
+        pairingPanel = nil
     }
 
     private func handleCommand(_ command: String) {

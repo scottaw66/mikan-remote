@@ -5,7 +5,15 @@ final class CursorOverlayController {
     private var cursorView: CursorView?
     private var hideTimer: Timer?
     private let hideDelay: TimeInterval = 10.0
-    private let cursorSize: CGFloat = 140
+    private var cursorSize: CGFloat = 140
+
+    func updateSize(_ size: CGFloat) {
+        cursorSize = size
+        // Tear down existing window so it rebuilds at new size
+        window?.orderOut(nil)
+        window = nil
+        cursorView = nil
+    }
 
     func showCursor(at point: CGPoint) {
         if window == nil {
@@ -75,26 +83,19 @@ private final class CursorView: NSView {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
 
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
-        let red = NSColor.red.cgColor
+        let outerRadius = min(bounds.width, bounds.height) / 2 - 2
 
-        // Outer ring — solid red, thick
-        let outerRadius: CGFloat = 50
-        ctx.setStrokeColor(red)
-        ctx.setLineWidth(5.0)
+        // Red filled disc
+        ctx.setFillColor(NSColor(red: 0.9, green: 0.25, blue: 0.15, alpha: 1.0).cgColor)
         ctx.addArc(center: center, radius: outerRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.strokePath()
+        ctx.fillPath()
 
-        // Center ring — hollow (stroke only, no fill)
-        let dotRadius: CGFloat = 10
-        ctx.setStrokeColor(red)
-        ctx.setLineWidth(3.0)
-        ctx.addArc(center: center, radius: dotRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.strokePath()
-
-        // White outline on outer ring for contrast on dark backgrounds
-        ctx.setStrokeColor(NSColor.white.withAlphaComponent(0.5).cgColor)
-        ctx.setLineWidth(1.5)
-        ctx.addArc(center: center, radius: outerRadius + 4, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.strokePath()
+        // Black donut in center (scaled proportionally)
+        let blackOuterRadius = outerRadius * 0.32
+        let blackInnerRadius = outerRadius * 0.12
+        ctx.setFillColor(NSColor.black.cgColor)
+        ctx.addArc(center: center, radius: blackOuterRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+        ctx.addArc(center: center, radius: blackInnerRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+        ctx.fillPath(using: .evenOdd)
     }
 }

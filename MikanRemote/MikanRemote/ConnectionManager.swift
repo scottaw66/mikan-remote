@@ -4,11 +4,11 @@ import Network
 import MikanProtocol
 
 @Observable
+@MainActor
 final class ConnectionManager {
     private var browser: NWBrowser?
     private var connection: NWConnection?
-    private var reconnectTask: Task<Void, Never>?
-    private var heartbeatTask: Task<Void, Never>?
+    private var heartbeatTimer: Timer?
 
     private(set) var discoveredServers: [NWBrowser.Result] = []
     private(set) var isConnected = false
@@ -17,7 +17,7 @@ final class ConnectionManager {
     private(set) var pairingRequired = false
     private(set) var pairingFailed = false
 
-    var onServerMessage: ((ServerMessage) -> Void)?
+    private static let networkQueue = DispatchQueue(label: "mikan.network")
 
     private var deviceId: String {
         if let id = UserDefaults.standard.string(forKey: "mikan.deviceId") {
@@ -35,16 +35,15 @@ final class ConnectionManager {
         browser = NWBrowser(for: .bonjour(type: "_mikan._tcp", domain: nil), using: params)
 
         browser?.browseResultsChangedHandler = { [weak self] results, _ in
-            Task { @MainActor in
+            DispatchQueue.main.async {
                 self?.discoveredServers = Array(results)
-                // Auto-connect if exactly one server found and not already connected
                 if results.count == 1, self?.isConnected == false, self?.connection == nil {
                     self?.connect(to: results.first!)
                 }
             }
         }
 
-        browser?.start(queue: .main)
+        browser?.start(queue: Self.networkQueue)
     }
 
     func stopBrowsing() {
@@ -53,8 +52,8 @@ final class ConnectionManager {
     }
 
     func connect(to result: NWBrowser.Result) {
-        reconnectTask?.cancel()
-        reconnectTask = nil
+        heartbeatTimer?.invalidate()
+        heartbeatTimer = nil
         connection?.cancel()
         connection = nil
 
@@ -66,7 +65,7 @@ final class ConnectionManager {
         connection = conn
 
         conn.stateUpdateHandler = { [weak self] state in
-            Task { @MainActor in
+            DispatchQueue.main.async {
                 guard self?.connection === conn else { return }
                 switch state {
                 case .ready:
@@ -74,10 +73,7 @@ final class ConnectionManager {
                     self?.startHeartbeat()
                     self?.receiveMessage()
                     self?.send(.hello(deviceId: self?.deviceId ?? ""))
-                case .waiting:
-                    // Connection is waiting (e.g. network issue) — treat as disconnected
-                    self?.handleDisconnect()
-                case .cancelled, .failed:
+                case .waiting, .cancelled, .failed:
                     self?.handleDisconnect()
                 default:
                     break
@@ -85,14 +81,12 @@ final class ConnectionManager {
             }
         }
 
-        conn.start(queue: .main)
+        conn.start(queue: Self.networkQueue)
     }
 
     func disconnect() {
-        reconnectTask?.cancel()
-        reconnectTask = nil
-        heartbeatTask?.cancel()
-        heartbeatTask = nil
+        heartbeatTimer?.invalidate()
+        heartbeatTimer = nil
         connection?.cancel()
         connection = nil
         isConnected = false
@@ -116,43 +110,36 @@ final class ConnectionManager {
     }
 
     private func startHeartbeat() {
-        heartbeatTask?.cancel()
-        heartbeatTask = Task { @MainActor in
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(3))
-                guard !Task.isCancelled, let connection, isConnected else { break }
-                // Send a WebSocket ping to detect dead connections
-                let pong = NWProtocolWebSocket.Metadata(opcode: .pong)
-                let context = NWConnection.ContentContext(identifier: "ping", metadata: [pong])
-                connection.send(content: nil, contentContext: context, completion: .contentProcessed({ [weak self] error in
-                    if error != nil {
-                        Task { @MainActor in
-                            self?.connection?.cancel()
-                        }
+        heartbeatTimer?.invalidate()
+        heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            guard let self, let connection = self.connection, self.isConnected else { return }
+            let pong = NWProtocolWebSocket.Metadata(opcode: .pong)
+            let context = NWConnection.ContentContext(identifier: "ping", metadata: [pong])
+            connection.send(content: nil, contentContext: context, completion: .contentProcessed({ error in
+                if error != nil {
+                    DispatchQueue.main.async {
+                        self.connection?.cancel()
                     }
-                }))
-            }
+                }
+            }))
         }
     }
 
     func attemptReconnect() {
-        // Called when app returns to foreground — force reconnection if needed
         guard !isConnected else { return }
         connection?.cancel()
         connection = nil
-        // If we have a discovered server, reconnect immediately
         if let server = discoveredServers.first, discoveredServers.count == 1 {
             connect(to: server)
         } else {
-            // Restart browsing to rediscover
             stopBrowsing()
             startBrowsing()
         }
     }
 
     private func handleDisconnect() {
-        heartbeatTask?.cancel()
-        heartbeatTask = nil
+        heartbeatTimer?.invalidate()
+        heartbeatTimer = nil
         isConnected = false
         hostname = nil
         actions = []
@@ -163,21 +150,21 @@ final class ConnectionManager {
 
     private func receiveMessage() {
         connection?.receiveMessage { [weak self] content, context, _, error in
-            if let data = content,
-               let metadata = context?.protocolMetadata(definition: NWProtocolWebSocket.definition) as? NWProtocolWebSocket.Metadata {
-                if metadata.opcode == .text,
-                   let message = try? JSONDecoder().decode(ServerMessage.self, from: data) {
-                    Task { @MainActor in
+            DispatchQueue.main.async {
+                if let data = content,
+                   let metadata = context?.protocolMetadata(definition: NWProtocolWebSocket.definition) as? NWProtocolWebSocket.Metadata {
+                    if metadata.opcode == .text,
+                       let message = try? JSONDecoder().decode(ServerMessage.self, from: data) {
                         self?.handleServerMessage(message)
                     }
+                    if metadata.opcode == .close {
+                        self?.connection?.cancel()
+                        return
+                    }
                 }
-                if metadata.opcode == .close {
-                    self?.connection?.cancel()
-                    return
+                if error == nil {
+                    self?.receiveMessage()
                 }
-            }
-            if error == nil {
-                self?.receiveMessage()
             }
         }
     }
@@ -197,6 +184,5 @@ final class ConnectionManager {
         case .pairRejected:
             pairingFailed = true
         }
-        onServerMessage?(message)
     }
 }

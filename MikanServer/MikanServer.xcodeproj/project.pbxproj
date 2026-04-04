@@ -17,7 +17,9 @@
 		B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */; };
 		BCB8856380A144224FAB609C /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */; };
 		C9BF3348C79B8796E7798248 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */; };
+		D2E7F4C5FFDECFB4E92B0641 /* PairingCodeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381AF1C19A17E7C3A036233C /* PairingCodeWindow.swift */; };
 		D97AEB977C9A4A254F48EAC2 /* CursorOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */; };
+		E7BCB9E056247270BA740259 /* PairingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC863B7BBCEED46E4BCDE6CF /* PairingStore.swift */; };
 		EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,7 @@
 		0861EFFAFDD4594057241677 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorOverlayController.swift; sourceTree = "<group>"; };
 		19207263A69A90A7C17BABE1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
+		381AF1C19A17E7C3A036233C /* PairingCodeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingCodeWindow.swift; sourceTree = "<group>"; };
 		402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
 		5431ED9DF5612C39229C1032 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
 		757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanServerApp.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
 		BFD93D997A5DBC97275FA8DC /* MikanServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BDF9298436FB77BD2C71E7 /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
+		CC863B7BBCEED46E4BCDE6CF /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
 		F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +102,8 @@
 				B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */,
 				757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */,
 				C7BDF9298436FB77BD2C71E7 /* MouseController.swift */,
+				381AF1C19A17E7C3A036233C /* PairingCodeWindow.swift */,
+				CC863B7BBCEED46E4BCDE6CF /* PairingStore.swift */,
 				F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */,
 			);
 			path = MikanServer;
@@ -223,6 +229,8 @@
 				B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */,
 				5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */,
 				4605FF249E5E0A4557669716 /* MouseController.swift in Sources */,
+				D2E7F4C5FFDECFB4E92B0641 /* PairingCodeWindow.swift in Sources */,
+				E7BCB9E056247270BA740259 /* PairingStore.swift in Sources */,
 				BCB8856380A144224FAB609C /* WebSocketServer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,16 +20,6 @@ struct MikanServerApp: App {
         }
         .defaultSize(width: 500, height: 400)
 
-        Window("Pairing Code", id: "pairing-code") {
-            if let code = manager.pairingStore.pendingCode {
-                PairingCodeView(code: code)
-            } else {
-                Text("No pairing in progress.")
-                    .padding()
-            }
-        }
-        .defaultSize(width: 300, height: 260)
-        .windowResizability(.contentSize)
     }
 }
 
@@ -70,6 +60,30 @@ private struct MenuBarContentView: View {
                 .disabled(manager.sensitivity >= 20.0)
             }
 
+            HStack {
+                Text("Cursor Size")
+                Spacer()
+                Button {
+                    manager.cursorSize = max(60, manager.cursorSize - 20)
+                } label: {
+                    Image(systemName: "minus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorSize <= 60)
+
+                Text("\(Int(manager.cursorSize))pt")
+                    .monospacedDigit()
+                    .frame(width: 46)
+
+                Button {
+                    manager.cursorSize = min(300, manager.cursorSize + 20)
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorSize >= 300)
+            }
+
             Divider()
 
             Button("Edit Actions...") {
@@ -90,11 +104,5 @@ private struct MenuBarContentView: View {
             }
         }
         .padding()
-        .onAppear {
-            manager.onShowPairingWindow = { [openWindow] in
-                NSApp.activate(ignoringOtherApps: true)
-                openWindow(id: "pairing-code")
-            }
-        }
     }
 }
