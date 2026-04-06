@@ -5,6 +5,7 @@ import MikanProtocol
 
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
+    @State private var showSettings = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -68,6 +69,13 @@ struct ContentView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .padding(.horizontal)
                 .padding(.top, 8)
@@ -100,6 +108,9 @@ struct ContentView: View {
                     onOpenURL: { connectionManager.send(.openURL(url: $0)) }
                 )
             }
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(connectionManager: connectionManager)
         }
     }
 }
