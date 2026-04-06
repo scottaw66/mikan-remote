@@ -60,6 +60,8 @@ struct ContentView: View {
                     .padding()
                 Spacer()
             } else {
+                Spacer()
+
                 VolumeButtonsView(
                     onCommand: { connectionManager.send(.performCommand(command: $0)) }
                 )
@@ -77,6 +79,7 @@ struct ContentView: View {
                         connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))
                     }
                 )
+                .frame(maxHeight: UIScreen.main.bounds.height * 0.35)
                 .padding(.horizontal)
                 .padding(.vertical, 4)
 
@@ -86,6 +89,9 @@ struct ContentView: View {
                     onCommand: { connectionManager.send(.performCommand(command: $0)) },
                     onOpenURL: { connectionManager.send(.openURL(url: $0)) }
                 )
+
+                Spacer()
+                Spacer()
             }
         }
         .safeAreaInset(edge: .top) {

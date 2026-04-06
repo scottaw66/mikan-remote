@@ -10,16 +10,16 @@ struct VolumeButtonsView: View {
             Spacer()
             Button { onCommand("volumeDown") } label: {
                 Image(systemName: "speaker.minus")
-                    .font(.caption2)
-                    .frame(width: 36, height: 28)
+                    .font(.caption)
+                    .frame(width: 48, height: 36)
             }
             .buttonStyle(.bordered)
             .tint(.secondary)
 
             Button { onCommand("volumeUp") } label: {
                 Image(systemName: "speaker.plus")
-                    .font(.caption2)
-                    .frame(width: 36, height: 28)
+                    .font(.caption)
+                    .frame(width: 48, height: 36)
             }
             .buttonStyle(.bordered)
             .tint(.secondary)
@@ -68,7 +68,7 @@ private struct IconButton: View {
             Image(systemName: icon)
                 .font(.caption)
                 .frame(maxWidth: .infinity)
-                .frame(height: 32)
+                .frame(height: 40)
         }
         .buttonStyle(.bordered)
         .tint(.secondary)
@@ -91,7 +91,7 @@ private struct URLButton: View {
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 28)
+            .frame(height: 36)
         }
         .buttonStyle(.bordered)
         .tint(.accentColor)
