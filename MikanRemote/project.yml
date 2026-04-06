@@ -15,7 +15,7 @@ schemes:
       targets:
         MikanRemote: all
     run:
-      config: Debug
+      config: Release
     test:
       config: Debug
     profile:
