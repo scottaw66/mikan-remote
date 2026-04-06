@@ -5,6 +5,7 @@ import MikanProtocol
 
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
+    @State private var showSettings = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -59,19 +60,7 @@ struct ContentView: View {
                     .padding()
                 Spacer()
             } else {
-                // Status bar + volume
-                HStack {
-                    Circle()
-                        .fill(.green)
-                        .frame(width: 8, height: 8)
-                    Text(connectionManager.hostname ?? "Connected")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 2)
+                Spacer()
 
                 VolumeButtonsView(
                     onCommand: { connectionManager.send(.performCommand(command: $0)) }
@@ -90,6 +79,7 @@ struct ContentView: View {
                         connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))
                     }
                 )
+                .frame(maxHeight: UIScreen.main.bounds.height * 0.35)
                 .padding(.horizontal)
                 .padding(.vertical, 4)
 
@@ -99,7 +89,36 @@ struct ContentView: View {
                     onCommand: { connectionManager.send(.performCommand(command: $0)) },
                     onOpenURL: { connectionManager.send(.openURL(url: $0)) }
                 )
+
+                Spacer()
+                Spacer()
             }
+        }
+        .safeAreaInset(edge: .top) {
+            if connectionManager.isConnected && connectionManager.hostname != nil {
+                HStack {
+                    Circle()
+                        .fill(.green)
+                        .frame(width: 8, height: 8)
+                    Text(connectionManager.hostname ?? "Connected")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 0)
+                .padding(.bottom, 2)
+            }
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(connectionManager: connectionManager)
         }
     }
 }

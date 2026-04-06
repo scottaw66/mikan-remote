@@ -7,19 +7,44 @@ struct VolumeButtonsView: View {
 
     var body: some View {
         HStack(spacing: 6) {
+            Button { onCommand("closeTab") } label: {
+                Image(systemName: "xmark.square")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("prevTab") } label: {
+                Image(systemName: "chevron.left.square")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("nextTab") } label: {
+                Image(systemName: "chevron.right.square")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
             Spacer()
+
             Button { onCommand("volumeDown") } label: {
                 Image(systemName: "speaker.minus")
-                    .font(.caption2)
-                    .frame(width: 36, height: 28)
+                    .font(.caption)
+                    .frame(width: 48, height: 36)
             }
             .buttonStyle(.bordered)
             .tint(.secondary)
 
             Button { onCommand("volumeUp") } label: {
                 Image(systemName: "speaker.plus")
-                    .font(.caption2)
-                    .frame(width: 36, height: 28)
+                    .font(.caption)
+                    .frame(width: 48, height: 36)
             }
             .buttonStyle(.bordered)
             .tint(.secondary)
@@ -35,21 +60,27 @@ struct ActionButtonsView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            // Command buttons — 4 across
-            HStack(spacing: 8) {
+            // Command buttons — 5 across
+            HStack(spacing: 6) {
                 IconButton(icon: "arrow.up.left.and.arrow.down.right") { onCommand("fullscreen") }
                 IconButton(icon: "arrowtriangle.backward.fill") { onCommand("arrowLeft") }
+                IconButton(icon: "playpause.fill", narrow: true) { onCommand("playPause") }
                 IconButton(icon: "arrowtriangle.forward.fill") { onCommand("arrowRight") }
                 IconButton(icon: "escape") { onCommand("escape") }
             }
 
-            // URL shortcut buttons — configurable from server
-            if !actions.isEmpty {
+            // URL shortcut buttons — 2 per row, max 6
+            let capped = Array(actions.prefix(6))
+            ForEach(0..<((capped.count + 1) / 2), id: \.self) { row in
                 HStack(spacing: 8) {
-                    ForEach(actions) { action in
+                    let start = row * 2
+                    ForEach(capped[start..<min(start + 2, capped.count)]) { action in
                         URLButton(action: action) {
                             onOpenURL(action.url)
                         }
+                    }
+                    if start + 1 >= capped.count {
+                        Spacer().frame(maxWidth: .infinity)
                     }
                 }
             }
@@ -61,14 +92,15 @@ struct ActionButtonsView: View {
 
 private struct IconButton: View {
     let icon: String
+    var narrow: Bool = false
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             Image(systemName: icon)
                 .font(.caption)
-                .frame(maxWidth: .infinity)
-                .frame(height: 32)
+                .frame(maxWidth: narrow ? 28 : .infinity)
+                .frame(height: 40)
         }
         .buttonStyle(.bordered)
         .tint(.secondary)
@@ -91,7 +123,7 @@ private struct URLButton: View {
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 28)
+            .frame(height: 36)
         }
         .buttonStyle(.bordered)
         .tint(.accentColor)

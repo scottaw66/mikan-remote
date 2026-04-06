@@ -14,6 +14,8 @@ final class ConnectionManager {
     private(set) var isConnected = false
     private(set) var hostname: String?
     private(set) var actions: [Action] = []
+    private(set) var sensitivity: Double = 10.0
+    private(set) var cursorSize: Double = 140.0
     private(set) var pairingRequired = false
     private(set) var pairingFailed = false
 
@@ -92,6 +94,8 @@ final class ConnectionManager {
         isConnected = false
         hostname = nil
         actions = []
+        sensitivity = 10.0
+        cursorSize = 140.0
         pairingRequired = false
         pairingFailed = false
     }
@@ -107,6 +111,16 @@ final class ConnectionManager {
         let metadata = NWProtocolWebSocket.Metadata(opcode: .text)
         let context = NWConnection.ContentContext(identifier: "text", metadata: [metadata])
         connection.send(content: data, contentContext: context, completion: .contentProcessed({ _ in }))
+    }
+
+    func sendUpdateSettings(sensitivity: Double, cursorSize: Double) {
+        self.sensitivity = sensitivity
+        self.cursorSize = cursorSize
+        send(.updateSettings(sensitivity: sensitivity, cursorSize: cursorSize))
+    }
+
+    func sendUpdateActions(_ actions: [Action]) {
+        send(.updateActions(actions: actions))
     }
 
     private func startHeartbeat() {
@@ -143,6 +157,8 @@ final class ConnectionManager {
         isConnected = false
         hostname = nil
         actions = []
+        sensitivity = 10.0
+        cursorSize = 140.0
         pairingRequired = false
         pairingFailed = false
         connection = nil
@@ -173,6 +189,9 @@ final class ConnectionManager {
         switch message {
         case .actionConfig(actions: let newActions):
             actions = newActions
+        case .settingsSync(let newSensitivity, let newCursorSize):
+            sensitivity = newSensitivity
+            cursorSize = newCursorSize
         case .serverStatus(connected: _, hostname: let name):
             hostname = name
         case .pairRequired:

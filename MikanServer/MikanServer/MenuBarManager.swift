@@ -8,14 +8,19 @@ final class MenuBarManager {
     let actionStore = ActionStore()
     let pairingStore = PairingStore()
     var sensitivity: Double {
-        didSet { UserDefaults.standard.set(sensitivity, forKey: "sensitivity") }
+        didSet {
+            UserDefaults.standard.set(sensitivity, forKey: "sensitivity")
+            pushSettings()
+        }
     }
     var cursorSize: Double {
         didSet {
             UserDefaults.standard.set(cursorSize, forKey: "cursorSize")
             cursorOverlay.updateSize(CGFloat(cursorSize))
+            pushSettings()
         }
     }
+    private var suppressSettingsSync = false
     private let mouseController = MouseController()
     private let cursorOverlay = CursorOverlayController()
     private var pairingPanel: NSPanel?
@@ -52,6 +57,11 @@ final class MenuBarManager {
         server.send(.actionConfig(actions: actionStore.actions))
     }
 
+    func pushSettings() {
+        guard !suppressSettingsSync else { return }
+        server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize))
+    }
+
     private func handleMessage(_ message: ClientMessage) {
         switch message {
         case .mouseMove(let dx, let dy):
@@ -73,6 +83,15 @@ final class MenuBarManager {
             handleHello(deviceId)
         case .pairResponse(let code):
             handlePairResponse(code)
+        case .updateSettings(let newSensitivity, let newCursorSize):
+            suppressSettingsSync = true
+            sensitivity = newSensitivity
+            cursorSize = newCursorSize
+            suppressSettingsSync = false
+        case .updateActions(let newActions):
+            actionStore.actions = newActions
+            try? actionStore.save()
+            server.send(.actionConfig(actions: actionStore.actions))
         }
     }
 
@@ -82,6 +101,7 @@ final class MenuBarManager {
             let hostname = ProcessInfo.processInfo.hostName
             server.send(.serverStatus(connected: true, hostname: hostname))
             server.send(.actionConfig(actions: actionStore.actions))
+            pushSettings()
         } else {
             // Unknown device — require pairing
             let code = pairingStore.generateCode(for: deviceId)
@@ -98,6 +118,7 @@ final class MenuBarManager {
             let hostname = ProcessInfo.processInfo.hostName
             server.send(.serverStatus(connected: true, hostname: hostname))
             server.send(.actionConfig(actions: actionStore.actions))
+            pushSettings()
         } else {
             server.send(.pairRejected(reason: "Invalid code"))
         }
@@ -141,6 +162,14 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 123, flags: [])
         case "arrowRight":
             mouseController.sendKeyPress(keyCode: 124, flags: [])
+        case "closeTab":
+            mouseController.sendKeyPress(keyCode: 13, flags: [.maskCommand])
+        case "prevTab":
+            mouseController.sendKeyPress(keyCode: 33, flags: [.maskCommand, .maskShift])
+        case "nextTab":
+            mouseController.sendKeyPress(keyCode: 30, flags: [.maskCommand, .maskShift])
+        case "playPause":
+            mouseController.sendMediaKey(16)
         default:
             print("Unknown command: \(command)")
         }

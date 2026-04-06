@@ -15,7 +15,8 @@ schemes:
       targets:
         MikanRemote: all
     run:
-      config: Debug
+      config: Release
+      debugEnabled: false
     test:
       config: Debug
     profile:
@@ -48,3 +49,4 @@ targets:
         NSLocalNetworkUsageDescription: "Mikan Remote needs local network access to find and connect to your Mac."
         NSBonjourServices:
           - _mikan._tcp
+        UILaunchScreen: {}
