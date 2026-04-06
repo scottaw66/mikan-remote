@@ -135,6 +135,41 @@ final class MessagesTests: XCTestCase {
         XCTAssertEqual(reason, "Invalid code")
     }
 
+    func testUpdateSettingsRoundTrip() throws {
+        let msg = ClientMessage.updateSettings(sensitivity: 15.0, cursorSize: 200.0)
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .updateSettings(let sensitivity, let cursorSize) = decoded else {
+            XCTFail("Expected updateSettings"); return
+        }
+        XCTAssertEqual(sensitivity, 15.0)
+        XCTAssertEqual(cursorSize, 200.0)
+    }
+
+    func testSettingsSyncRoundTrip() throws {
+        let msg = ServerMessage.settingsSync(sensitivity: 8.5, cursorSize: 120.0)
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .settingsSync(let sensitivity, let cursorSize) = decoded else {
+            XCTFail("Expected settingsSync"); return
+        }
+        XCTAssertEqual(sensitivity, 8.5)
+        XCTAssertEqual(cursorSize, 120.0)
+    }
+
+    func testUpdateActionsRoundTrip() throws {
+        let actions = [Action(id: "test", label: "Test", url: "https://test.com", icon: "star")]
+        let msg = ClientMessage.updateActions(actions: actions)
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .updateActions(let decodedActions) = decoded else {
+            XCTFail("Expected updateActions"); return
+        }
+        XCTAssertEqual(decodedActions.count, 1)
+        XCTAssertEqual(decodedActions[0].id, "test")
+        XCTAssertEqual(decodedActions[0].url, "https://test.com")
+    }
+
     func testActionDefaultConfig() {
         let defaults = Action.defaults
         XCTAssertTrue(defaults.contains(where: { $0.url == "https://netflix.com" }))
