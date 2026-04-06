@@ -18,8 +18,14 @@ final class MouseController {
 
     func click() {
         let current = CGEvent(source: nil)?.location ?? .zero
-        CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: current, mouseButton: .left)?.post(tap: .cghidEventTap)
-        CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: current, mouseButton: .left)?.post(tap: .cghidEventTap)
+        if let down = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: current, mouseButton: .left) {
+            down.flags = []  // Clear modifiers so Control never turns this into a right-click
+            down.post(tap: .cghidEventTap)
+        }
+        if let up = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: current, mouseButton: .left) {
+            up.flags = []
+            up.post(tap: .cghidEventTap)
+        }
     }
 
     func scroll(deltaX: Float, deltaY: Float) {
@@ -56,7 +62,7 @@ final class MouseController {
             down.post(tap: .cghidEventTap)
         }
         if let up = CGEvent(keyboardEventSource: nil, virtualKey: keyCode, keyDown: false) {
-            up.flags = flags
+            up.flags = []  // Clear modifiers on release so they don't leak into subsequent events
             up.post(tap: .cghidEventTap)
         }
     }
