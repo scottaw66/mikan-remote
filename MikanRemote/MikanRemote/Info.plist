@@ -26,5 +26,7 @@
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Mikan Remote needs local network access to find and connect to your Mac.</string>
+	<key>UILaunchScreen</key>
+	<dict/>
 </dict>
 </plist>
