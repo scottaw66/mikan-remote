@@ -162,6 +162,8 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 123, flags: [])
         case "arrowRight":
             mouseController.sendKeyPress(keyCode: 124, flags: [])
+        case "closeTab":
+            mouseController.sendKeyPress(keyCode: 13, flags: [.maskCommand])
         default:
             print("Unknown command: \(command)")
         }

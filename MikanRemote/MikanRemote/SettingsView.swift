@@ -87,12 +87,14 @@ struct SettingsView: View {
                         editingActions.move(fromOffsets: source, toOffset: destination)
                     }
 
-                    Button {
-                        editingActions.append(
-                            Action(id: UUID().uuidString, label: "New Shortcut", url: "https://example.com")
-                        )
-                    } label: {
-                        Label("Add Action", systemImage: "plus.circle")
+                    if editingActions.count < 6 {
+                        Button {
+                            editingActions.append(
+                                Action(id: UUID().uuidString, label: "New Shortcut", url: "https://example.com")
+                            )
+                        } label: {
+                            Label("Add Action", systemImage: "plus.circle")
+                        }
                     }
                 }
 

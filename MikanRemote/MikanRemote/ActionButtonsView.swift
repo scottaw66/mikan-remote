@@ -7,7 +7,16 @@ struct VolumeButtonsView: View {
 
     var body: some View {
         HStack(spacing: 6) {
+            Button { onCommand("closeTab") } label: {
+                Image(systemName: "xmark.square")
+                    .font(.caption)
+                    .frame(width: 48, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
             Spacer()
+
             Button { onCommand("volumeDown") } label: {
                 Image(systemName: "speaker.minus")
                     .font(.caption)
@@ -43,13 +52,18 @@ struct ActionButtonsView: View {
                 IconButton(icon: "escape") { onCommand("escape") }
             }
 
-            // URL shortcut buttons — configurable from server
-            if !actions.isEmpty {
+            // URL shortcut buttons — 2 per row, max 6
+            let capped = Array(actions.prefix(6))
+            ForEach(0..<((capped.count + 1) / 2), id: \.self) { row in
                 HStack(spacing: 8) {
-                    ForEach(actions) { action in
+                    let start = row * 2
+                    ForEach(capped[start..<min(start + 2, capped.count)]) { action in
                         URLButton(action: action) {
                             onOpenURL(action.url)
                         }
+                    }
+                    if start + 1 >= capped.count {
+                        Spacer().frame(maxWidth: .infinity)
                     }
                 }
             }
