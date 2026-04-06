@@ -107,7 +107,8 @@ struct ContentView: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 4)
+                .padding(.top, 0)
+                .padding(.bottom, 2)
             }
         }
         .sheet(isPresented: $showSettings) {

@@ -48,3 +48,4 @@ targets:
         NSLocalNetworkUsageDescription: "Mikan Remote needs local network access to find and connect to your Mac."
         NSBonjourServices:
           - _mikan._tcp
+        UILaunchScreen: {}
