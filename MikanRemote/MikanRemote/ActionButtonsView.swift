@@ -10,7 +10,23 @@ struct VolumeButtonsView: View {
             Button { onCommand("closeTab") } label: {
                 Image(systemName: "xmark.square")
                     .font(.caption)
-                    .frame(width: 48, height: 36)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("prevTab") } label: {
+                Image(systemName: "chevron.left.square")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("nextTab") } label: {
+                Image(systemName: "chevron.right.square")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
             }
             .buttonStyle(.bordered)
             .tint(.secondary)
@@ -44,10 +60,11 @@ struct ActionButtonsView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            // Command buttons — 4 across
-            HStack(spacing: 8) {
+            // Command buttons — 5 across
+            HStack(spacing: 6) {
                 IconButton(icon: "arrow.up.left.and.arrow.down.right") { onCommand("fullscreen") }
                 IconButton(icon: "arrowtriangle.backward.fill") { onCommand("arrowLeft") }
+                IconButton(icon: "playpause.fill", narrow: true) { onCommand("playPause") }
                 IconButton(icon: "arrowtriangle.forward.fill") { onCommand("arrowRight") }
                 IconButton(icon: "escape") { onCommand("escape") }
             }
@@ -75,13 +92,14 @@ struct ActionButtonsView: View {
 
 private struct IconButton: View {
     let icon: String
+    var narrow: Bool = false
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             Image(systemName: icon)
                 .font(.caption)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: narrow ? 28 : .infinity)
                 .frame(height: 40)
         }
         .buttonStyle(.bordered)

@@ -164,6 +164,12 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 124, flags: [])
         case "closeTab":
             mouseController.sendKeyPress(keyCode: 13, flags: [.maskCommand])
+        case "prevTab":
+            mouseController.sendKeyPress(keyCode: 33, flags: [.maskCommand, .maskShift])
+        case "nextTab":
+            mouseController.sendKeyPress(keyCode: 30, flags: [.maskCommand, .maskShift])
+        case "playPause":
+            mouseController.sendMediaKey(16)
         default:
             print("Unknown command: \(command)")
         }
