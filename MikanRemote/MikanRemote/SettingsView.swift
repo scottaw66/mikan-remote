@@ -99,7 +99,6 @@ struct SettingsView: View {
                 Section {
                     Button("Reset Actions to Defaults") {
                         editingActions = Action.defaults
-                        connectionManager.sendUpdateActions(editingActions)
                     }
                     .foregroundStyle(.red)
                 }
@@ -108,7 +107,10 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") { dismiss() }
+                    Button("Done") {
+                        connectionManager.sendUpdateActions(editingActions)
+                        dismiss()
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
@@ -116,9 +118,6 @@ struct SettingsView: View {
             }
             .onAppear {
                 editingActions = connectionManager.actions
-            }
-            .onChange(of: editingActions) {
-                connectionManager.sendUpdateActions(editingActions)
             }
         }
     }
