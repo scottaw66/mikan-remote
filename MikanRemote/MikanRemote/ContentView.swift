@@ -60,27 +60,6 @@ struct ContentView: View {
                     .padding()
                 Spacer()
             } else {
-                // Status bar + volume
-                HStack {
-                    Circle()
-                        .fill(.green)
-                        .frame(width: 8, height: 8)
-                    Text(connectionManager.hostname ?? "Connected")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 2)
-
                 VolumeButtonsView(
                     onCommand: { connectionManager.send(.performCommand(command: $0)) }
                 )
@@ -107,6 +86,28 @@ struct ContentView: View {
                     onCommand: { connectionManager.send(.performCommand(command: $0)) },
                     onOpenURL: { connectionManager.send(.openURL(url: $0)) }
                 )
+            }
+        }
+        .safeAreaInset(edge: .top) {
+            if connectionManager.isConnected && connectionManager.hostname != nil {
+                HStack {
+                    Circle()
+                        .fill(.green)
+                        .frame(width: 8, height: 8)
+                    Text(connectionManager.hostname ?? "Connected")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button {
+                        showSettings = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 4)
             }
         }
         .sheet(isPresented: $showSettings) {

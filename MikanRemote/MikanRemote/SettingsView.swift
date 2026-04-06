@@ -23,6 +23,7 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: "minus.circle")
                         }
+                        .buttonStyle(.borderless)
                         .disabled(connectionManager.sensitivity <= 3.0)
 
                         Text(String(format: "%.1fx", connectionManager.sensitivity))
@@ -38,6 +39,7 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: "plus.circle")
                         }
+                        .buttonStyle(.borderless)
                         .disabled(connectionManager.sensitivity >= 20.0)
                     }
 
@@ -53,6 +55,7 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: "minus.circle")
                         }
+                        .buttonStyle(.borderless)
                         .disabled(connectionManager.cursorSize <= 60)
 
                         Text("\(Int(connectionManager.cursorSize))pt")
@@ -68,6 +71,7 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: "plus.circle")
                         }
+                        .buttonStyle(.borderless)
                         .disabled(connectionManager.cursorSize >= 300)
                     }
                 }
@@ -120,6 +124,33 @@ struct SettingsView: View {
     }
 }
 
+private let iconChoices: [(name: String, symbol: String)] = [
+    ("None", ""),
+    ("Play TV", "play.tv"),
+    ("Play Rectangle", "play.rectangle"),
+    ("Film", "film"),
+    ("Music Note", "music.note"),
+    ("Globe", "globe"),
+    ("Star", "star"),
+    ("Heart", "heart"),
+    ("Bookmark", "bookmark"),
+    ("House", "house"),
+    ("Gamecontroller", "gamecontroller"),
+    ("Photo", "photo"),
+    ("Camera", "camera"),
+    ("Cart", "cart"),
+    ("Newspaper", "newspaper"),
+    ("Book", "book"),
+    ("Envelope", "envelope"),
+    ("Cloud", "cloud"),
+    ("Cup and Saucer", "cup.and.saucer"),
+    ("Fork and Knife", "fork.knife"),
+    ("Figure Walk", "figure.walk"),
+    ("Bicycle", "bicycle"),
+    ("Car", "car"),
+    ("Airplane", "airplane"),
+]
+
 private struct ActionEditorRow: View {
     @Binding var action: Action
 
@@ -140,12 +171,19 @@ private struct ActionEditorRow: View {
             .keyboardType(.URL)
             .textInputAutocapitalization(.never)
 
-            TextField("SF Symbol (optional)", text: Binding(
+            Picker("Icon", selection: Binding(
                 get: { action.icon ?? "" },
                 set: { action = Action(id: action.id, label: action.label, url: action.url, icon: $0.isEmpty ? nil : $0) }
-            ))
+            )) {
+                ForEach(iconChoices, id: \.symbol) { choice in
+                    if choice.symbol.isEmpty {
+                        Text(choice.name).tag("")
+                    } else {
+                        Label(choice.name, systemImage: choice.symbol).tag(choice.symbol)
+                    }
+                }
+            }
             .font(.caption)
-            .foregroundStyle(.secondary)
         }
         .padding(.vertical, 2)
     }
