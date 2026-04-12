@@ -60,8 +60,13 @@ private struct MenuBarContentView: View {
                 .disabled(manager.sensitivity >= 20.0)
             }
 
+            Text("Cursor")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             HStack {
-                Text("Cursor Size")
+                Text("Size")
                 Spacer()
                 Button {
                     manager.cursorSize = max(60, manager.cursorSize - 20)
@@ -82,6 +87,54 @@ private struct MenuBarContentView: View {
                 }
                 .buttonStyle(.borderless)
                 .disabled(manager.cursorSize >= 300)
+            }
+
+            HStack {
+                Text("Dot Size")
+                Spacer()
+                Button {
+                    manager.cursorDotSize = max(1, manager.cursorDotSize - 1)
+                } label: {
+                    Image(systemName: "minus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorDotSize <= 1)
+
+                Text("\(Int(manager.cursorDotSize))%")
+                    .monospacedDigit()
+                    .frame(width: 36)
+
+                Button {
+                    manager.cursorDotSize = min(15, manager.cursorDotSize + 1)
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorDotSize >= 15)
+            }
+
+            HStack {
+                Text("Gap Size")
+                Spacer()
+                Button {
+                    manager.cursorGapSize = max(10, manager.cursorGapSize - 1)
+                } label: {
+                    Image(systemName: "minus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorGapSize <= 10)
+
+                Text("\(Int(manager.cursorGapSize))%")
+                    .monospacedDigit()
+                    .frame(width: 36)
+
+                Button {
+                    manager.cursorGapSize = min(45, manager.cursorGapSize + 1)
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                .buttonStyle(.borderless)
+                .disabled(manager.cursorGapSize >= 45)
             }
 
             Divider()
