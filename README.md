@@ -8,7 +8,8 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 - Browser tab management — close tab, switch between tabs
 - Video controls — play/pause, skip forward/backward, fullscreen, escape
 - Volume control buttons (simulates Mac media keys)
-- Configurable quick-action buttons (open URLs in default browser, max 6)
+- Configurable quick-action buttons (open URLs or apps via URL schemes, max 6)
+- Default buttons for Apple TV (`videos://`), Netflix, and YouTube
 - All settings adjustable from iPhone — sensitivity, cursor size, action buttons
 - Large custom cursor overlay — appears on movement, fades after 10s inactivity
 - Automatic discovery via Bonjour — no IP address needed

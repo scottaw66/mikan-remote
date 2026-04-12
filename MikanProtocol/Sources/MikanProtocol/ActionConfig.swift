@@ -14,6 +14,7 @@ public struct Action: Codable, Equatable, Sendable {
     }
 
     public static let defaults: [Action] = [
+        Action(id: "appletv", label: "Apple TV", url: "videos://", icon: "appletv"),
         Action(id: "netflix", label: "Netflix", url: "https://netflix.com", icon: "play.tv"),
         Action(id: "youtube", label: "YouTube", url: "https://www.youtube.com/feed/playlists", icon: "play.rectangle"),
     ]

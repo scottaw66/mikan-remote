@@ -49,7 +49,7 @@ MikanServer requires Accessibility permission for mouse/keyboard control. Grant 
 - **Client settings:** Sensitivity, cursor size, and action buttons are configurable from both the iPhone (gear icon → settings sheet) and the Mac menu bar. The server is the single source of truth — it pushes `settingsSync` and `actionConfig` on connect and on change. The client sends `updateSettings` or `updateActions` when the user makes changes. No client-side persistence.
 - **Cursor overlay size** is configurable from iPhone or server menu bar (60–300pt range, step 20, persisted to UserDefaults). Default is 140pt.
 - **Mouse sensitivity** is configurable from iPhone or server menu bar (3.0–20.0, step 0.5, persisted to UserDefaults). Default is 10.0.
-- **Action buttons** are limited to 6 max, displayed 2 per row on iPhone. Editable from iPhone settings sheet (label, URL, icon picker) or server Edit Actions window.
+- **Action buttons** are limited to 6 max, displayed 2 per row on iPhone. Editable from iPhone settings sheet (label, URL, icon picker) or server Edit Actions window. Buttons can open URLs (browser) or app URL schemes (e.g. `videos://` for Apple TV). Defaults: Apple TV, Netflix, YouTube.
 - **Command buttons:** closeTab (Cmd+W), prevTab (Cmd+Shift+[), nextTab (Cmd+Shift+]), volumeUp, volumeDown, fullscreen (Ctrl+Cmd+F), arrowLeft, arrowRight, playPause (media key), escape.
 - **Networking** runs on a background queue — do not dispatch back to MainActor unnecessarily; the existing pattern uses `DispatchQueue.main.async` only for UI updates.
 - **WebSocket keepalive:** The server sends WebSocket pings every 5 seconds. If a pong is not received (e.g. client app killed), the connection is immediately dropped.

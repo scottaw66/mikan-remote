@@ -127,6 +127,7 @@ struct SettingsView: View {
 
 private let iconChoices: [(name: String, symbol: String)] = [
     ("None", ""),
+    ("Apple TV", "appletv"),
     ("Play TV", "play.tv"),
     ("Play Rectangle", "play.rectangle"),
     ("Film", "film"),
