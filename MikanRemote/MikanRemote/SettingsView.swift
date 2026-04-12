@@ -18,7 +18,9 @@ struct SettingsView: View {
                             let newVal = max(3.0, connectionManager.sensitivity - 0.5)
                             connectionManager.sendUpdateSettings(
                                 sensitivity: newVal,
-                                cursorSize: connectionManager.cursorSize
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: connectionManager.cursorGapSize
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -34,7 +36,9 @@ struct SettingsView: View {
                             let newVal = min(20.0, connectionManager.sensitivity + 0.5)
                             connectionManager.sendUpdateSettings(
                                 sensitivity: newVal,
-                                cursorSize: connectionManager.cursorSize
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: connectionManager.cursorGapSize
                             )
                         } label: {
                             Image(systemName: "plus.circle")
@@ -42,15 +46,19 @@ struct SettingsView: View {
                         .buttonStyle(.borderless)
                         .disabled(connectionManager.sensitivity >= 20.0)
                     }
+                }
 
+                Section("Cursor") {
                     HStack {
-                        Text("Cursor Size")
+                        Text("Size")
                         Spacer()
                         Button {
                             let newVal = max(60.0, connectionManager.cursorSize - 20)
                             connectionManager.sendUpdateSettings(
                                 sensitivity: connectionManager.sensitivity,
-                                cursorSize: newVal
+                                cursorSize: newVal,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: connectionManager.cursorGapSize
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -66,13 +74,87 @@ struct SettingsView: View {
                             let newVal = min(300.0, connectionManager.cursorSize + 20)
                             connectionManager.sendUpdateSettings(
                                 sensitivity: connectionManager.sensitivity,
-                                cursorSize: newVal
+                                cursorSize: newVal,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: connectionManager.cursorGapSize
                             )
                         } label: {
                             Image(systemName: "plus.circle")
                         }
                         .buttonStyle(.borderless)
                         .disabled(connectionManager.cursorSize >= 300)
+                    }
+
+                    HStack {
+                        Text("Dot Size")
+                        Spacer()
+                        Button {
+                            let newVal = max(1.0, connectionManager.cursorDotSize - 1)
+                            connectionManager.sendUpdateSettings(
+                                sensitivity: connectionManager.sensitivity,
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: newVal,
+                                cursorGapSize: connectionManager.cursorGapSize
+                            )
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.borderless)
+                        .disabled(connectionManager.cursorDotSize <= 1)
+
+                        Text("\(Int(connectionManager.cursorDotSize))%")
+                            .monospacedDigit()
+                            .frame(width: 40)
+
+                        Button {
+                            let newVal = min(15.0, connectionManager.cursorDotSize + 1)
+                            connectionManager.sendUpdateSettings(
+                                sensitivity: connectionManager.sensitivity,
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: newVal,
+                                cursorGapSize: connectionManager.cursorGapSize
+                            )
+                        } label: {
+                            Image(systemName: "plus.circle")
+                        }
+                        .buttonStyle(.borderless)
+                        .disabled(connectionManager.cursorDotSize >= 15)
+                    }
+
+                    HStack {
+                        Text("Gap Size")
+                        Spacer()
+                        Button {
+                            let newVal = max(10.0, connectionManager.cursorGapSize - 1)
+                            connectionManager.sendUpdateSettings(
+                                sensitivity: connectionManager.sensitivity,
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: newVal
+                            )
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.borderless)
+                        .disabled(connectionManager.cursorGapSize <= 10)
+
+                        Text("\(Int(connectionManager.cursorGapSize))%")
+                            .monospacedDigit()
+                            .frame(width: 40)
+
+                        Button {
+                            let newVal = min(45.0, connectionManager.cursorGapSize + 1)
+                            connectionManager.sendUpdateSettings(
+                                sensitivity: connectionManager.sensitivity,
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: newVal
+                            )
+                        } label: {
+                            Image(systemName: "plus.circle")
+                        }
+                        .buttonStyle(.borderless)
+                        .disabled(connectionManager.cursorGapSize >= 45)
                     }
                 }
 
