@@ -6,10 +6,20 @@ final class CursorOverlayController {
     private var hideTimer: Timer?
     private let hideDelay: TimeInterval = 10.0
     private var cursorSize: CGFloat = 140
+    private var dotSizePercent: CGFloat = 5
+    private var gapSizePercent: CGFloat = 33
 
     func updateSize(_ size: CGFloat) {
         cursorSize = size
         // Tear down existing window so it rebuilds at new size
+        window?.orderOut(nil)
+        window = nil
+        cursorView = nil
+    }
+
+    func updateStyle(dotSize: CGFloat, gapSize: CGFloat) {
+        dotSizePercent = dotSize
+        gapSizePercent = gapSize
         window?.orderOut(nil)
         window = nil
         cursorView = nil
@@ -64,6 +74,8 @@ final class CursorOverlayController {
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
 
         let view = CursorView(frame: NSRect(x: 0, y: 0, width: cursorSize, height: cursorSize))
+        view.dotSizePercent = dotSizePercent
+        view.gapSizePercent = gapSizePercent
         panel.contentView = view
 
         self.window = panel
@@ -79,23 +91,27 @@ final class CursorOverlayController {
 }
 
 private final class CursorView: NSView {
+    var dotSizePercent: CGFloat = 5
+    var gapSizePercent: CGFloat = 33
+
     override func draw(_ dirtyRect: NSRect) {
         guard let ctx = NSGraphicsContext.current?.cgContext else { return }
 
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
         let outerRadius = min(bounds.width, bounds.height) / 2 - 2
+        let gapRadius = outerRadius * (gapSizePercent * 2 / 100)
+        let dotRadius = outerRadius * (dotSizePercent / 100)
 
-        // Red filled disc
-        ctx.setFillColor(NSColor(red: 0.9, green: 0.25, blue: 0.15, alpha: 1.0).cgColor)
+        let red = NSColor(red: 0.9, green: 0.25, blue: 0.15, alpha: 1.0).cgColor
+        ctx.setFillColor(red)
+
+        // Outer ring
         ctx.addArc(center: center, radius: outerRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.fillPath()
-
-        // Black donut in center (scaled proportionally)
-        let blackOuterRadius = outerRadius * 0.32
-        let blackInnerRadius = outerRadius * 0.12
-        ctx.setFillColor(NSColor.black.cgColor)
-        ctx.addArc(center: center, radius: blackOuterRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
-        ctx.addArc(center: center, radius: blackInnerRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+        ctx.addArc(center: center, radius: gapRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
         ctx.fillPath(using: .evenOdd)
+
+        // Center dot
+        ctx.addArc(center: center, radius: dotRadius, startAngle: 0, endAngle: .pi * 2, clockwise: false)
+        ctx.fillPath()
     }
 }

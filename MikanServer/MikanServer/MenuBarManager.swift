@@ -20,6 +20,20 @@ final class MenuBarManager {
             pushSettings()
         }
     }
+    var cursorDotSize: Double {
+        didSet {
+            UserDefaults.standard.set(cursorDotSize, forKey: "cursorDotSize")
+            cursorOverlay.updateStyle(dotSize: CGFloat(cursorDotSize), gapSize: CGFloat(cursorGapSize))
+            pushSettings()
+        }
+    }
+    var cursorGapSize: Double {
+        didSet {
+            UserDefaults.standard.set(cursorGapSize, forKey: "cursorGapSize")
+            cursorOverlay.updateStyle(dotSize: CGFloat(cursorDotSize), gapSize: CGFloat(cursorGapSize))
+            pushSettings()
+        }
+    }
     private var suppressSettingsSync = false
     private let mouseController = MouseController()
     private let cursorOverlay = CursorOverlayController()
@@ -30,7 +44,12 @@ final class MenuBarManager {
         self.sensitivity = stored > 0 ? stored : 10.0
         let storedSize = UserDefaults.standard.double(forKey: "cursorSize")
         self.cursorSize = storedSize > 0 ? storedSize : 140.0
+        let storedDotSize = UserDefaults.standard.double(forKey: "cursorDotSize")
+        self.cursorDotSize = storedDotSize > 0 ? storedDotSize : 5.0
+        let storedGapSize = UserDefaults.standard.double(forKey: "cursorGapSize")
+        self.cursorGapSize = storedGapSize > 0 ? storedGapSize : 33.0
         cursorOverlay.updateSize(CGFloat(self.cursorSize))
+        cursorOverlay.updateStyle(dotSize: CGFloat(self.cursorDotSize), gapSize: CGFloat(self.cursorGapSize))
         server.onClientMessage = { [weak self] message in
             self?.handleMessage(message)
         }
@@ -59,7 +78,7 @@ final class MenuBarManager {
 
     func pushSettings() {
         guard !suppressSettingsSync else { return }
-        server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize))
+        server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize))
     }
 
     private func handleMessage(_ message: ClientMessage) {
@@ -83,10 +102,12 @@ final class MenuBarManager {
             handleHello(deviceId)
         case .pairResponse(let code):
             handlePairResponse(code)
-        case .updateSettings(let newSensitivity, let newCursorSize):
+        case .updateSettings(let newSensitivity, let newCursorSize, let newCursorDotSize, let newCursorGapSize):
             suppressSettingsSync = true
             sensitivity = newSensitivity
             cursorSize = newCursorSize
+            cursorDotSize = newCursorDotSize
+            cursorGapSize = newCursorGapSize
             suppressSettingsSync = false
         case .updateActions(let newActions):
             actionStore.actions = newActions
