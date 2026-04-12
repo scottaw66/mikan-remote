@@ -8,11 +8,11 @@ public enum ClientMessage: Codable, Sendable {
     case performCommand(command: String)
     case hello(deviceId: String)
     case pairResponse(code: String)
-    case updateSettings(sensitivity: Double, cursorSize: Double)
+    case updateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double)
     case updateActions(actions: [Action])
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, actions
+        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions
     }
 
     public init(from decoder: Decoder) throws {
@@ -44,7 +44,9 @@ public enum ClientMessage: Codable, Sendable {
         case "updateSettings":
             let sensitivity = try container.decode(Double.self, forKey: .sensitivity)
             let cursorSize = try container.decode(Double.self, forKey: .cursorSize)
-            self = .updateSettings(sensitivity: sensitivity, cursorSize: cursorSize)
+            let cursorDotSize = try container.decode(Double.self, forKey: .cursorDotSize)
+            let cursorGapSize = try container.decode(Double.self, forKey: .cursorGapSize)
+            self = .updateSettings(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize)
         case "updateActions":
             let actions = try container.decode([Action].self, forKey: .actions)
             self = .updateActions(actions: actions)
@@ -81,10 +83,12 @@ public enum ClientMessage: Codable, Sendable {
         case .pairResponse(let code):
             try container.encode("pairResponse", forKey: .type)
             try container.encode(code, forKey: .code)
-        case .updateSettings(let sensitivity, let cursorSize):
+        case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize):
             try container.encode("updateSettings", forKey: .type)
             try container.encode(sensitivity, forKey: .sensitivity)
             try container.encode(cursorSize, forKey: .cursorSize)
+            try container.encode(cursorDotSize, forKey: .cursorDotSize)
+            try container.encode(cursorGapSize, forKey: .cursorGapSize)
         case .updateActions(let actions):
             try container.encode("updateActions", forKey: .type)
             try container.encode(actions, forKey: .actions)
@@ -98,10 +102,10 @@ public enum ServerMessage: Codable, Sendable {
     case pairRequired
     case pairAccepted
     case pairRejected(reason: String)
-    case settingsSync(sensitivity: Double, cursorSize: Double)
+    case settingsSync(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double)
 
     enum CodingKeys: String, CodingKey {
-        case type, actions, connected, hostname, reason, sensitivity, cursorSize
+        case type, actions, connected, hostname, reason, sensitivity, cursorSize, cursorDotSize, cursorGapSize
     }
 
     public init(from decoder: Decoder) throws {
@@ -125,7 +129,9 @@ public enum ServerMessage: Codable, Sendable {
         case "settingsSync":
             let sensitivity = try container.decode(Double.self, forKey: .sensitivity)
             let cursorSize = try container.decode(Double.self, forKey: .cursorSize)
-            self = .settingsSync(sensitivity: sensitivity, cursorSize: cursorSize)
+            let cursorDotSize = try container.decode(Double.self, forKey: .cursorDotSize)
+            let cursorGapSize = try container.decode(Double.self, forKey: .cursorGapSize)
+            self = .settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -151,10 +157,12 @@ public enum ServerMessage: Codable, Sendable {
         case .pairRejected(let reason):
             try container.encode("pairRejected", forKey: .type)
             try container.encode(reason, forKey: .reason)
-        case .settingsSync(let sensitivity, let cursorSize):
+        case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize):
             try container.encode("settingsSync", forKey: .type)
             try container.encode(sensitivity, forKey: .sensitivity)
             try container.encode(cursorSize, forKey: .cursorSize)
+            try container.encode(cursorDotSize, forKey: .cursorDotSize)
+            try container.encode(cursorGapSize, forKey: .cursorGapSize)
         }
     }
 }
