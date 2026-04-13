@@ -30,7 +30,7 @@ struct SettingsView: View {
 
                         Text(String(format: "%.1fx", connectionManager.sensitivity))
                             .monospacedDigit()
-                            .frame(width: 46)
+                            .frame(width: 70)
 
                         Button {
                             let newVal = min(20.0, connectionManager.sensitivity + 0.5)
@@ -66,9 +66,9 @@ struct SettingsView: View {
                         .buttonStyle(.borderless)
                         .disabled(connectionManager.cursorSize <= 60)
 
-                        Text("\(Int(connectionManager.cursorSize))pt")
+                        Text("\(Int(connectionManager.cursorSize)) pt")
                             .monospacedDigit()
-                            .frame(width: 50)
+                            .frame(width: 70)
 
                         Button {
                             let newVal = min(300.0, connectionManager.cursorSize + 20)
@@ -104,7 +104,7 @@ struct SettingsView: View {
 
                         Text("\(Int(connectionManager.cursorDotSize))%")
                             .monospacedDigit()
-                            .frame(width: 40)
+                            .frame(width: 70)
 
                         Button {
                             let newVal = min(15.0, connectionManager.cursorDotSize + 1)
@@ -140,7 +140,7 @@ struct SettingsView: View {
 
                         Text("\(Int(connectionManager.cursorGapSize))%")
                             .monospacedDigit()
-                            .frame(width: 40)
+                            .frame(width: 70)
 
                         Button {
                             let newVal = min(45.0, connectionManager.cursorGapSize + 1)
@@ -239,7 +239,7 @@ private struct ActionEditorRow: View {
     @Binding var action: Action
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             TextField("Label", text: Binding(
                 get: { action.label },
                 set: { action = Action(id: action.id, label: $0, url: action.url, icon: action.icon) }
@@ -255,19 +255,36 @@ private struct ActionEditorRow: View {
             .keyboardType(.URL)
             .textInputAutocapitalization(.never)
 
-            Picker("Icon", selection: Binding(
-                get: { action.icon ?? "" },
-                set: { action = Action(id: action.id, label: action.label, url: action.url, icon: $0.isEmpty ? nil : $0) }
-            )) {
-                ForEach(iconChoices, id: \.symbol) { choice in
-                    if choice.symbol.isEmpty {
-                        Text(choice.name).tag("")
-                    } else {
-                        Label(choice.name, systemImage: choice.symbol).tag(choice.symbol)
+            HStack {
+                Text("Icon")
+                    .font(.caption)
+                Spacer()
+                Menu {
+                    ForEach(iconChoices, id: \.symbol) { choice in
+                        Button {
+                            action = Action(id: action.id, label: action.label, url: action.url, icon: choice.symbol.isEmpty ? nil : choice.symbol)
+                        } label: {
+                            if choice.symbol.isEmpty {
+                                Text(choice.name)
+                            } else {
+                                Label(choice.name, systemImage: choice.symbol)
+                            }
+                        }
                     }
+                } label: {
+                    HStack(spacing: 4) {
+                        if let icon = action.icon, !icon.isEmpty {
+                            Image(systemName: icon)
+                        }
+                        Text(iconChoices.first(where: { $0.symbol == (action.icon ?? "") })?.name ?? "None")
+                        Image(systemName: "chevron.up.chevron.down")
+                            .font(.caption2)
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 170, alignment: .leading)
                 }
             }
-            .font(.caption)
         }
         .padding(.vertical, 2)
     }
