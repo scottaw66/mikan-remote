@@ -24,7 +24,7 @@ cd MikanProtocol && swift test
 cd MikanServer && xcodegen generate && xcodebuild -scheme MikanServer -configuration Release build
 # Copy built app to /Applications:
 APP_PATH=$(xcodebuild -scheme MikanServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
-rm -rf /Applications/MikanServer.app && cp -R "$APP_PATH/MikanServer.app" /Applications/MikanServer.app
+rm -rf /Applications/MikanRemoteServer.app && cp -R "$APP_PATH/MikanRemoteServer.app" /Applications/MikanRemoteServer.app
 
 # MikanRemote (iOS) — must deploy to physical iPhone (not simulator)
 cd MikanRemote && xcodegen generate && open MikanRemote.xcodeproj

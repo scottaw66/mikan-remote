@@ -19,6 +19,7 @@ targets:
       - package: MikanProtocol
     settings:
       base:
+        PRODUCT_NAME: MikanRemoteServer
         PRODUCT_BUNDLE_IDENTIFIER: com.mikan.MikanServer
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "14.0"
@@ -31,7 +32,7 @@ targets:
     info:
       path: MikanServer/Info.plist
       properties:
-        CFBundleDisplayName: MikanServer
+        CFBundleDisplayName: MikanRemoteServer
         LSUIElement: YES
         NSPrincipalClass: NSApplication
         NSLocalNetworkUsageDescription: "MikanServer needs local network access to accept connections from Mikan Remote."
