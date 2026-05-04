@@ -23,6 +23,38 @@ struct MikanServerApp: App {
     }
 }
 
+private struct AccessibilityWarningView: View {
+    let onGrant: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 6) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                Text("Accessibility permission required")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+            }
+            Text("Trackpad control needs accessibility access. Click + in System Settings, then drag MikanRemoteServer from the Finder window that opens.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            Button("Grant Permission", action: onGrant)
+                .controlSize(.small)
+                .frame(maxWidth: .infinity)
+        }
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.orange.opacity(0.1))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 6)
+                .strokeBorder(Color.orange.opacity(0.3), lineWidth: 1)
+        )
+    }
+}
+
 private struct MenuBarContentView: View {
     @Bindable var manager: MenuBarManager
     @Environment(\.openWindow) private var openWindow
@@ -30,6 +62,13 @@ private struct MenuBarContentView: View {
 
     var body: some View {
         VStack(spacing: 12) {
+            if !manager.isAccessibilityGranted {
+                AccessibilityWarningView {
+                    manager.openAccessibilitySettings()
+                }
+                Divider()
+            }
+
             Text(manager.statusText)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -150,6 +189,12 @@ private struct MenuBarContentView: View {
                     manager.pairingStore.unpairAll()
                 }
             }
+
+            Divider()
+
+            Toggle("Launch at Login", isOn: $manager.launchAtLogin)
+                .toggleStyle(.switch)
+                .controlSize(.small)
 
             Button("Quit") {
                 manager.server.stop()

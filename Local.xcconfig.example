@@ -1,0 +1,9 @@
+// Copy this file to Local.xcconfig (gitignored) and edit for your build.
+// Use a reverse-DNS prefix for a domain you control.
+BUNDLE_PREFIX = com.example
+
+// Optional: your 10-character Apple Developer Team ID. Setting this gives
+// you stable code signing across rebuilds, so macOS Accessibility/Privacy
+// permissions don't get re-prompted every time you rebuild MikanRemoteServer.
+// Find it at developer.apple.com/account → Membership.
+// DEVELOPMENT_TEAM = ABCDE12345

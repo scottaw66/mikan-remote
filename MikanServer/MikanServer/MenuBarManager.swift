@@ -34,12 +34,20 @@ final class MenuBarManager {
             pushSettings()
         }
     }
+    var isAccessibilityGranted: Bool = AccessibilityPermission.isGranted
+    var launchAtLogin: Bool = LaunchAtLogin.isEnabled {
+        didSet {
+            LaunchAtLogin.setEnabled(launchAtLogin)
+        }
+    }
     private var suppressSettingsSync = false
     private let mouseController = MouseController()
     private let cursorOverlay = CursorOverlayController()
     private var pairingPanel: NSPanel?
+    private var accessibilityTimer: Timer?
 
     init() {
+        AccessibilityPermission.requestIfNeeded()
         let stored = UserDefaults.standard.double(forKey: "sensitivity")
         self.sensitivity = stored > 0 ? stored : 10.0
         let storedSize = UserDefaults.standard.double(forKey: "cursorSize")
@@ -61,6 +69,21 @@ final class MenuBarManager {
             }
         }
         try? server.start()
+        startAccessibilityMonitoring()
+    }
+
+    private func startAccessibilityMonitoring() {
+        accessibilityTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            let granted = AccessibilityPermission.isGranted
+            if granted != self.isAccessibilityGranted {
+                self.isAccessibilityGranted = granted
+            }
+        }
+    }
+
+    func openAccessibilitySettings() {
+        AccessibilityPermission.openSettingsAndReveal()
     }
 
     var statusText: String {

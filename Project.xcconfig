@@ -1,0 +1,5 @@
+// Public default. Override locally by creating Local.xcconfig (gitignored)
+// with: BUNDLE_PREFIX = your.reverse.dns
+BUNDLE_PREFIX = com.example
+
+#include? "Local.xcconfig"

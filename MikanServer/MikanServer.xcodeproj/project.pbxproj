@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1001A3B532CA74460F1D8A5C /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FACA2A04DC51DCE632F8C0 /* LaunchAtLogin.swift */; };
 		3CD50C704F7EB6BA824400F4 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 365FD4F79A7140F7F5D3F395 /* MikanProtocol */; };
 		4605FF249E5E0A4557669716 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BDF9298436FB77BD2C71E7 /* MouseController.swift */; };
 		5B83D2E8DEE959AD03C276E9 /* ActionEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5431ED9DF5612C39229C1032 /* ActionEditorView.swift */; };
 		5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */; };
+		60AEA2B0261241EF2D83CC8D /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC041076B4BD5A6029B18BF6 /* AccessibilityPermission.swift */; };
 		659023ED75792DC80E5E43D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0861EFFAFDD4594057241677 /* Assets.xcassets */; };
 		65B95BB5536540C656321921 /* MouseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */; };
 		B1F5B104C9FF9C6AE99ED519 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 04E96947E7EDE027F13FC437 /* MikanProtocol */; };
@@ -40,15 +42,18 @@
 		381AF1C19A17E7C3A036233C /* PairingCodeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingCodeWindow.swift; sourceTree = "<group>"; };
 		402F228AE2E1D00F4CA7F190 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
 		5431ED9DF5612C39229C1032 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
+		6FF9322EC79B8ED18845792E /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanServerApp.swift; sourceTree = "<group>"; };
 		8ED08DB4B2729A4845954551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStore.swift; sourceTree = "<group>"; };
 		AAD6FC91F7AEF5B32A2B3DCD /* ActionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStoreTests.swift; sourceTree = "<group>"; };
+		AC041076B4BD5A6029B18BF6 /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
 		B07C693ABC9B6A78B3C43A34 /* MikanServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikanServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
 		BFD93D997A5DBC97275FA8DC /* MikanServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7BDF9298436FB77BD2C71E7 /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
 		CC863B7BBCEED46E4BCDE6CF /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
+		F0FACA2A04DC51DCE632F8C0 /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
 		F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +80,7 @@
 		481014C566BADAF1A58749BF = {
 			isa = PBXGroup;
 			children = (
+				B6B73E3D05FD56533BD0EDA5 /* mikan-remote */,
 				AB17C5666B5144D0D4ED0D93 /* MikanServer */,
 				4ADB09EEF25022BFE9189263 /* MikanServerTests */,
 				DB5DF13F78046A6FFAF0ACE8 /* Packages */,
@@ -94,11 +100,13 @@
 		AB17C5666B5144D0D4ED0D93 /* MikanServer */ = {
 			isa = PBXGroup;
 			children = (
+				AC041076B4BD5A6029B18BF6 /* AccessibilityPermission.swift */,
 				5431ED9DF5612C39229C1032 /* ActionEditorView.swift */,
 				A5CC2C859AB967CBABAEBB26 /* ActionStore.swift */,
 				0861EFFAFDD4594057241677 /* Assets.xcassets */,
 				0D98D7817E92E6F02F5DDBD5 /* CursorOverlayController.swift */,
 				8ED08DB4B2729A4845954551 /* Info.plist */,
+				F0FACA2A04DC51DCE632F8C0 /* LaunchAtLogin.swift */,
 				B46A25B01A31437EFE82B0EA /* MenuBarManager.swift */,
 				757D96A17CEA00FBD0FE10BC /* MikanServerApp.swift */,
 				C7BDF9298436FB77BD2C71E7 /* MouseController.swift */,
@@ -107,6 +115,15 @@
 				F52084E5FC95F370DA9333E9 /* WebSocketServer.swift */,
 			);
 			path = MikanServer;
+			sourceTree = "<group>";
+		};
+		B6B73E3D05FD56533BD0EDA5 /* mikan-remote */ = {
+			isa = PBXGroup;
+			children = (
+				6FF9322EC79B8ED18845792E /* Project.xcconfig */,
+			);
+			name = "mikan-remote";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		DB5DF13F78046A6FFAF0ACE8 /* Packages */ = {
@@ -179,7 +196,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					AF6BC0412D69743DE1969792 = {
-						DevelopmentTeam = CK52C8CDVM;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -223,9 +239,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60AEA2B0261241EF2D83CC8D /* AccessibilityPermission.swift in Sources */,
 				5B83D2E8DEE959AD03C276E9 /* ActionEditorView.swift in Sources */,
 				EB3E76617DEABA59BE01769F /* ActionStore.swift in Sources */,
 				D97AEB977C9A4A254F48EAC2 /* CursorOverlayController.swift in Sources */,
+				1001A3B532CA74460F1D8A5C /* LaunchAtLogin.swift in Sources */,
 				B2FA7AD7CC9B780817AD837E /* MenuBarManager.swift in Sources */,
 				5D5183BFC55DF31024AF033D /* MikanServerApp.swift in Sources */,
 				4605FF249E5E0A4557669716 /* MouseController.swift in Sources */,
@@ -257,6 +275,7 @@
 /* Begin XCBuildConfiguration section */
 		0E4DF2C2CB8732C76939963A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FF9322EC79B8ED18845792E /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -330,7 +349,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mikan.MikanServerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanServerTests";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanServer.app/Contents/MacOS/MikanServer";
@@ -343,7 +362,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = CK52C8CDVM;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = MikanServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -351,7 +369,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mikan.MikanServer;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanServer";
 				PRODUCT_NAME = MikanRemoteServer;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
@@ -370,7 +388,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mikan.MikanServerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanServerTests";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanServer.app/Contents/MacOS/MikanServer";
@@ -383,14 +401,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = CK52C8CDVM;
 				INFOPLIST_FILE = MikanServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mikan.MikanServer;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanServer";
 				PRODUCT_NAME = MikanRemoteServer;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.9;
@@ -399,6 +416,7 @@
 		};
 		F3DF10A1ADB140937E13710F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FF9322EC79B8ED18845792E /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
