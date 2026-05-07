@@ -111,4 +111,9 @@ final class MouseController {
         // f — toggle YouTube player fullscreen (separate from macOS Ctrl+Cmd+F)
         sendKeyPress(keyCode: 3, flags: [])
     }
+
+    func sendYouTubePlayPause() {
+        // k — toggle play/pause in the YouTube web player (keyCode 40)
+        sendKeyPress(keyCode: 40, flags: [])
+    }
 }

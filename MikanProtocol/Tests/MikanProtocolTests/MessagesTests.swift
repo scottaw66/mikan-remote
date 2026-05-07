@@ -248,7 +248,8 @@ final class MessagesTests: XCTestCase {
             "ytPrevChapter", "ytNextChapter",
             "ytToggleCaptions",
             "ytSlowDown", "ytSpeedUp",
-            "ytFullscreen"
+            "ytFullscreen",
+            "ytPlayPause"
         ]
         for name in names {
             let msg = ClientMessage.performCommand(command: name)

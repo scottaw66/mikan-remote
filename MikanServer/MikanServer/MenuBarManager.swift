@@ -238,6 +238,8 @@ final class MenuBarManager {
             mouseController.sendYouTubeSpeedUp()
         case "ytFullscreen":
             mouseController.sendYouTubeFullscreen()
+        case "ytPlayPause":
+            mouseController.sendYouTubePlayPause()
         default:
             print("Unknown command: \(command)")
         }

@@ -28,6 +28,8 @@ struct YouTubePopupView: View {
 
                 fullWidthButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right", command: "ytFullscreen")
 
+                fullWidthButton(label: "Play / Pause", icon: "playpause.fill", command: "ytPlayPause")
+
                 Spacer()
             }
             .padding()
