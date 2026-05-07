@@ -10,6 +10,7 @@
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
 		49D362EBA97412A9374C4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9252262C61272DE0ED0AEC48 /* Assets.xcassets */; };
 		4CADAF3E6B62BA9EF7233FDB /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 92F7A56EF7DDFA61E02BE4F9 /* MikanProtocol */; };
+		52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */; };
 		5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74459A8BCFA8F0BCA56610B /* SettingsView.swift */; };
 		7C4425676182ABD80BF6C0F4 /* ActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */; };
 		AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */; };
@@ -23,6 +24,7 @@
 		4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteApp.swift; sourceTree = "<group>"; };
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPickerView.swift; sourceTree = "<group>"; };
+		8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVisibility.swift; sourceTree = "<group>"; };
 		9252262C61272DE0ED0AEC48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B74459A8BCFA8F0BCA56610B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,7 @@
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
 				B74459A8BCFA8F0BCA56610B /* SettingsView.swift */,
 				DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */,
+				8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */,
 			);
 			path = MikanRemote;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
 				CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */,
+				52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
