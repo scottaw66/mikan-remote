@@ -178,6 +178,22 @@ private struct MenuBarContentView: View {
 
             Divider()
 
+            HStack {
+                Text("YouTube Popup")
+                Spacer()
+                Picker("YouTube Popup", selection: $manager.youtubePopupMode) {
+                    Text("Auto").tag("auto")
+                    Text("On").tag("on")
+                    Text("Off").tag("off")
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .controlSize(.small)
+                .frame(width: 100)
+            }
+
+            Divider()
+
             Button("Edit Actions...") {
                 NSApp.activate(ignoringOtherApps: true)
                 openWindow(id: "action-editor")
