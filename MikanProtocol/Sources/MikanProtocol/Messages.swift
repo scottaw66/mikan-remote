@@ -8,11 +8,11 @@ public enum ClientMessage: Codable, Sendable {
     case performCommand(command: String)
     case hello(deviceId: String)
     case pairResponse(code: String)
-    case updateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double)
+    case updateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String)
     case updateActions(actions: [Action])
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions
+        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions, youtubePopupMode
     }
 
     public init(from decoder: Decoder) throws {
@@ -46,7 +46,8 @@ public enum ClientMessage: Codable, Sendable {
             let cursorSize = try container.decode(Double.self, forKey: .cursorSize)
             let cursorDotSize = try container.decode(Double.self, forKey: .cursorDotSize)
             let cursorGapSize = try container.decode(Double.self, forKey: .cursorGapSize)
-            self = .updateSettings(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize)
+            let youtubePopupMode = try container.decodeIfPresent(String.self, forKey: .youtubePopupMode) ?? "auto"
+            self = .updateSettings(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode)
         case "updateActions":
             let actions = try container.decode([Action].self, forKey: .actions)
             self = .updateActions(actions: actions)
@@ -83,12 +84,13 @@ public enum ClientMessage: Codable, Sendable {
         case .pairResponse(let code):
             try container.encode("pairResponse", forKey: .type)
             try container.encode(code, forKey: .code)
-        case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize):
+        case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, let youtubePopupMode):
             try container.encode("updateSettings", forKey: .type)
             try container.encode(sensitivity, forKey: .sensitivity)
             try container.encode(cursorSize, forKey: .cursorSize)
             try container.encode(cursorDotSize, forKey: .cursorDotSize)
             try container.encode(cursorGapSize, forKey: .cursorGapSize)
+            try container.encode(youtubePopupMode, forKey: .youtubePopupMode)
         case .updateActions(let actions):
             try container.encode("updateActions", forKey: .type)
             try container.encode(actions, forKey: .actions)
@@ -102,10 +104,10 @@ public enum ServerMessage: Codable, Sendable {
     case pairRequired
     case pairAccepted
     case pairRejected(reason: String)
-    case settingsSync(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double)
+    case settingsSync(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, actions, connected, hostname, reason, sensitivity, cursorSize, cursorDotSize, cursorGapSize
+        case type, actions, connected, hostname, reason, sensitivity, cursorSize, cursorDotSize, cursorGapSize, youtubePopupMode
     }
 
     public init(from decoder: Decoder) throws {
@@ -131,7 +133,8 @@ public enum ServerMessage: Codable, Sendable {
             let cursorSize = try container.decode(Double.self, forKey: .cursorSize)
             let cursorDotSize = try container.decode(Double.self, forKey: .cursorDotSize)
             let cursorGapSize = try container.decode(Double.self, forKey: .cursorGapSize)
-            self = .settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize)
+            let youtubePopupMode = try container.decodeIfPresent(String.self, forKey: .youtubePopupMode) ?? "auto"
+            self = .settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -157,12 +160,13 @@ public enum ServerMessage: Codable, Sendable {
         case .pairRejected(let reason):
             try container.encode("pairRejected", forKey: .type)
             try container.encode(reason, forKey: .reason)
-        case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize):
+        case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, let youtubePopupMode):
             try container.encode("settingsSync", forKey: .type)
             try container.encode(sensitivity, forKey: .sensitivity)
             try container.encode(cursorSize, forKey: .cursorSize)
             try container.encode(cursorDotSize, forKey: .cursorDotSize)
             try container.encode(cursorGapSize, forKey: .cursorGapSize)
+            try container.encode(youtubePopupMode, forKey: .youtubePopupMode)
         }
     }
 }
