@@ -20,7 +20,8 @@ struct SettingsView: View {
                                 sensitivity: newVal,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -38,7 +39,8 @@ struct SettingsView: View {
                                 sensitivity: newVal,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "plus.circle")
@@ -58,7 +60,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: newVal,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -76,7 +79,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: newVal,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "plus.circle")
@@ -94,7 +98,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: newVal,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -112,7 +117,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: newVal,
-                                cursorGapSize: connectionManager.cursorGapSize
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "plus.circle")
@@ -130,7 +136,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: newVal
+                                cursorGapSize: newVal,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "minus.circle")
@@ -148,7 +155,8 @@ struct SettingsView: View {
                                 sensitivity: connectionManager.sensitivity,
                                 cursorSize: connectionManager.cursorSize,
                                 cursorDotSize: connectionManager.cursorDotSize,
-                                cursorGapSize: newVal
+                                cursorGapSize: newVal,
+                                youtubePopupMode: connectionManager.youtubePopupMode
                             )
                         } label: {
                             Image(systemName: "plus.circle")
@@ -156,6 +164,30 @@ struct SettingsView: View {
                         .buttonStyle(.borderless)
                         .disabled(connectionManager.cursorGapSize >= 45)
                     }
+                }
+
+                Section("YouTube Controls") {
+                    Picker("Show button", selection: Binding(
+                        get: { connectionManager.youtubePopupMode },
+                        set: { newMode in
+                            connectionManager.sendUpdateSettings(
+                                sensitivity: connectionManager.sensitivity,
+                                cursorSize: connectionManager.cursorSize,
+                                cursorDotSize: connectionManager.cursorDotSize,
+                                cursorGapSize: connectionManager.cursorGapSize,
+                                youtubePopupMode: newMode
+                            )
+                        }
+                    )) {
+                        Text("Auto").tag("auto")
+                        Text("Always On").tag("on")
+                        Text("Always Off").tag("off")
+                    }
+                    .pickerStyle(.segmented)
+
+                    Text("Auto shows the button when a YouTube link is in your action buttons.")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("Action Buttons") {
