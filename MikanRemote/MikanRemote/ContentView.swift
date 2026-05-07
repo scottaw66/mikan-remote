@@ -6,6 +6,7 @@ import MikanProtocol
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
     @State private var showSettings = false
+    @State private var showYouTubePopup = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -104,6 +105,19 @@ struct ContentView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    if YouTubeVisibility.effectiveYouTubeButtonVisible(
+                        mode: connectionManager.youtubePopupMode,
+                        actions: connectionManager.actions
+                    ) {
+                        Button {
+                            showYouTubePopup = true
+                        } label: {
+                            Image(systemName: "play.rectangle.fill")
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                        }
+                        .padding(.trailing, 8)
+                    }
                     Button {
                         showSettings = true
                     } label: {
@@ -119,6 +133,11 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showSettings) {
             SettingsView(connectionManager: connectionManager)
+        }
+        .sheet(isPresented: $showYouTubePopup) {
+            YouTubePopupView(
+                onCommand: { connectionManager.send(.performCommand(command: $0)) }
+            )
         }
     }
 }
