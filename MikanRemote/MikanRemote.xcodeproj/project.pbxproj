@@ -16,11 +16,13 @@
 		AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */; };
 		CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */; };
 		E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2EC16723F3F73D57BB88E8 /* ContentView.swift */; };
+		E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */; };
 		F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D501735732C0F3972B840E /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16C11006B0EF45589B98CFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubePopupView.swift; sourceTree = "<group>"; };
 		4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteApp.swift; sourceTree = "<group>"; };
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPickerView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
 				B74459A8BCFA8F0BCA56610B /* SettingsView.swift */,
 				DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */,
+				34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */,
 				8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */,
 			);
 			path = MikanRemote;
@@ -181,6 +184,7 @@
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
 				CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */,
+				E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */,
 				52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
