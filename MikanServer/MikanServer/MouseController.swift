@@ -66,4 +66,49 @@ final class MouseController {
             up.post(tap: .cghidEventTap)
         }
     }
+
+    // MARK: - YouTube web-player shortcuts
+
+    // Virtual key codes (HIToolbox / Carbon):
+    //   F=3, C=8, P=35, N=45, Comma=43, Period=47, Left=123, Right=124
+
+    func sendYouTubePrevVideo() {
+        // Shift+P — previous video in playlist
+        sendKeyPress(keyCode: 35, flags: [.maskShift])
+    }
+
+    func sendYouTubeNextVideo() {
+        // Shift+N — next video in playlist
+        sendKeyPress(keyCode: 45, flags: [.maskShift])
+    }
+
+    func sendYouTubePrevChapter() {
+        // Option+Left — previous chapter
+        sendKeyPress(keyCode: 123, flags: [.maskAlternate])
+    }
+
+    func sendYouTubeNextChapter() {
+        // Option+Right — next chapter
+        sendKeyPress(keyCode: 124, flags: [.maskAlternate])
+    }
+
+    func sendYouTubeToggleCaptions() {
+        // c — toggle captions
+        sendKeyPress(keyCode: 8, flags: [])
+    }
+
+    func sendYouTubeSlowDown() {
+        // Shift+, produces "<" — slow down playback rate
+        sendKeyPress(keyCode: 43, flags: [.maskShift])
+    }
+
+    func sendYouTubeSpeedUp() {
+        // Shift+. produces ">" — speed up playback rate
+        sendKeyPress(keyCode: 47, flags: [.maskShift])
+    }
+
+    func sendYouTubeFullscreen() {
+        // f — toggle YouTube player fullscreen (separate from macOS Ctrl+Cmd+F)
+        sendKeyPress(keyCode: 3, flags: [])
+    }
 }
