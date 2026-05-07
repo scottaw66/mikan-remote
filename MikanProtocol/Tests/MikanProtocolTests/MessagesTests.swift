@@ -136,10 +136,10 @@ final class MessagesTests: XCTestCase {
     }
 
     func testUpdateSettingsRoundTrip() throws {
-        let msg = ClientMessage.updateSettings(sensitivity: 15.0, cursorSize: 200.0, cursorDotSize: 8.0, cursorGapSize: 30.0)
+        let msg = ClientMessage.updateSettings(sensitivity: 15.0, cursorSize: 200.0, cursorDotSize: 8.0, cursorGapSize: 30.0, youtubePopupMode: "auto")
         let data = try JSONEncoder().encode(msg)
         let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
-        guard case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize) = decoded else {
+        guard case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, _) = decoded else {
             XCTFail("Expected updateSettings"); return
         }
         XCTAssertEqual(sensitivity, 15.0)
@@ -149,10 +149,10 @@ final class MessagesTests: XCTestCase {
     }
 
     func testSettingsSyncRoundTrip() throws {
-        let msg = ServerMessage.settingsSync(sensitivity: 8.5, cursorSize: 120.0, cursorDotSize: 5.0, cursorGapSize: 33.0)
+        let msg = ServerMessage.settingsSync(sensitivity: 8.5, cursorSize: 120.0, cursorDotSize: 5.0, cursorGapSize: 33.0, youtubePopupMode: "auto")
         let data = try JSONEncoder().encode(msg)
         let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
-        guard case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize) = decoded else {
+        guard case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, _) = decoded else {
             XCTFail("Expected settingsSync"); return
         }
         XCTAssertEqual(sensitivity, 8.5)
@@ -177,5 +177,85 @@ final class MessagesTests: XCTestCase {
     func testActionDefaultConfig() {
         let defaults = Action.defaults
         XCTAssertTrue(defaults.contains(where: { $0.url == "https://netflix.com" }))
+    }
+
+    func testUpdateSettingsRoundTripWithYouTubeMode() throws {
+        let msg = ClientMessage.updateSettings(
+            sensitivity: 12.0,
+            cursorSize: 160.0,
+            cursorDotSize: 5.0,
+            cursorGapSize: 33.0,
+            youtubePopupMode: "on"
+        )
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .updateSettings(let s, let cs, let ds, let gs, let mode) = decoded else {
+            XCTFail("Expected updateSettings"); return
+        }
+        XCTAssertEqual(s, 12.0)
+        XCTAssertEqual(cs, 160.0)
+        XCTAssertEqual(ds, 5.0)
+        XCTAssertEqual(gs, 33.0)
+        XCTAssertEqual(mode, "on")
+    }
+
+    func testUpdateSettingsBackwardCompatibleDecodeWithoutMode() throws {
+        // Older clients send updateSettings without youtubePopupMode — must decode with "auto".
+        let json = #"{"type":"updateSettings","sensitivity":10.0,"cursorSize":140.0,"cursorDotSize":5.0,"cursorGapSize":33.0}"#
+        let data = Data(json.utf8)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .updateSettings(_, _, _, _, let mode) = decoded else {
+            XCTFail("Expected updateSettings"); return
+        }
+        XCTAssertEqual(mode, "auto")
+    }
+
+    func testSettingsSyncRoundTripWithYouTubeMode() throws {
+        let msg = ServerMessage.settingsSync(
+            sensitivity: 8.5,
+            cursorSize: 100.0,
+            cursorDotSize: 4.0,
+            cursorGapSize: 30.0,
+            youtubePopupMode: "off"
+        )
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .settingsSync(let s, let cs, let ds, let gs, let mode) = decoded else {
+            XCTFail("Expected settingsSync"); return
+        }
+        XCTAssertEqual(s, 8.5)
+        XCTAssertEqual(cs, 100.0)
+        XCTAssertEqual(ds, 4.0)
+        XCTAssertEqual(gs, 30.0)
+        XCTAssertEqual(mode, "off")
+    }
+
+    func testSettingsSyncBackwardCompatibleDecodeWithoutMode() throws {
+        let json = #"{"type":"settingsSync","sensitivity":10.0,"cursorSize":140.0,"cursorDotSize":5.0,"cursorGapSize":33.0}"#
+        let data = Data(json.utf8)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .settingsSync(_, _, _, _, let mode) = decoded else {
+            XCTFail("Expected settingsSync"); return
+        }
+        XCTAssertEqual(mode, "auto")
+    }
+
+    func testYouTubeCommandRoundTrips() throws {
+        let names = [
+            "ytPrevVideo", "ytNextVideo",
+            "ytPrevChapter", "ytNextChapter",
+            "ytToggleCaptions",
+            "ytSlowDown", "ytSpeedUp",
+            "ytFullscreen"
+        ]
+        for name in names {
+            let msg = ClientMessage.performCommand(command: name)
+            let data = try JSONEncoder().encode(msg)
+            let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+            guard case .performCommand(let command) = decoded else {
+                XCTFail("Expected performCommand for \(name)"); return
+            }
+            XCTAssertEqual(command, name, "Round-trip failed for \(name)")
+        }
     }
 }
