@@ -139,26 +139,28 @@ final class MessagesTests: XCTestCase {
         let msg = ClientMessage.updateSettings(sensitivity: 15.0, cursorSize: 200.0, cursorDotSize: 8.0, cursorGapSize: 30.0, youtubePopupMode: "auto")
         let data = try JSONEncoder().encode(msg)
         let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
-        guard case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, _) = decoded else {
+        guard case .updateSettings(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, let mode) = decoded else {
             XCTFail("Expected updateSettings"); return
         }
         XCTAssertEqual(sensitivity, 15.0)
         XCTAssertEqual(cursorSize, 200.0)
         XCTAssertEqual(cursorDotSize, 8.0)
         XCTAssertEqual(cursorGapSize, 30.0)
+        XCTAssertEqual(mode, "auto")
     }
 
     func testSettingsSyncRoundTrip() throws {
         let msg = ServerMessage.settingsSync(sensitivity: 8.5, cursorSize: 120.0, cursorDotSize: 5.0, cursorGapSize: 33.0, youtubePopupMode: "auto")
         let data = try JSONEncoder().encode(msg)
         let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
-        guard case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, _) = decoded else {
+        guard case .settingsSync(let sensitivity, let cursorSize, let cursorDotSize, let cursorGapSize, let mode) = decoded else {
             XCTFail("Expected settingsSync"); return
         }
         XCTAssertEqual(sensitivity, 8.5)
         XCTAssertEqual(cursorSize, 120.0)
         XCTAssertEqual(cursorDotSize, 5.0)
         XCTAssertEqual(cursorGapSize, 33.0)
+        XCTAssertEqual(mode, "auto")
     }
 
     func testUpdateActionsRoundTrip() throws {
