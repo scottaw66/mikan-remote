@@ -179,7 +179,8 @@ private struct MenuBarContentView: View {
             Divider()
 
             HStack {
-                Text("YouTube Popup")
+                Text("YouTube\nPopup")
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer()
                 Picker("YouTube Popup", selection: $manager.youtubePopupMode) {
                     Text("Auto").tag("auto")
@@ -189,7 +190,7 @@ private struct MenuBarContentView: View {
                 .pickerStyle(.menu)
                 .labelsHidden()
                 .controlSize(.small)
-                .frame(width: 100)
+                .frame(width: 90)
             }
 
             Divider()
