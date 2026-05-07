@@ -4,6 +4,7 @@ import UIKit
 struct YouTubePopupView: View {
     let onCommand: (String) -> Void
     @Environment(\.dismiss) private var dismiss
+    @State private var feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
 
     var body: some View {
         NavigationStack {
@@ -37,11 +38,13 @@ struct YouTubePopupView: View {
                     Button("Done") { dismiss() }
                 }
             }
+            .onAppear { feedbackGenerator.prepare() }
         }
     }
 
     private func tap(_ command: String) {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        feedbackGenerator.impactOccurred()
+        feedbackGenerator.prepare()
         onCommand(command)
     }
 
