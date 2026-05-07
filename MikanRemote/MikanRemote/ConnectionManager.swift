@@ -18,6 +18,7 @@ final class ConnectionManager {
     private(set) var cursorSize: Double = 140.0
     private(set) var cursorDotSize: Double = 5.0
     private(set) var cursorGapSize: Double = 33.0
+    private(set) var youtubePopupMode: String = "auto"
     private(set) var pairingRequired = false
     private(set) var pairingFailed = false
 
@@ -100,6 +101,7 @@ final class ConnectionManager {
         cursorSize = 140.0
         cursorDotSize = 5.0
         cursorGapSize = 33.0
+        youtubePopupMode = "auto"
         pairingRequired = false
         pairingFailed = false
     }
@@ -117,12 +119,13 @@ final class ConnectionManager {
         connection.send(content: data, contentContext: context, completion: .contentProcessed({ _ in }))
     }
 
-    func sendUpdateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double) {
+    func sendUpdateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String) {
         self.sensitivity = sensitivity
         self.cursorSize = cursorSize
         self.cursorDotSize = cursorDotSize
         self.cursorGapSize = cursorGapSize
-        send(.updateSettings(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize))
+        self.youtubePopupMode = youtubePopupMode
+        send(.updateSettings(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode))
     }
 
     func sendUpdateActions(_ actions: [Action]) {
@@ -167,6 +170,7 @@ final class ConnectionManager {
         cursorSize = 140.0
         cursorDotSize = 5.0
         cursorGapSize = 33.0
+        youtubePopupMode = "auto"
         pairingRequired = false
         pairingFailed = false
         connection = nil
@@ -197,11 +201,12 @@ final class ConnectionManager {
         switch message {
         case .actionConfig(actions: let newActions):
             actions = newActions
-        case .settingsSync(let newSensitivity, let newCursorSize, let newDotSize, let newGapSize):
+        case .settingsSync(let newSensitivity, let newCursorSize, let newDotSize, let newGapSize, let newYTMode):
             sensitivity = newSensitivity
             cursorSize = newCursorSize
             cursorDotSize = newDotSize
             cursorGapSize = newGapSize
+            youtubePopupMode = newYTMode
         case .serverStatus(connected: _, hostname: let name):
             hostname = name
         case .pairRequired:
