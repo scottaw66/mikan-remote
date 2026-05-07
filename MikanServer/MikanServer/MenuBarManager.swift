@@ -34,6 +34,12 @@ final class MenuBarManager {
             pushSettings()
         }
     }
+    var youtubePopupMode: String {
+        didSet {
+            UserDefaults.standard.set(youtubePopupMode, forKey: "youtubePopupMode")
+            pushSettings()
+        }
+    }
     var isAccessibilityGranted: Bool = AccessibilityPermission.isGranted
     var launchAtLogin: Bool = LaunchAtLogin.isEnabled {
         didSet {
@@ -56,6 +62,7 @@ final class MenuBarManager {
         self.cursorDotSize = storedDotSize > 0 ? storedDotSize : 5.0
         let storedGapSize = UserDefaults.standard.double(forKey: "cursorGapSize")
         self.cursorGapSize = storedGapSize > 0 ? storedGapSize : 33.0
+        self.youtubePopupMode = UserDefaults.standard.string(forKey: "youtubePopupMode") ?? "auto"
         cursorOverlay.updateSize(CGFloat(self.cursorSize))
         cursorOverlay.updateStyle(dotSize: CGFloat(self.cursorDotSize), gapSize: CGFloat(self.cursorGapSize))
         server.onClientMessage = { [weak self] message in
@@ -101,7 +108,7 @@ final class MenuBarManager {
 
     func pushSettings() {
         guard !suppressSettingsSync else { return }
-        server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize))
+        server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode))
     }
 
     private func handleMessage(_ message: ClientMessage) {
@@ -125,12 +132,13 @@ final class MenuBarManager {
             handleHello(deviceId)
         case .pairResponse(let code):
             handlePairResponse(code)
-        case .updateSettings(let newSensitivity, let newCursorSize, let newCursorDotSize, let newCursorGapSize):
+        case .updateSettings(let newSensitivity, let newCursorSize, let newCursorDotSize, let newCursorGapSize, let newYouTubePopupMode):
             suppressSettingsSync = true
             sensitivity = newSensitivity
             cursorSize = newCursorSize
             cursorDotSize = newCursorDotSize
             cursorGapSize = newCursorGapSize
+            youtubePopupMode = newYouTubePopupMode
             suppressSettingsSync = false
         case .updateActions(let newActions):
             actionStore.actions = newActions
@@ -214,6 +222,22 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 30, flags: [.maskCommand, .maskShift])
         case "playPause":
             mouseController.sendMediaKey(16)
+        case "ytPrevVideo":
+            mouseController.sendYouTubePrevVideo()
+        case "ytNextVideo":
+            mouseController.sendYouTubeNextVideo()
+        case "ytPrevChapter":
+            mouseController.sendYouTubePrevChapter()
+        case "ytNextChapter":
+            mouseController.sendYouTubeNextChapter()
+        case "ytToggleCaptions":
+            mouseController.sendYouTubeToggleCaptions()
+        case "ytSlowDown":
+            mouseController.sendYouTubeSlowDown()
+        case "ytSpeedUp":
+            mouseController.sendYouTubeSpeedUp()
+        case "ytFullscreen":
+            mouseController.sendYouTubeFullscreen()
         default:
             print("Unknown command: \(command)")
         }
