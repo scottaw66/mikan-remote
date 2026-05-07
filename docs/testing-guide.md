@@ -134,6 +134,27 @@ Below the trackpad (command row):
 App shortcut buttons (smaller, below commands, 2 per row, max 6):
 - Defaults: **Apple TV**, **Netflix**, **YouTube**
 
+### YouTube Controls Popup
+
+A small red `▶︎` icon in the top status bar (between hostname and gear) opens a modal sheet of YouTube web-player keyboard shortcuts. The sheet stays open until you tap **Done** so multi-taps (e.g. `Faster >` three times) work cleanly.
+
+**Buttons:** Prev/Next Video (Shift+P / Shift+N), Prev/Next Chapter (Option+arrow), Captions (C), Slower / Faster (Shift+, / Shift+.), Fullscreen (F — YouTube's player fullscreen, distinct from native Ctrl+Cmd+F), Back 5s / Forward 5s (left/right arrow), Play/Pause (K).
+
+**Launcher visibility** is a 3-state setting (Auto / Always On / Always Off):
+- iPhone: gear icon → settings sheet → "YouTube Controls" segmented picker.
+- Mac: menu bar → "YouTube" / "Popup" picker.
+- **Auto** shows the launcher iff at least one action button URL contains `youtube.com` or `youtu.be` (case-insensitive).
+- The setting is server-stored (`youtubePopupMode` on `settingsSync` / `updateSettings`) and dual-editable.
+
+**Verifying:**
+
+1. With the default action set (which includes a YouTube action) and mode set to **Auto**, the red `▶︎` appears on the iPhone main screen.
+2. Open YouTube in Safari on the Mac, start a video, tap the launcher.
+3. Tap each button and confirm the expected behavior in YouTube — chapter skip, captions toggle, playback rate change, etc.
+4. Delete the YouTube action via Edit Actions; the launcher disappears within ~1 second. Add it back; the launcher reappears.
+5. Change the mode picker on either side; the other side reflects the change.
+6. Quit and relaunch MikanRemoteServer; the persisted mode is restored.
+
 ### Adding / Editing Action Buttons
 
 Actions can be edited from either side — the server is authoritative.

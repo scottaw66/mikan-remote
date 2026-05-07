@@ -7,10 +7,11 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 - Trackpad-style mouse control from your iPhone
 - Browser tab management — close tab, switch between tabs
 - Video controls — play/pause, skip forward/backward, fullscreen, escape
+- **YouTube Controls popup** — chapter skip, playlist nav, captions, playback rate, ±5s seek, play/pause, fullscreen, all in a dedicated sheet (see below)
 - Volume control buttons (simulates Mac media keys)
 - Configurable quick-action buttons (open URLs or apps via URL schemes, max 6)
 - Default buttons for Apple TV (`videos://`), Netflix, and YouTube
-- All settings adjustable from iPhone — sensitivity, cursor size, action buttons
+- All settings adjustable from iPhone — sensitivity, cursor size, action buttons, YouTube popup visibility
 - Large custom cursor overlay — appears on movement, fades after 10s inactivity
 - Automatic discovery via Bonjour — no IP address needed
 - Security pairing — 4-digit code on first connect
@@ -66,8 +67,41 @@ Tap the gear icon on iPhone, or click the Mac menu bar icon, to adjust:
 - **Cursor dot size** (1–15%) — center crosshair dot, as a percentage of the halo
 - **Cursor gap size** (10–45%) — gap radius before the halo, as a percentage
 - **Action buttons** — add, remove, reorder, edit label/URL/icon (max 6)
+- **YouTube popup** — Auto / Always On / Always Off (see below)
 
 The server is the single source of truth. Changes from either side sync instantly via WebSocket; nothing is persisted on the iPhone.
+
+## YouTube Controls Popup
+
+A dedicated sheet of YouTube web-player keyboard shortcuts you can pull up while a video is playing. Useful when you want to skip a chapter or bump playback speed without aiming the trackpad at small player controls.
+
+### Opening it
+
+A small red **▶︎** icon appears in the top status bar of the iPhone's main screen (between the Mac hostname and the gear icon). Tap it to open the popup. Tap **Done** in the top-right of the sheet — or swipe it down — to dismiss. The sheet **stays open across taps** so you can press `Faster >` three times to bump playback rate to 2.0× without having to re-open it.
+
+### Buttons (top to bottom)
+
+| Button | YouTube shortcut | What it does |
+|---|---|---|
+| Prev Video / Next Video | Shift+P / Shift+N | Move within a playlist |
+| Prev Chapter / Next Chapter | Option+← / Option+→ | Jump to chapter markers (when present) |
+| Captions | C | Toggle closed captions |
+| Slower < / > Faster | Shift+, / Shift+. | Step playback rate down / up |
+| Fullscreen | F | Toggle YouTube's player fullscreen (separate from macOS Ctrl+Cmd+F, which is still on the main screen) |
+| Back 5s / Forward 5s | ← / → | Skip 5 seconds (same arrow keys the main remote uses) |
+| Play / Pause | K | Toggle playback |
+
+These all assume YouTube is the focused tab/window on the Mac when you tap. If a different app is in front, the keystrokes go there.
+
+### Visibility setting
+
+The launcher icon's visibility is controlled by a 3-state setting available on **both** the iPhone (gear icon → settings sheet → "YouTube Controls") and the Mac menu bar ("YouTube Popup" picker):
+
+- **Auto** (default) — the icon shows only when one of your action buttons points at YouTube (`youtube.com`, `youtu.be`, or `m.youtube.com`). Delete the YouTube action and the icon disappears; add one back and it reappears.
+- **Always On** — icon is always visible, even with no YouTube action button.
+- **Always Off** — icon is hidden regardless.
+
+The setting persists on the Mac (server is the single source of truth) and syncs to the iPhone whenever it changes.
 
 ## Adding Action Buttons
 
