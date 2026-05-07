@@ -28,6 +28,11 @@ struct YouTubePopupView: View {
 
                 fullWidthButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right", command: "ytFullscreen")
 
+                HStack(spacing: 12) {
+                    pairedButton(label: "Back 5s", icon: "gobackward.5", command: "arrowLeft")
+                    pairedButton(label: "Forward 5s", icon: "goforward.5", command: "arrowRight")
+                }
+
                 fullWidthButton(label: "Play / Pause", icon: "playpause.fill", command: "ytPlayPause")
 
                 Spacer()
