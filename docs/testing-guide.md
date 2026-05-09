@@ -1,4 +1,4 @@
-# Mikan Remote — Testing Guide
+# MikanRemote — Testing Guide
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@
 
 ## Part 1: MikanRemoteServer (Mac)
 
-The server target is named `MikanServer` in source, but the built product is `MikanRemoteServer.app`. The recommended install location is `/Applications/MikanRemoteServer.app`. Just double-click to launch.
+The server source directory and target are both `MikanRemoteServer`, and the built product is `MikanRemoteServer.app`. The recommended install location is `/Applications/MikanRemoteServer.app`. Just double-click to launch.
 
 ### Optional: stable code signing
 
@@ -26,12 +26,12 @@ This keeps the codesigning identity stable across rebuilds, so macOS doesn't dro
 ### Build from source
 
 ```bash
-cd MikanServer
+cd MikanRemoteServer
 xcodegen generate
-xcodebuild -scheme MikanServer -configuration Release build
+xcodebuild -scheme MikanRemoteServer -configuration Release build
 
 # Copy to /Applications
-APP_PATH=$(xcodebuild -scheme MikanServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
+APP_PATH=$(xcodebuild -scheme MikanRemoteServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
 rm -rf /Applications/MikanRemoteServer.app && cp -R "$APP_PATH/MikanRemoteServer.app" /Applications/MikanRemoteServer.app
 ```
 

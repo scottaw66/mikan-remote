@@ -1,6 +1,6 @@
-# Mikan Remote
+# MikanRemote
 
-Mikan remote is an app to remote control a mac from an iphone on a very narrow scope. E.g,
+MikanRemote is an app to remote control a mac from an iphone on a very narrow scope. E.g,
 
 - Launch remote browser
 - Go to Netflix in remote browser

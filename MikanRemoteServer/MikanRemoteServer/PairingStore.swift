@@ -10,8 +10,13 @@ final class PairingStore {
 
     init() {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let dir = appSupport.appendingPathComponent("MikanServer")
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let dir = appSupport.appendingPathComponent("MikanRemoteServer")
+        let legacyDir = appSupport.appendingPathComponent("MikanServer")
+        let fm = FileManager.default
+        if !fm.fileExists(atPath: dir.path), fm.fileExists(atPath: legacyDir.path) {
+            try? fm.moveItem(at: legacyDir, to: dir)
+        }
+        try? fm.createDirectory(at: dir, withIntermediateDirectories: true)
         fileURL = dir.appendingPathComponent("paired-devices.json")
         load()
     }

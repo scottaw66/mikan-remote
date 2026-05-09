@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct MikanServerApp: App {
+struct MikanRemoteServerApp: App {
     @State private var manager = MenuBarManager()
 
     var body: some Scene {

@@ -1,6 +1,6 @@
 import XCTest
 import ApplicationServices
-@testable import MikanServer
+@testable import MikanRemoteServer
 
 final class MouseControllerTests: XCTestCase {
 

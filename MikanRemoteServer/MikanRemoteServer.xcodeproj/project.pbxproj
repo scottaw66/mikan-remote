@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */; };
+		65CC42839C4A4E39D892CBAF /* MikanRemoteServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3974C97729ADA9D544D2C /* MikanRemoteServerApp.swift */; };
+		687775EA770F00898BC53A87 /* ActionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE14F5498B4541754E0759 /* ActionStore.swift */; };
+		805BF74E8992190810F10D1F /* MouseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569865ED1D9CC012FF759231 /* MouseControllerTests.swift */; };
+		832B37751E61C3D7019F9412 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */; };
+		8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC48AD59969716D93A26139 /* CursorOverlayController.swift */; };
+		9A0219F3BB9B811DF11B9946 /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855696ACCDB38375D7662C7 /* LaunchAtLogin.swift */; };
+		9B13281CF4E3FD280A8B2528 /* PairingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CACA3B435E75A2C449D673A /* PairingStore.swift */; };
+		9F5B65A3FD99ECA9B7870081 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = B4737F85893F032665034CCF /* MikanProtocol */; };
+		A33B08A53314994EB9036382 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87D028F26EC94E210C9EA48 /* MenuBarManager.swift */; };
+		AAB67EA1A7452D386F574D53 /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE477B0605E91453EF05A /* AccessibilityPermission.swift */; };
+		AF6E8F52F56276059B542289 /* PairingCodeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3CFE07ABFA2D84E80D7CE4 /* PairingCodeWindow.swift */; };
+		C19B5D725A1E1808A4E03543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */; };
+		D04362032E4864D0C58CFE81 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 385464561B5FC3CF8F084DD8 /* MikanProtocol */; };
+		E9082534B6B47BEA5977CCAF /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F64D045945A007F757FBCBB /* MouseController.swift */; };
+		F041E21F76E1D20946EAA156 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945842158E8327DFFC3130E9 /* ActionStoreTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		865EB29D4988663AD1CFB242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9629500BCA54719E919C444F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05168D58B5ECF46266EA3DF0;
+			remoteInfo = MikanRemoteServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0CACA3B435E75A2C449D673A /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
+		0FC48AD59969716D93A26139 /* CursorOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorOverlayController.swift; sourceTree = "<group>"; };
+		23231F54DF3E3BE6F30FA7C1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
+		365D7A95760BF4952A07DA15 /* MikanRemoteServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanRemoteServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
+		569865ED1D9CC012FF759231 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
+		6ACE14F5498B4541754E0759 /* ActionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStore.swift; sourceTree = "<group>"; };
+		6F64D045945A007F757FBCBB /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
+		7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
+		7D3CFE07ABFA2D84E80D7CE4 /* PairingCodeWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingCodeWindow.swift; sourceTree = "<group>"; };
+		86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		945842158E8327DFFC3130E9 /* ActionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStoreTests.swift; sourceTree = "<group>"; };
+		AB65CA75AD399E587AB3B12A /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		ACD3974C97729ADA9D544D2C /* MikanRemoteServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteServerApp.swift; sourceTree = "<group>"; };
+		BE9B79B88126100A593D4752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E12BDF09E2D95EF60F60FA45 /* MikanRemoteServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikanRemoteServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA7DE477B0605E91453EF05A /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
+		F855696ACCDB38375D7662C7 /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
+		F87D028F26EC94E210C9EA48 /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		12508E7293032B265BAF82CD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F5B65A3FD99ECA9B7870081 /* MikanProtocol in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31A1786EDDA7B4549195CA62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D04362032E4864D0C58CFE81 /* MikanProtocol in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E11C065181F99DDADD05101 /* MikanRemoteServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				945842158E8327DFFC3130E9 /* ActionStoreTests.swift */,
+				569865ED1D9CC012FF759231 /* MouseControllerTests.swift */,
+			);
+			path = MikanRemoteServerTests;
+			sourceTree = "<group>";
+		};
+		76FB4E91EBA4A817B2170703 = {
+			isa = PBXGroup;
+			children = (
+				91E4DB0003DD1E41B763B573 /* mikan-remote */,
+				8384C52F45937F6E36936FA5 /* MikanRemoteServer */,
+				5E11C065181F99DDADD05101 /* MikanRemoteServerTests */,
+				D9A8BF0375BBB0D9E13E5084 /* Packages */,
+				BF75BC48EABBB5026DE923D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8384C52F45937F6E36936FA5 /* MikanRemoteServer */ = {
+			isa = PBXGroup;
+			children = (
+				EA7DE477B0605E91453EF05A /* AccessibilityPermission.swift */,
+				7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */,
+				6ACE14F5498B4541754E0759 /* ActionStore.swift */,
+				86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */,
+				0FC48AD59969716D93A26139 /* CursorOverlayController.swift */,
+				BE9B79B88126100A593D4752 /* Info.plist */,
+				F855696ACCDB38375D7662C7 /* LaunchAtLogin.swift */,
+				F87D028F26EC94E210C9EA48 /* MenuBarManager.swift */,
+				ACD3974C97729ADA9D544D2C /* MikanRemoteServerApp.swift */,
+				6F64D045945A007F757FBCBB /* MouseController.swift */,
+				7D3CFE07ABFA2D84E80D7CE4 /* PairingCodeWindow.swift */,
+				0CACA3B435E75A2C449D673A /* PairingStore.swift */,
+				55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */,
+			);
+			path = MikanRemoteServer;
+			sourceTree = "<group>";
+		};
+		91E4DB0003DD1E41B763B573 /* mikan-remote */ = {
+			isa = PBXGroup;
+			children = (
+				AB65CA75AD399E587AB3B12A /* Project.xcconfig */,
+			);
+			name = "mikan-remote";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		BF75BC48EABBB5026DE923D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				365D7A95760BF4952A07DA15 /* MikanRemoteServer.app */,
+				E12BDF09E2D95EF60F60FA45 /* MikanRemoteServerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9A8BF0375BBB0D9E13E5084 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				23231F54DF3E3BE6F30FA7C1 /* MikanProtocol */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05168D58B5ECF46266EA3DF0 /* MikanRemoteServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E18D3AB1EDB56280329B899 /* Build configuration list for PBXNativeTarget "MikanRemoteServer" */;
+			buildPhases = (
+				9D259D68BF07544E77462C25 /* Sources */,
+				7ECC6E6C3D446702556748A6 /* Resources */,
+				12508E7293032B265BAF82CD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MikanRemoteServer;
+			packageProductDependencies = (
+				B4737F85893F032665034CCF /* MikanProtocol */,
+			);
+			productName = MikanRemoteServer;
+			productReference = 365D7A95760BF4952A07DA15 /* MikanRemoteServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A36DB40BFE361229AB0E055B /* MikanRemoteServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 691087BAE316973BF8226AA7 /* Build configuration list for PBXNativeTarget "MikanRemoteServerTests" */;
+			buildPhases = (
+				765EEE6AD8E27BE763F4CAE7 /* Sources */,
+				31A1786EDDA7B4549195CA62 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC003BA24FFD32C51309FB14 /* PBXTargetDependency */,
+			);
+			name = MikanRemoteServerTests;
+			packageProductDependencies = (
+				385464561B5FC3CF8F084DD8 /* MikanProtocol */,
+			);
+			productName = MikanRemoteServerTests;
+			productReference = E12BDF09E2D95EF60F60FA45 /* MikanRemoteServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9629500BCA54719E919C444F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					05168D58B5ECF46266EA3DF0 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E2A424576BFC82E10C1A45B8 /* Build configuration list for PBXProject "MikanRemoteServer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 76FB4E91EBA4A817B2170703;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				137B152C1A257AA2B993B4EE /* XCLocalSwiftPackageReference "../MikanProtocol" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BF75BC48EABBB5026DE923D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				05168D58B5ECF46266EA3DF0 /* MikanRemoteServer */,
+				A36DB40BFE361229AB0E055B /* MikanRemoteServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7ECC6E6C3D446702556748A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C19B5D725A1E1808A4E03543 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		765EEE6AD8E27BE763F4CAE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F041E21F76E1D20946EAA156 /* ActionStoreTests.swift in Sources */,
+				805BF74E8992190810F10D1F /* MouseControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D259D68BF07544E77462C25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAB67EA1A7452D386F574D53 /* AccessibilityPermission.swift in Sources */,
+				25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */,
+				687775EA770F00898BC53A87 /* ActionStore.swift in Sources */,
+				8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */,
+				9A0219F3BB9B811DF11B9946 /* LaunchAtLogin.swift in Sources */,
+				A33B08A53314994EB9036382 /* MenuBarManager.swift in Sources */,
+				65CC42839C4A4E39D892CBAF /* MikanRemoteServerApp.swift in Sources */,
+				E9082534B6B47BEA5977CCAF /* MouseController.swift in Sources */,
+				AF6E8F52F56276059B542289 /* PairingCodeWindow.swift in Sources */,
+				9B13281CF4E3FD280A8B2528 /* PairingStore.swift in Sources */,
+				832B37751E61C3D7019F9412 /* WebSocketServer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC003BA24FFD32C51309FB14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05168D58B5ECF46266EA3DF0 /* MikanRemoteServer */;
+			targetProxy = 865EB29D4988663AD1CFB242 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3F34C7A4AEE27DE91800B7F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MikanRemoteServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServer";
+				PRODUCT_NAME = MikanRemoteServer;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		75F90E9BCCF683C6C392D44B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServerTests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanRemoteServer.app/Contents/MacOS/MikanRemoteServer";
+			};
+			name = Debug;
+		};
+		9B1B3E760BA5277712E159C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = MikanRemoteServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServer";
+				PRODUCT_NAME = MikanRemoteServer;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		9E1A2501127D0D1EE730FF33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB65CA75AD399E587AB3B12A /* Project.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C4968B37114FD2D9F8CBAB1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServerTests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanRemoteServer.app/Contents/MacOS/MikanRemoteServer";
+			};
+			name = Release;
+		};
+		DAEDDAEA7D8E61E0E2E4482D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB65CA75AD399E587AB3B12A /* Project.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E18D3AB1EDB56280329B899 /* Build configuration list for PBXNativeTarget "MikanRemoteServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B1B3E760BA5277712E159C1 /* Debug */,
+				3F34C7A4AEE27DE91800B7F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		691087BAE316973BF8226AA7 /* Build configuration list for PBXNativeTarget "MikanRemoteServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75F90E9BCCF683C6C392D44B /* Debug */,
+				C4968B37114FD2D9F8CBAB1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E2A424576BFC82E10C1A45B8 /* Build configuration list for PBXProject "MikanRemoteServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAEDDAEA7D8E61E0E2E4482D /* Debug */,
+				9E1A2501127D0D1EE730FF33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		137B152C1A257AA2B993B4EE /* XCLocalSwiftPackageReference "../MikanProtocol" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../MikanProtocol;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		385464561B5FC3CF8F084DD8 /* MikanProtocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MikanProtocol;
+		};
+		B4737F85893F032665034CCF /* MikanProtocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MikanProtocol;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9629500BCA54719E919C444F /* Project object */;
+}

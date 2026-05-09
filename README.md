@@ -1,4 +1,4 @@
-# Mikan Remote
+# MikanRemote
 
 A simple iPhone app to remote-control a Mac over your local network. Designed for when you're on an exercise bike and want to watch Netflix or YouTube on your Mac's display.
 
@@ -32,10 +32,10 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 1. (Optional but recommended) Copy `Local.xcconfig.example` to `Local.xcconfig` and set `BUNDLE_PREFIX` and `DEVELOPMENT_TEAM` so codesigning stays stable across rebuilds — otherwise macOS will keep re-prompting for Accessibility permission.
 2. Build and install:
    ```bash
-   cd MikanServer
+   cd MikanRemoteServer
    xcodegen generate
-   xcodebuild -scheme MikanServer -configuration Release build
-   APP_PATH=$(xcodebuild -scheme MikanServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
+   xcodebuild -scheme MikanRemoteServer -configuration Release build
+   APP_PATH=$(xcodebuild -scheme MikanRemoteServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
    rm -rf /Applications/MikanRemoteServer.app && cp -R "$APP_PATH/MikanRemoteServer.app" /Applications/MikanRemoteServer.app
    ```
 3. Launch `/Applications/MikanRemoteServer.app`. An antenna icon appears in the menu bar.
@@ -141,11 +141,11 @@ If you don't know an app's URL scheme, the simplest test is to type it into Safa
 
 ### Icons
 
-The icon picker is a fixed list of SF Symbols (Apple TV, Play, Film, Music Note, Globe, Star, Heart, etc.). To add new icons, edit `iconChoices` in both `MikanRemote/MikanRemote/SettingsView.swift` and `MikanServer/MikanServer/ActionEditorView.swift` — the lists are intentionally kept identical so iPhone and Mac editors offer the same options.
+The icon picker is a fixed list of SF Symbols (Apple TV, Play, Film, Music Note, Globe, Star, Heart, etc.). To add new icons, edit `iconChoices` in both `MikanRemote/MikanRemote/SettingsView.swift` and `MikanRemoteServer/MikanRemoteServer/ActionEditorView.swift` — the lists are intentionally kept identical so iPhone and Mac editors offer the same options.
 
 ## Project Structure
 
-- `MikanServer/` — macOS menu bar app source (Xcode project, product bundle is `MikanRemoteServer.app`)
+- `MikanRemoteServer/` — macOS menu bar app source (Xcode project, product bundle is `MikanRemoteServer.app`)
 - `MikanRemote/` — iOS app (Xcode project)
 - `MikanProtocol/` — Shared Swift Package defining WebSocket message types and the `Action` model
 - `docs/testing-guide.md` — Detailed end-to-end test procedure

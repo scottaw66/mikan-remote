@@ -1,5 +1,5 @@
 import XCTest
-@testable import MikanServer
+@testable import MikanRemoteServer
 import MikanProtocol
 
 final class ActionStoreTests: XCTestCase {

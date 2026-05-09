@@ -1,4 +1,4 @@
-// MikanServer/MikanServer/ActionEditorView.swift
+// MikanRemoteServer/MikanRemoteServer/ActionEditorView.swift
 import SwiftUI
 import MikanProtocol
 

@@ -1,4 +1,4 @@
-name: MikanServer
+name: MikanRemoteServer
 options:
   bundleIdPrefix: com.example
   deploymentTarget:
@@ -14,45 +14,45 @@ packages:
     path: ../MikanProtocol
 
 targets:
-  MikanServer:
+  MikanRemoteServer:
     type: application
     platform: macOS
     sources:
-      - MikanServer
+      - MikanRemoteServer
     dependencies:
       - package: MikanProtocol
     settings:
       base:
         PRODUCT_NAME: MikanRemoteServer
-        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanServer
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanRemoteServer
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "14.0"
-        INFOPLIST_FILE: MikanServer/Info.plist
+        INFOPLIST_FILE: MikanRemoteServer/Info.plist
         CODE_SIGN_STYLE: Automatic
       configs:
         Debug:
           ENABLE_TESTABILITY: YES
     info:
-      path: MikanServer/Info.plist
+      path: MikanRemoteServer/Info.plist
       properties:
         CFBundleDisplayName: MikanRemoteServer
         LSUIElement: YES
         NSPrincipalClass: NSApplication
-        NSLocalNetworkUsageDescription: "MikanServer needs local network access to accept connections from Mikan Remote."
+        NSLocalNetworkUsageDescription: "MikanRemoteServer needs local network access to accept connections from MikanRemote."
         NSBonjourServices:
           - _mikan._tcp
 
-  MikanServerTests:
+  MikanRemoteServerTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - MikanServerTests
+      - MikanRemoteServerTests
     dependencies:
-      - target: MikanServer
+      - target: MikanRemoteServer
       - package: MikanProtocol
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanServerTests
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanRemoteServerTests
         SWIFT_VERSION: "5.9"
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         GENERATE_INFOPLIST_FILE: YES

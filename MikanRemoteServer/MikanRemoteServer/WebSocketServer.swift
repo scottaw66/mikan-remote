@@ -1,4 +1,4 @@
-// MikanServer/MikanServer/WebSocketServer.swift
+// MikanRemoteServer/MikanRemoteServer/WebSocketServer.swift
 import Foundation
 import Network
 import MikanProtocol

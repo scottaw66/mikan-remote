@@ -49,7 +49,7 @@ targets:
       path: MikanRemote/Info.plist
       properties:
         CFBundleDisplayName: MikanRemote
-        NSLocalNetworkUsageDescription: "Mikan Remote needs local network access to find and connect to your Mac."
+        NSLocalNetworkUsageDescription: "MikanRemote needs local network access to find and connect to your Mac."
         NSBonjourServices:
           - _mikan._tcp
         UILaunchScreen: {}

@@ -25,7 +25,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>MikanServer needs local network access to accept connections from Mikan Remote.</string>
+	<string>MikanRemoteServer needs local network access to accept connections from MikanRemote.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_mikan._tcp</string>

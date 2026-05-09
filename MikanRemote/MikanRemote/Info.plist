@@ -25,7 +25,7 @@
 		<string>_mikan._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Mikan Remote needs local network access to find and connect to your Mac.</string>
+	<string>MikanRemote needs local network access to find and connect to your Mac.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 </dict>
