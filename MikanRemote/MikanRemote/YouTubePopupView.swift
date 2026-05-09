@@ -22,8 +22,8 @@ struct YouTubePopupView: View {
                 fullWidthButton(label: "Captions", icon: "captions.bubble", command: "ytToggleCaptions")
 
                 HStack(spacing: 12) {
-                    pairedButton(label: "Slower <", icon: "tortoise.fill", command: "ytSlowDown")
-                    pairedButton(label: "> Faster", icon: "hare.fill", command: "ytSpeedUp")
+                    pairedButton(label: "- Slower", icon: "tortoise.fill", command: "ytSlowDown")
+                    pairedButton(label: "Faster +", icon: "hare.fill", command: "ytSpeedUp")
                 }
 
                 fullWidthButton(label: "Fullscreen", icon: "arrow.up.left.and.arrow.down.right", command: "ytFullscreen")
