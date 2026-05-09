@@ -32,9 +32,9 @@
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadView.swift; sourceTree = "<group>"; };
 		E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonsView.swift; sourceTree = "<group>"; };
+		EBDF926322C5B663F8DB10A3 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		EF2EC16723F3F73D57BB88E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F81E16098698A4D19E486103 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
-		F850D5388E960D01171520AC /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +57,15 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		25CD150A3B3CFBC0E03CE18A /* mikanremote */ = {
+			isa = PBXGroup;
+			children = (
+				EBDF926322C5B663F8DB10A3 /* Project.xcconfig */,
+			);
+			name = mikanremote;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		3685D6D05E7E934B7EB380DE /* MikanRemote */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,20 +84,11 @@
 			path = MikanRemote;
 			sourceTree = "<group>";
 		};
-		C9CD168223EA40E4964D26D6 /* mikan-remote */ = {
-			isa = PBXGroup;
-			children = (
-				F850D5388E960D01171520AC /* Project.xcconfig */,
-			);
-			name = "mikan-remote";
-			path = ..;
-			sourceTree = "<group>";
-		};
 		E3B0AFFC4B49F9378A482FD9 = {
 			isa = PBXGroup;
 			children = (
-				C9CD168223EA40E4964D26D6 /* mikan-remote */,
 				3685D6D05E7E934B7EB380DE /* MikanRemote */,
+				25CD150A3B3CFBC0E03CE18A /* mikanremote */,
 				24F8BA9415AF665A600143E4 /* Packages */,
 				F6C1783F3252DAF99FD36985 /* Products */,
 			);
@@ -232,7 +232,7 @@
 		};
 		C42BF3AC1E3672405F41CB8D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F850D5388E960D01171520AC /* Project.xcconfig */;
+			baseConfigurationReference = EBDF926322C5B663F8DB10A3 /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -289,7 +289,7 @@
 		};
 		E222B139BAC7B0BD49A69A36 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F850D5388E960D01171520AC /* Project.xcconfig */;
+			baseConfigurationReference = EBDF926322C5B663F8DB10A3 /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
