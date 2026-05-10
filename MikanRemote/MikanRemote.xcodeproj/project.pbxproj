@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33EA3B525051DB9455E94E3A /* PendingShareDispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826E63103069F11D44CEC988 /* PendingShareDispatcherTests.swift */; };
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
 		38F13DAF11708F777E18DE9B /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 518CE4BC4631869589EB92CF /* MikanProtocol */; };
 		49D362EBA97412A9374C4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9252262C61272DE0ED0AEC48 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		D197CEF134F281F964F9A41F /* SharedDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */; };
 		E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2EC16723F3F73D57BB88E8 /* ContentView.swift */; };
 		E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */; };
+		EB1A713A28442676E9731A0C /* PendingShareDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4AC5AC7567B6E76F30542F /* PendingShareDispatcher.swift */; };
 		EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D59E80F43720FF8D3808F /* SharedDefaults.swift */; };
 		F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D501735732C0F3972B840E /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		16C11006B0EF45589B98CFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2E4AC5AC7567B6E76F30542F /* PendingShareDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingShareDispatcher.swift; sourceTree = "<group>"; };
 		34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubePopupView.swift; sourceTree = "<group>"; };
 		48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefaultsTests.swift; sourceTree = "<group>"; };
 		494D59E80F43720FF8D3808F /* SharedDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefaults.swift; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPickerView.swift; sourceTree = "<group>"; };
 		8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MikanRemoteShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		826E63103069F11D44CEC988 /* PendingShareDispatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingShareDispatcherTests.swift; sourceTree = "<group>"; };
 		8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVisibility.swift; sourceTree = "<group>"; };
 		9252262C61272DE0ED0AEC48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B74459A8BCFA8F0BCA56610B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 				EF2EC16723F3F73D57BB88E8 /* ContentView.swift */,
 				16C11006B0EF45589B98CFFB /* Info.plist */,
 				4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */,
+				2E4AC5AC7567B6E76F30542F /* PendingShareDispatcher.swift */,
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
 				B74459A8BCFA8F0BCA56610B /* SettingsView.swift */,
 				DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */,
@@ -148,6 +153,7 @@
 		8C14FE3816E10EE9BE82F1A2 /* MikanRemoteTests */ = {
 			isa = PBXGroup;
 			children = (
+				826E63103069F11D44CEC988 /* PendingShareDispatcherTests.swift */,
 				48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */,
 			);
 			path = MikanRemoteTests;
@@ -313,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33EA3B525051DB9455E94E3A /* PendingShareDispatcherTests.swift in Sources */,
 				D197CEF134F281F964F9A41F /* SharedDefaultsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +332,7 @@
 				F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */,
 				E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */,
 				AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */,
+				EB1A713A28442676E9731A0C /* PendingShareDispatcher.swift in Sources */,
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
 				EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */,

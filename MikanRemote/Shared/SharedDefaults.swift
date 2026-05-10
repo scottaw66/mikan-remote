@@ -1,5 +1,9 @@
 import Foundation
 
+protocol PendingURLStore: AnyObject {
+    var pendingShareURL: String? { get set }
+}
+
 final class SharedDefaults {
     static let shared: SharedDefaults = {
         guard let id = Bundle.main.object(forInfoDictionaryKey: "MikanAppGroupIdentifier") as? String,
@@ -33,3 +37,5 @@ final class SharedDefaults {
         static let pendingShareURL = "pendingShareURL"
     }
 }
+
+extension SharedDefaults: PendingURLStore {}
