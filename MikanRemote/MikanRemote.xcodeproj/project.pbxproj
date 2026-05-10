@@ -14,6 +14,7 @@
 		4CADAF3E6B62BA9EF7233FDB /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 92F7A56EF7DDFA61E02BE4F9 /* MikanProtocol */; };
 		52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */; };
 		5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74459A8BCFA8F0BCA56610B /* SettingsView.swift */; };
+		63F383A54CBE450EA210E990 /* UtilitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82269B0881789CD01F548F /* UtilitiesView.swift */; };
 		6BDB2398BCC8D09D508EB56B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85381DF0AF8D451ACC94CB6 /* ShareViewController.swift */; };
 		78D4DD2B2EEBD2D2A47B77B3 /* SharedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D59E80F43720FF8D3808F /* SharedDefaults.swift */; };
 		7C4425676182ABD80BF6C0F4 /* ActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */; };
@@ -83,6 +84,7 @@
 		EBDF926322C5B663F8DB10A3 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		EF2EC16723F3F73D57BB88E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F81E16098698A4D19E486103 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
+		FB82269B0881789CD01F548F /* UtilitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
 				B74459A8BCFA8F0BCA56610B /* SettingsView.swift */,
 				DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */,
+				FB82269B0881789CD01F548F /* UtilitiesView.swift */,
 				34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */,
 				8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */,
 			);
@@ -337,6 +340,7 @@
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
 				EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */,
 				CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */,
+				63F383A54CBE450EA210E990 /* UtilitiesView.swift in Sources */,
 				E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */,
 				52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */,
 			);
