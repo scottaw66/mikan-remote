@@ -2,8 +2,13 @@ import Foundation
 
 final class SharedDefaults {
     static let shared: SharedDefaults = {
-        let id = Bundle.main.object(forInfoDictionaryKey: "MikanAppGroupIdentifier") as? String ?? ""
-        let defaults = UserDefaults(suiteName: id) ?? .standard
+        guard let id = Bundle.main.object(forInfoDictionaryKey: "MikanAppGroupIdentifier") as? String,
+              !id.isEmpty else {
+            preconditionFailure("MikanAppGroupIdentifier missing or empty in Info.plist — main app and share extension cannot share state")
+        }
+        guard let defaults = UserDefaults(suiteName: id) else {
+            preconditionFailure("UserDefaults(suiteName:) returned nil for \(id) — App Group entitlement likely misconfigured")
+        }
         return SharedDefaults(defaults: defaults)
     }()
 
