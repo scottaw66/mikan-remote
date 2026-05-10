@@ -5,8 +5,10 @@ import MikanProtocol
 
 struct ContentView: View {
     @Bindable var connectionManager: ConnectionManager
+    @Bindable var dispatcher: PendingShareDispatcher
     @State private var showSettings = false
     @State private var showYouTubePopup = false
+    @State private var showUtilities = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -55,7 +57,6 @@ struct ContentView: View {
                 .padding()
                 Spacer()
             } else if connectionManager.hostname == nil {
-                // Connected but waiting for server handshake
                 Spacer()
                 ProgressView("Authenticating...")
                     .padding()
@@ -63,12 +64,17 @@ struct ContentView: View {
             } else {
                 Spacer()
 
+                DispatcherBanner(
+                    state: dispatcher.state,
+                    hostname: connectionManager.hostname,
+                    onRetry: { dispatcher.retry() }
+                )
+
                 VolumeButtonsView(
                     onCommand: { connectionManager.send(.performCommand(command: $0)) }
                 )
                 .padding(.bottom, 4)
 
-                // Trackpad
                 TrackpadView(
                     onMove: { dx, dy in
                         connectionManager.send(.mouseMove(deltaX: dx, deltaY: dy))
@@ -84,7 +90,6 @@ struct ContentView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 4)
 
-                // Action buttons
                 ActionButtonsView(
                     actions: connectionManager.actions,
                     onCommand: { connectionManager.send(.performCommand(command: $0)) },
@@ -113,17 +118,22 @@ struct ContentView: View {
                             showYouTubePopup = true
                         } label: {
                             Image(systemName: "play.rectangle.fill")
-                                .font(.caption)
-                                .foregroundStyle(.red)
+                                .topBarIcon(tint: .red)
                         }
                         .padding(.trailing, 8)
                     }
                     Button {
+                        showUtilities = true
+                    } label: {
+                        Image(systemName: "wrench.and.screwdriver")
+                            .topBarIcon()
+                    }
+                    .padding(.trailing, 8)
+                    Button {
                         showSettings = true
                     } label: {
                         Image(systemName: "gearshape")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .topBarIcon()
                     }
                 }
                 .padding(.horizontal)
@@ -139,10 +149,12 @@ struct ContentView: View {
                 onCommand: { connectionManager.send(.performCommand(command: $0)) }
             )
         }
+        .sheet(isPresented: $showUtilities) {
+            UtilitiesView(connectionManager: connectionManager)
+        }
     }
 }
 
-// UIKit wrapper — becomeFirstResponder() via didMoveToWindow is the only reliable auto-focus on iOS
 private class AutoFocusTextField: UITextField {
     override func didMoveToWindow() {
         super.didMoveToWindow()
