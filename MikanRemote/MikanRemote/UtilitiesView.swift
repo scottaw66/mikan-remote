@@ -27,6 +27,7 @@ struct UtilitiesView: View {
                         sendURL(url.absoluteString)
                     }
                     .buttonBorderShape(.capsule)
+                    .disabled(!connectionManager.isConnected)
 
                     HStack {
                         TextField("https://…", text: $typedURL)
@@ -37,7 +38,7 @@ struct UtilitiesView: View {
                             .onSubmit { sendTypedIfValid() }
 
                         Button("Send") { sendTypedIfValid() }
-                            .disabled(!isTypedURLValid)
+                            .disabled(!isTypedURLValid || !connectionManager.isConnected)
                     }
 
                     if lastSendOK {
