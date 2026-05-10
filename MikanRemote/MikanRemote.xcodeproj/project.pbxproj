@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12DB23279AFF6D5B35141B86 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D29CCC61FC3D42A95A868 /* Stub.swift */; };
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
+		38F13DAF11708F777E18DE9B /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 518CE4BC4631869589EB92CF /* MikanProtocol */; };
 		49D362EBA97412A9374C4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9252262C61272DE0ED0AEC48 /* Assets.xcassets */; };
 		4CADAF3E6B62BA9EF7233FDB /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 92F7A56EF7DDFA61E02BE4F9 /* MikanProtocol */; };
 		52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */; };
 		5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74459A8BCFA8F0BCA56610B /* SettingsView.swift */; };
+		6BDB2398BCC8D09D508EB56B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85381DF0AF8D451ACC94CB6 /* ShareViewController.swift */; };
 		7C4425676182ABD80BF6C0F4 /* ActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */; };
+		818B9106322A1F1518C6F8A9 /* MikanRemoteShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */; };
 		CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */; };
 		E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2EC16723F3F73D57BB88E8 /* ContentView.swift */; };
@@ -20,24 +24,69 @@
 		F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D501735732C0F3972B840E /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7A3B934EE6291146B32A8607 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 317C3FB5B21AB3351F106C34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5311EE747FEF35DE9A490708;
+			remoteInfo = MikanRemoteShare;
+		};
+		CD8248FA84F87AD6A7BB6CC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 317C3FB5B21AB3351F106C34 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBEE1861120F2856CA1406D6;
+			remoteInfo = MikanRemote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A7FA336A380316F2C332772C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				818B9106322A1F1518C6F8A9 /* MikanRemoteShare.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		16C11006B0EF45589B98CFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubePopupView.swift; sourceTree = "<group>"; };
 		4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteApp.swift; sourceTree = "<group>"; };
+		6370CFCDCA9B223C4347CF0A /* MikanRemoteTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MikanRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPickerView.swift; sourceTree = "<group>"; };
+		8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MikanRemoteShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVisibility.swift; sourceTree = "<group>"; };
 		9252262C61272DE0ED0AEC48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B74459A8BCFA8F0BCA56610B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BA5D29CCC61FC3D42A95A868 /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C852A67ED137F850C7C29B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadView.swift; sourceTree = "<group>"; };
 		E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonsView.swift; sourceTree = "<group>"; };
+		E377BCE8B22A5397EE719DBC /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		E85381DF0AF8D451ACC94CB6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		EBDF926322C5B663F8DB10A3 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		EF2EC16723F3F73D57BB88E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F81E16098698A4D19E486103 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55F0919D095212617C4EDC18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38F13DAF11708F777E18DE9B /* MikanProtocol in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63AB6B59BF645A8485518A32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -49,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08FFED1C5237F1143F841FB2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E377BCE8B22A5397EE719DBC /* .gitkeep */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		24F8BA9415AF665A600143E4 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,12 +141,32 @@
 			path = MikanRemote;
 			sourceTree = "<group>";
 		};
+		8C14FE3816E10EE9BE82F1A2 /* MikanRemoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA5D29CCC61FC3D42A95A868 /* Stub.swift */,
+			);
+			path = MikanRemoteTests;
+			sourceTree = "<group>";
+		};
+		947BE95CECBCCAEDBEC0EB1E /* MikanRemoteShare */ = {
+			isa = PBXGroup;
+			children = (
+				C852A67ED137F850C7C29B6F /* Info.plist */,
+				E85381DF0AF8D451ACC94CB6 /* ShareViewController.swift */,
+			);
+			path = MikanRemoteShare;
+			sourceTree = "<group>";
+		};
 		E3B0AFFC4B49F9378A482FD9 = {
 			isa = PBXGroup;
 			children = (
 				3685D6D05E7E934B7EB380DE /* MikanRemote */,
 				25CD150A3B3CFBC0E03CE18A /* mikanremote */,
+				947BE95CECBCCAEDBEC0EB1E /* MikanRemoteShare */,
+				8C14FE3816E10EE9BE82F1A2 /* MikanRemoteTests */,
 				24F8BA9415AF665A600143E4 /* Packages */,
+				08FFED1C5237F1143F841FB2 /* Shared */,
 				F6C1783F3252DAF99FD36985 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				C658FD130883DAE53A7B72B9 /* MikanRemote.app */,
+				8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */,
+				6370CFCDCA9B223C4347CF0A /* MikanRemoteTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,6 +184,43 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5311EE747FEF35DE9A490708 /* MikanRemoteShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2715FCE3BA2198BB297A99D /* Build configuration list for PBXNativeTarget "MikanRemoteShare" */;
+			buildPhases = (
+				1FA7C75FD0DB232366CF07D6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MikanRemoteShare;
+			packageProductDependencies = (
+			);
+			productName = MikanRemoteShare;
+			productReference = 8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		CB5A06455703698912981899 /* MikanRemoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA745DB5A4A02107215A0FE1 /* Build configuration list for PBXNativeTarget "MikanRemoteTests" */;
+			buildPhases = (
+				67C16E64A6FF3AB602FC4AA6 /* Sources */,
+				55F0919D095212617C4EDC18 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFE848E9392F00D63B1D1E77 /* PBXTargetDependency */,
+			);
+			name = MikanRemoteTests;
+			packageProductDependencies = (
+				518CE4BC4631869589EB92CF /* MikanProtocol */,
+			);
+			productName = MikanRemoteTests;
+			productReference = 6370CFCDCA9B223C4347CF0A /* MikanRemoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DBEE1861120F2856CA1406D6 /* MikanRemote */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D109220981829E92FD594B44 /* Build configuration list for PBXNativeTarget "MikanRemote" */;
@@ -112,10 +228,12 @@
 				81C8167CC3E8DEA5DBC3C9DF /* Sources */,
 				92FF34F64E447096F8E0228D /* Resources */,
 				63AB6B59BF645A8485518A32 /* Frameworks */,
+				A7FA336A380316F2C332772C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CB0754EE2481558D26A91467 /* PBXTargetDependency */,
 			);
 			name = MikanRemote;
 			packageProductDependencies = (
@@ -134,6 +252,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					5311EE747FEF35DE9A490708 = {
+						ProvisioningStyle = Automatic;
+					};
 					DBEE1861120F2856CA1406D6 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -157,6 +278,8 @@
 			projectRoot = "";
 			targets = (
 				DBEE1861120F2856CA1406D6 /* MikanRemote */,
+				5311EE747FEF35DE9A490708 /* MikanRemoteShare */,
+				CB5A06455703698912981899 /* MikanRemoteTests */,
 			);
 		};
 /* End PBXProject section */
@@ -173,6 +296,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1FA7C75FD0DB232366CF07D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BDB2398BCC8D09D508EB56B /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67C16E64A6FF3AB602FC4AA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12DB23279AFF6D5B35141B86 /* Stub.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81C8167CC3E8DEA5DBC3C9DF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,11 +330,99 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		CB0754EE2481558D26A91467 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5311EE747FEF35DE9A490708 /* MikanRemoteShare */;
+			targetProxy = 7A3B934EE6291146B32A8607 /* PBXContainerItemProxy */;
+		};
+		CFE848E9392F00D63B1D1E77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBEE1861120F2856CA1406D6 /* MikanRemote */;
+			targetProxy = CD8248FA84F87AD6A7BB6CC4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		0BD3441E8317CB867C1AEF8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MikanRemoteShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MikanRemoteShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemote.Share";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1CFDF13B582586E1FB5E2FC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MikanRemoteTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanRemote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MikanRemote";
+			};
+			name = Release;
+		};
+		2F7A72430DFB9F250FAED9DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MikanRemoteShare.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MikanRemoteShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemote.Share";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3570936FC519F5177DE191D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MikanRemoteTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MikanRemote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MikanRemote";
+			};
+			name = Debug;
+		};
 		5E1D03F434DD46EC00CE2886 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MikanRemote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MikanRemote/Info.plist;
@@ -215,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MikanRemote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MikanRemote/Info.plist;
@@ -363,11 +591,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		CA745DB5A4A02107215A0FE1 /* Build configuration list for PBXNativeTarget "MikanRemoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3570936FC519F5177DE191D0 /* Debug */,
+				1CFDF13B582586E1FB5E2FC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		D109220981829E92FD594B44 /* Build configuration list for PBXNativeTarget "MikanRemote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7E476E30A00C72854064720 /* Debug */,
 				5E1D03F434DD46EC00CE2886 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E2715FCE3BA2198BB297A99D /* Build configuration list for PBXNativeTarget "MikanRemoteShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BD3441E8317CB867C1AEF8C /* Debug */,
+				2F7A72430DFB9F250FAED9DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -382,6 +628,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		518CE4BC4631869589EB92CF /* MikanProtocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MikanProtocol;
+		};
 		92F7A56EF7DDFA61E02BE4F9 /* MikanProtocol */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MikanProtocol;

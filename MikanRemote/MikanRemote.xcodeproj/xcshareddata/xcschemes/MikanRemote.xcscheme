@@ -21,6 +21,20 @@
                ReferencedContainer = "container:MikanRemote.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5311EE747FEF35DE9A490708"
+               BuildableName = "MikanRemoteShare.appex"
+               BlueprintName = "MikanRemoteShare"
+               ReferencedContainer = "container:MikanRemote.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -39,6 +53,17 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CB5A06455703698912981899"
+               BuildableName = "MikanRemoteTests.xctest"
+               BlueprintName = "MikanRemoteTests"
+               ReferencedContainer = "container:MikanRemote.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

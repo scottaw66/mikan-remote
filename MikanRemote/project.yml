@@ -18,11 +18,14 @@ schemes:
     build:
       targets:
         MikanRemote: all
+        MikanRemoteShare: all
     run:
       config: Release
       debugEnabled: false
     test:
       config: Debug
+      targets:
+        - MikanRemoteTests
     profile:
       config: Release
     analyze:
@@ -36,8 +39,10 @@ targets:
     platform: iOS
     sources:
       - MikanRemote
+      - Shared
     dependencies:
       - package: MikanProtocol
+      - target: MikanRemoteShare
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanRemote
@@ -45,11 +50,34 @@ targets:
         IPHONEOS_DEPLOYMENT_TARGET: "17.0"
         INFOPLIST_FILE: MikanRemote/Info.plist
         CODE_SIGN_STYLE: Automatic
-    info:
-      path: MikanRemote/Info.plist
-      properties:
-        CFBundleDisplayName: MikanRemote
-        NSLocalNetworkUsageDescription: "MikanRemote needs local network access to find and connect to your Mac."
-        NSBonjourServices:
-          - _mikan._tcp
-        UILaunchScreen: {}
+        CODE_SIGN_ENTITLEMENTS: MikanRemote.entitlements
+
+  MikanRemoteShare:
+    type: app-extension
+    platform: iOS
+    sources:
+      - MikanRemoteShare
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BUNDLE_PREFIX).MikanRemote.Share
+        SWIFT_VERSION: "5.9"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        INFOPLIST_FILE: MikanRemoteShare/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: MikanRemoteShare.entitlements
+
+  MikanRemoteTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - MikanRemoteTests
+    dependencies:
+      - target: MikanRemote
+      - package: MikanProtocol
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        BUNDLE_LOADER: $(TEST_HOST)
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/MikanRemote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MikanRemote
