@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12DB23279AFF6D5B35141B86 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D29CCC61FC3D42A95A868 /* Stub.swift */; };
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
 		38F13DAF11708F777E18DE9B /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 518CE4BC4631869589EB92CF /* MikanProtocol */; };
 		49D362EBA97412A9374C4EF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9252262C61272DE0ED0AEC48 /* Assets.xcassets */; };
@@ -15,12 +14,15 @@
 		52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */; };
 		5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74459A8BCFA8F0BCA56610B /* SettingsView.swift */; };
 		6BDB2398BCC8D09D508EB56B /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85381DF0AF8D451ACC94CB6 /* ShareViewController.swift */; };
+		78D4DD2B2EEBD2D2A47B77B3 /* SharedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D59E80F43720FF8D3808F /* SharedDefaults.swift */; };
 		7C4425676182ABD80BF6C0F4 /* ActionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */; };
 		818B9106322A1F1518C6F8A9 /* MikanRemoteShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8171B83EAB26380C71A6BA2C /* MikanRemoteShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */; };
 		CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */; };
+		D197CEF134F281F964F9A41F /* SharedDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */; };
 		E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2EC16723F3F73D57BB88E8 /* ContentView.swift */; };
 		E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */; };
+		EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D59E80F43720FF8D3808F /* SharedDefaults.swift */; };
 		F416BD685D991EEE06AA9D47 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D501735732C0F3972B840E /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,8 @@
 /* Begin PBXFileReference section */
 		16C11006B0EF45589B98CFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34D66CF7CA03ED8B19141F4D /* YouTubePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubePopupView.swift; sourceTree = "<group>"; };
+		48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefaultsTests.swift; sourceTree = "<group>"; };
+		494D59E80F43720FF8D3808F /* SharedDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefaults.swift; sourceTree = "<group>"; };
 		4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteApp.swift; sourceTree = "<group>"; };
 		6370CFCDCA9B223C4347CF0A /* MikanRemoteTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MikanRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68D501735732C0F3972B840E /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -66,7 +70,6 @@
 		8AF504F28519B5868F5D7746 /* YouTubeVisibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeVisibility.swift; sourceTree = "<group>"; };
 		9252262C61272DE0ED0AEC48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B74459A8BCFA8F0BCA56610B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		BA5D29CCC61FC3D42A95A868 /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852A67ED137F850C7C29B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadView.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				E377BCE8B22A5397EE719DBC /* .gitkeep */,
+				494D59E80F43720FF8D3808F /* SharedDefaults.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -144,7 +148,7 @@
 		8C14FE3816E10EE9BE82F1A2 /* MikanRemoteTests */ = {
 			isa = PBXGroup;
 			children = (
-				BA5D29CCC61FC3D42A95A868 /* Stub.swift */,
+				48C54F7DA2D15F93776AA9C3 /* SharedDefaultsTests.swift */,
 			);
 			path = MikanRemoteTests;
 			sourceTree = "<group>";
@@ -301,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BDB2398BCC8D09D508EB56B /* ShareViewController.swift in Sources */,
+				78D4DD2B2EEBD2D2A47B77B3 /* SharedDefaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12DB23279AFF6D5B35141B86 /* Stub.swift in Sources */,
+				D197CEF134F281F964F9A41F /* SharedDefaultsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +327,7 @@
 				AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */,
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
+				EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */,
 				CE58C880560453EF3AEDE23C /* TrackpadView.swift in Sources */,
 				E622CBB209088D89B2389091 /* YouTubePopupView.swift in Sources */,
 				52B91E4773479A1BE89A1883 /* YouTubeVisibility.swift in Sources */,
@@ -367,6 +373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -404,6 +411,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
