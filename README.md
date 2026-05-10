@@ -8,6 +8,8 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 - Browser tab management — close tab, switch between tabs
 - Video controls — play/pause, skip forward/backward, fullscreen, escape
 - **YouTube Controls popup** — chapter skip, playlist nav, captions, playback rate, ±5s seek, play/pause, fullscreen, all in a dedicated sheet (see below)
+- **Utilities sheet** — screenshot (⇧⌘3 on Mac), one-tap paste-clipboard-to-Mac, typed URL → Mac (see below)
+- **Share Sheet integration** — share any URL from Safari → MikanRemote and the Mac browser opens it
 - Volume control buttons (simulates Mac media keys)
 - Configurable quick-action buttons (open URLs or apps via URL schemes, max 6)
 - Default buttons for Apple TV (`videos://`), Netflix, and YouTube
@@ -102,6 +104,34 @@ The launcher icon's visibility is controlled by a 3-state setting available on *
 - **Always Off** — icon is hidden regardless.
 
 The setting persists on the Mac (server is the single source of truth) and syncs to the iPhone whenever it changes.
+
+## Utilities Sheet
+
+A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and the gear) opens the Utilities sheet — a small toolbox for one-off actions that aren't part of the main remote flow.
+
+### Buttons
+
+- **Take Screenshot** — fires ⇧⌘3 on the Mac (full-screen capture to the desktop).
+- **Paste** — reads a URL from the iPhone clipboard and tells the Mac to open it. Uses SwiftUI `PasteButton`, so iOS doesn't show the "Pasted from <app>" privacy toast.
+- **URL textbox + Send** — type or paste a URL, tap Send, the Mac opens it. Send is disabled until the URL parses and a connection is available.
+
+All three reuse the existing `openURL` / `performCommand` WebSocket messages — no separate plumbing on the server side. The screenshot button used to live in Settings; it has moved here.
+
+## Share Extension (Share-to-Mac)
+
+MikanRemote registers as a destination in the iOS share sheet for URL shares. From Safari (or any app with a URL share), tap Share → MikanRemote and the Mac browser opens that URL.
+
+### How it works
+
+1. iOS launches the extension; it writes the URL into an App Group container (`group.<bundle-prefix>.mikanremote`).
+2. The extension opens `mikanremote://share`, which brings the main MikanRemote app to the foreground.
+3. The main app reads the URL from the App Group and forwards it via the existing `openURL` WebSocket message.
+4. If the WebSocket isn't ready yet (the iPhone often needs 0–5 seconds to reconnect after foregrounding), the app shows a "Sending to <hostname>…" banner and drains the URL as soon as the connection is up.
+5. On a 10-second timeout, the banner switches to "Couldn't reach Mac — Retry". The URL stays queued until you retry or close the app.
+
+A second share before the first drains overwrites — only the latest URL is sent. There is no queue.
+
+The Share Extension and main app must share an App Group entitlement. xcodegen wires this up from `MikanRemote/MikanRemote.entitlements` and `MikanRemote/MikanRemoteShare.entitlements`, both using `group.$(BUNDLE_PREFIX).mikanremote`. First build to device may prompt to register the App Group with the developer portal.
 
 ## Adding Action Buttons
 

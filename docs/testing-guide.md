@@ -155,6 +155,39 @@ A small red `▶︎` icon in the top status bar (between hostname and gear) open
 5. Change the mode picker on either side; the other side reflects the change.
 6. Quit and relaunch MikanRemoteServer; the persisted mode is restored.
 
+### Utilities Sheet
+
+A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and the gear) opens a sheet with three controls:
+
+- **Take Screenshot** — fires `performCommand("screenshot")` → server hits ⇧⌘3.
+- **Paste** — SwiftUI `PasteButton(payloadType: URL.self)` — reads a URL from the clipboard and sends `openURL`. No "Pasted from <app>" privacy toast.
+- **Type a URL + Send** — `URL(string:)`-validated; Send is disabled while the field is empty/invalid or while disconnected.
+
+**Verifying:**
+
+1. With at least one action button (any URL), open the Utilities sheet. The screenshot button works → expect a screenshot on the Mac desktop and the shutter sound.
+2. Copy any URL in Safari on the iPhone (e.g. tap and hold, "Copy"). Reopen MikanRemote (Utilities sheet may have closed) — tap **Paste**. The Mac's default browser opens the URL. No iOS privacy toast appears.
+3. In the textbox, type `https://example.com` → tap **Send** → Mac browser opens it, field clears, "Sent" indicator briefly appears.
+4. Try empty text and `not a url` → **Send** is disabled.
+5. With the sheet open, drop the connection (quit MikanRemoteServer on the Mac) → both **Paste** and **Send** become disabled (greyed) within ~5s (matches the heartbeat-based disconnect detection). Re-launch the server; controls re-enable once the green dot reappears.
+
+### Share Extension (Share-to-Mac)
+
+MikanRemote appears in the iOS share sheet for URL shares (Safari, YouTube app, Reddit, anywhere with a URL). Selecting it writes the URL to the App Group, opens `mikanremote://share` to bring the main app forward, and the dispatcher sends `openURL` to the Mac.
+
+**App Group setup (one-time per device):**
+
+In Xcode, both `MikanRemote` and `MikanRemoteShare` targets must have the **App Groups** capability with `group.<bundle-prefix>.mikanremote` enabled. If the first device build fails with provisioning errors, open Signing & Capabilities for each target → click `+ Capability` → **App Groups** → add the group. Xcode may prompt to register it with the developer portal; accept.
+
+**Verifying:**
+
+1. **Happy path.** Open Safari on iPhone, share a YouTube link → MikanRemote. Expected: Mac browser opens the URL within ~1 second. No "Sending…" banner is visible because the WS is hot.
+2. **Cold reconnect.** Force-quit MikanRemote (swipe up from app switcher). Share a URL. Expected: app launches, "Sending to <hostname>…" banner shows above the trackpad while the WS reconnects (0–5 seconds), then "Sent ✓" briefly, then disappears. Mac opens the URL.
+3. **Timeout + Retry.** Force-quit MikanRemote, disconnect the Mac from the network. Share a URL. Wait ≥10 seconds. Expected: banner shows "Couldn't reach Mac — Retry". Reconnect the Mac; wait for the iPhone's green dot. Tap **Retry**. Mac opens the URL.
+4. **Latest-wins overwrite.** Disconnect the Mac. Share URL #1 from Safari (it queues in the App Group). Without reconnecting, share URL #2 (overwrites). Reconnect the Mac. Expected: only URL #2 opens on the Mac.
+
+The dispatcher's state machine is unit-tested (`PendingShareDispatcherTests`) so the timing behaviors above are covered automatically. Real-device verification is mostly to confirm the App Group plumbing and `mikanremote://` handoff work in practice.
+
 ### Adding / Editing Action Buttons
 
 Actions can be edited from either side — the server is authoritative.
