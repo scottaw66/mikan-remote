@@ -218,6 +218,14 @@ struct SettingsView: View {
                     }
                     .foregroundStyle(.red)
                 }
+
+                Section("Utilities") {
+                    Button {
+                        connectionManager.send(.performCommand(command: "screenshot"))
+                    } label: {
+                        Label("Take Screenshot (\u{21E7}\u{2318}3)", systemImage: "camera.viewfinder")
+                    }
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

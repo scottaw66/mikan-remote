@@ -240,6 +240,8 @@ final class MenuBarManager {
             mouseController.sendYouTubeFullscreen()
         case "ytPlayPause":
             mouseController.sendYouTubePlayPause()
+        case "screenshot":
+            mouseController.sendKeyPress(keyCode: 20, flags: [.maskCommand, .maskShift])
         default:
             print("Unknown command: \(command)")
         }
