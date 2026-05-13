@@ -135,16 +135,19 @@ final class ConnectionManager {
     private func startHeartbeat() {
         heartbeatTimer?.invalidate()
         heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
-            guard let self, let connection = self.connection, self.isConnected else { return }
-            let pong = NWProtocolWebSocket.Metadata(opcode: .pong)
-            let context = NWConnection.ContentContext(identifier: "ping", metadata: [pong])
-            connection.send(content: nil, contentContext: context, completion: .contentProcessed({ error in
-                if error != nil {
-                    DispatchQueue.main.async {
-                        self.connection?.cancel()
+            // Timer was scheduled on the main run loop, so the block fires on
+            // the main thread; assumeIsolated tells the compiler what we know.
+            MainActor.assumeIsolated {
+                guard let self, let connection = self.connection, self.isConnected else { return }
+                let pong = NWProtocolWebSocket.Metadata(opcode: .pong)
+                let context = NWConnection.ContentContext(identifier: "ping", metadata: [pong])
+                connection.send(content: nil, contentContext: context, completion: .contentProcessed({ [weak self] error in
+                    guard error != nil else { return }
+                    Task { @MainActor [weak self] in
+                        self?.connection?.cancel()
                     }
-                }
-            }))
+                }))
+            }
         }
     }
 

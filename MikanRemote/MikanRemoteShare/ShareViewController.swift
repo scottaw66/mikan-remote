@@ -15,7 +15,7 @@ final class ShareViewController: UIViewController {
         }
         guard let url = await extractFirstURL() else { return }
         SharedDefaults.shared.pendingShareURL = url.absoluteString
-        await openContainingApp()
+        openContainingApp()
     }
 
     private func extractFirstURL() async -> URL? {
