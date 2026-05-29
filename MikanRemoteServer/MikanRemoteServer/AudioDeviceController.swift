@@ -53,9 +53,17 @@ final class AudioDeviceController {
 
     // MARK: - Enumeration
 
+    /// Virtual/loopback devices to hide from the picker, matched case-insensitively
+    /// as substrings of the device name.
+    private static let excludedNameFragments = ["Microsoft Teams Audio"]
+
     private func outputDevices() -> [AudioDevice] {
         outputDeviceIDs().compactMap { id in
             guard let deviceUID = uid(for: id), let name = name(for: id) else { return nil }
+            let isExcluded = Self.excludedNameFragments.contains {
+                name.localizedCaseInsensitiveContains($0)
+            }
+            guard !isExcluded else { return nil }
             return AudioDevice(id: deviceUID, name: name)
         }
     }
