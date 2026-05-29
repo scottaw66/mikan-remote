@@ -20,6 +20,7 @@
 		AAB67EA1A7452D386F574D53 /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE477B0605E91453EF05A /* AccessibilityPermission.swift */; };
 		AF6E8F52F56276059B542289 /* PairingCodeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3CFE07ABFA2D84E80D7CE4 /* PairingCodeWindow.swift */; };
 		C19B5D725A1E1808A4E03543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */; };
+		C293A3832F1951742186787C /* AudioDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E059E6C58019686BFF6744A /* AudioDeviceController.swift */; };
 		D04362032E4864D0C58CFE81 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 385464561B5FC3CF8F084DD8 /* MikanProtocol */; };
 		E9082534B6B47BEA5977CCAF /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F64D045945A007F757FBCBB /* MouseController.swift */; };
 		F041E21F76E1D20946EAA156 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945842158E8327DFFC3130E9 /* ActionStoreTests.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		0CACA3B435E75A2C449D673A /* PairingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingStore.swift; sourceTree = "<group>"; };
 		0FC48AD59969716D93A26139 /* CursorOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorOverlayController.swift; sourceTree = "<group>"; };
+		1E059E6C58019686BFF6744A /* AudioDeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceController.swift; sourceTree = "<group>"; };
 		23231F54DF3E3BE6F30FA7C1 /* MikanProtocol */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MikanProtocol; path = ../MikanProtocol; sourceTree = SOURCE_ROOT; };
 		365D7A95760BF4952A07DA15 /* MikanRemoteServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanRemoteServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */,
 				6ACE14F5498B4541754E0759 /* ActionStore.swift */,
 				86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */,
+				1E059E6C58019686BFF6744A /* AudioDeviceController.swift */,
 				0FC48AD59969716D93A26139 /* CursorOverlayController.swift */,
 				BE9B79B88126100A593D4752 /* Info.plist */,
 				F855696ACCDB38375D7662C7 /* LaunchAtLogin.swift */,
@@ -251,6 +254,7 @@
 				AAB67EA1A7452D386F574D53 /* AccessibilityPermission.swift in Sources */,
 				25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */,
 				687775EA770F00898BC53A87 /* ActionStore.swift in Sources */,
+				C293A3832F1951742186787C /* AudioDeviceController.swift in Sources */,
 				8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */,
 				9A0219F3BB9B811DF11B9946 /* LaunchAtLogin.swift in Sources */,
 				A33B08A53314994EB9036382 /* MenuBarManager.swift in Sources */,
