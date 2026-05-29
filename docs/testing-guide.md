@@ -157,9 +157,10 @@ A small red `▶︎` icon in the top status bar (between hostname and gear) open
 
 ### Utilities Sheet
 
-A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and the gear) opens a sheet with three controls:
+A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and the gear) opens a sheet with these controls:
 
 - **Take Screenshot** — fires `performCommand("screenshot")` → server hits ⇧⌘3.
+- **Audio Output** — lists the Mac's output devices; tapping one sends `setAudioDevice(deviceId:)` and the server switches the default output. The current device shows a checkmark; the list updates live.
 - **Paste** — SwiftUI `PasteButton(payloadType: URL.self)` — reads a URL from the clipboard and sends `openURL`. No "Pasted from <app>" privacy toast.
 - **Type a URL + Send** — `URL(string:)`-validated; Send is disabled while the field is empty/invalid or while disconnected.
 
@@ -170,6 +171,13 @@ A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and t
 3. In the textbox, type `https://example.com` → tap **Send** → Mac browser opens it, field clears, "Sent" indicator briefly appears.
 4. Try empty text and `not a url` → **Send** is disabled.
 5. With the sheet open, drop the connection (quit MikanRemoteServer on the Mac) → both **Paste** and **Send** become disabled (greyed) within ~5s (matches the heartbeat-based disconnect detection). Re-launch the server; controls re-enable once the green dot reappears.
+
+**Verifying Audio Output:**
+
+1. Open the Utilities sheet. The **Audio Output** section lists the Mac's output devices with a checkmark on the current default.
+2. Tap a different device. The Mac's output actually switches (play audio, or check System Settings > Sound) and the checkmark moves within a moment.
+3. Live updates: with the sheet open, plug in or unplug headphones / connect AirPods → the list updates without reopening the sheet. Then change the output from the macOS menu-bar Sound control → the iPhone checkmark follows.
+4. Drop the connection → the rows disable / the section shows "No devices". Reconnect → the list repopulates.
 
 ### Share Extension (Share-to-Mac)
 

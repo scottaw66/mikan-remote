@@ -8,7 +8,7 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 - Browser tab management — close tab, switch between tabs
 - Video controls — play/pause, skip forward/backward, fullscreen, escape
 - **YouTube Controls popup** — chapter skip, playlist nav, captions, playback rate, ±5s seek, play/pause, fullscreen, all in a dedicated sheet (see below)
-- **Utilities sheet** — screenshot (⇧⌘3 on Mac), one-tap paste-clipboard-to-Mac, typed URL → Mac (see below)
+- **Utilities sheet** — screenshot (⇧⌘3 on Mac), one-tap paste-clipboard-to-Mac, typed URL → Mac, audio output device picker (see below)
 - **Share Sheet integration** — share any URL from Safari → MikanRemote and the Mac browser opens it
 - Volume control buttons (simulates Mac media keys)
 - Configurable quick-action buttons (open URLs or apps via URL schemes, max 6)
@@ -116,6 +116,10 @@ A wrench icon (`🔧`) in the top status bar (between the YouTube launcher and t
 - **URL textbox + Send** — type or paste a URL, tap Send, the Mac opens it. Send is disabled until the URL parses and a connection is available.
 
 All three reuse the existing `openURL` / `performCommand` WebSocket messages — no separate plumbing on the server side. The screenshot button used to live in Settings; it has moved here.
+
+### Audio Output
+
+An "Audio Output" section lists the Mac's audio output devices (Studio Display speakers, AirPods, external DAC, etc.) with a checkmark on the current default. Tap one to switch the Mac's default output. The list updates live — plugging in headphones or changing the output from the macOS Sound menu updates the iPhone immediately. Output devices only; the server's `AudioDeviceController` drives this through the CoreAudio HAL, identifying devices by their persistent UID so reconnecting AirPods still match.
 
 ## Share Extension (Share-to-Mac)
 
