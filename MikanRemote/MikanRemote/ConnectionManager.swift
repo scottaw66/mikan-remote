@@ -21,6 +21,8 @@ final class ConnectionManager {
     private(set) var youtubePopupMode: String = "auto"
     private(set) var pairingRequired = false
     private(set) var pairingFailed = false
+    private(set) var audioDevices: [AudioDevice] = []
+    private(set) var currentAudioDeviceId: String = ""
 
     private static let networkQueue = DispatchQueue(label: "mikan.network")
 
@@ -104,6 +106,8 @@ final class ConnectionManager {
         youtubePopupMode = "auto"
         pairingRequired = false
         pairingFailed = false
+        audioDevices = []
+        currentAudioDeviceId = ""
     }
 
     func submitPairingCode(_ code: String) {
@@ -130,6 +134,10 @@ final class ConnectionManager {
 
     func sendUpdateActions(_ actions: [Action]) {
         send(.updateActions(actions: actions))
+    }
+
+    func sendSetAudioDevice(_ deviceId: String) {
+        send(.setAudioDevice(deviceId: deviceId))
     }
 
     private func startHeartbeat() {
@@ -176,6 +184,8 @@ final class ConnectionManager {
         youtubePopupMode = "auto"
         pairingRequired = false
         pairingFailed = false
+        audioDevices = []
+        currentAudioDeviceId = ""
         connection = nil
     }
 
@@ -220,6 +230,9 @@ final class ConnectionManager {
             pairingFailed = false
         case .pairRejected:
             pairingFailed = true
+        case .audioDevices(let devices, let currentDeviceId):
+            audioDevices = devices
+            currentAudioDeviceId = currentDeviceId
         }
     }
 }

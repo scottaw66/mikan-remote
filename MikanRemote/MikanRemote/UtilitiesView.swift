@@ -21,6 +21,30 @@ struct UtilitiesView: View {
                     }
                 }
 
+                Section("Audio Output") {
+                    if connectionManager.audioDevices.isEmpty {
+                        Text("No devices")
+                            .foregroundStyle(.secondary)
+                            .disabled(true)
+                    } else {
+                        ForEach(connectionManager.audioDevices) { device in
+                            Button {
+                                selectAudioDevice(device)
+                            } label: {
+                                HStack {
+                                    Text(device.name)
+                                    Spacer()
+                                    if device.id == connectionManager.currentAudioDeviceId {
+                                        Image(systemName: "checkmark")
+                                            .foregroundStyle(.tint)
+                                    }
+                                }
+                            }
+                            .disabled(!connectionManager.isConnected)
+                        }
+                    }
+                }
+
                 Section("Open URL on Mac") {
                     PasteButton(payloadType: URL.self) { urls in
                         guard let url = urls.first else { return }
@@ -83,6 +107,12 @@ struct UtilitiesView: View {
         feedbackGenerator.impactOccurred()
         feedbackGenerator.prepare()
         connectionManager.send(.performCommand(command: command))
+    }
+
+    private func selectAudioDevice(_ device: AudioDevice) {
+        feedbackGenerator.impactOccurred()
+        feedbackGenerator.prepare()
+        connectionManager.sendSetAudioDevice(device.id)
     }
 
     private func flashSent() {
