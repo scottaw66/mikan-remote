@@ -48,6 +48,7 @@ final class MenuBarManager {
     }
     private var suppressSettingsSync = false
     private let mouseController = MouseController()
+    private let audioController = AudioDeviceController()
     private let cursorOverlay = CursorOverlayController()
     private var pairingPanel: NSPanel?
     private var accessibilityTimer: Timer?
@@ -74,6 +75,9 @@ final class MenuBarManager {
                 pairingStore.clearPending()
                 dismissPairingPanel()
             }
+        }
+        audioController.onChange = { [weak self] in
+            self?.pushAudioDevices()
         }
         try? server.start()
         startAccessibilityMonitoring()
@@ -111,6 +115,11 @@ final class MenuBarManager {
         server.send(.settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode))
     }
 
+    func pushAudioDevices() {
+        let state = audioController.currentState()
+        server.send(.audioDevices(devices: state.devices, currentDeviceId: state.currentDeviceId))
+    }
+
     private func handleMessage(_ message: ClientMessage) {
         switch message {
         case .mouseMove(let dx, let dy):
@@ -144,6 +153,12 @@ final class MenuBarManager {
             actionStore.actions = newActions
             try? actionStore.save()
             server.send(.actionConfig(actions: actionStore.actions))
+        case .setAudioDevice(let deviceId):
+            // On success, the CoreAudio default-output listener fires onChange →
+            // pushAudioDevices(). On failure, re-push so the stale entry disappears.
+            if !audioController.setDefaultOutput(uid: deviceId) {
+                pushAudioDevices()
+            }
         }
     }
 
@@ -154,6 +169,7 @@ final class MenuBarManager {
             server.send(.serverStatus(connected: true, hostname: hostname))
             server.send(.actionConfig(actions: actionStore.actions))
             pushSettings()
+            pushAudioDevices()
         } else {
             // Unknown device — require pairing
             let code = pairingStore.generateCode(for: deviceId)
@@ -171,6 +187,7 @@ final class MenuBarManager {
             server.send(.serverStatus(connected: true, hostname: hostname))
             server.send(.actionConfig(actions: actionStore.actions))
             pushSettings()
+            pushAudioDevices()
         } else {
             server.send(.pairRejected(reason: "Invalid code"))
         }
