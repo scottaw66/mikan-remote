@@ -261,4 +261,60 @@ final class MessagesTests: XCTestCase {
             XCTAssertEqual(command, name, "Round-trip failed for \(name)")
         }
     }
+
+    func testAudioDeviceRoundTrip() throws {
+        let device = AudioDevice(id: "AppleHDAEngineOutput:1F,3,0,1:0", name: "Studio Display Speakers")
+        let data = try JSONEncoder().encode(device)
+        let decoded = try JSONDecoder().decode(AudioDevice.self, from: data)
+        XCTAssertEqual(decoded.id, "AppleHDAEngineOutput:1F,3,0,1:0")
+        XCTAssertEqual(decoded.name, "Studio Display Speakers")
+    }
+
+    func testAudioDevicesServerMessageRoundTrip() throws {
+        let devices = [
+            AudioDevice(id: "uid-1", name: "Studio Display Speakers"),
+            AudioDevice(id: "uid-2", name: "AirPods Pro")
+        ]
+        let msg = ServerMessage.audioDevices(devices: devices, currentDeviceId: "uid-2")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
+        guard case .audioDevices(let decodedDevices, let currentId) = decoded else {
+            XCTFail("Expected audioDevices"); return
+        }
+        XCTAssertEqual(decodedDevices.count, 2)
+        XCTAssertEqual(decodedDevices[1].name, "AirPods Pro")
+        XCTAssertEqual(currentId, "uid-2")
+    }
+
+    func testAudioDevicesJSONShape() throws {
+        let msg = ServerMessage.audioDevices(
+            devices: [AudioDevice(id: "uid-1", name: "Speakers")],
+            currentDeviceId: "uid-1"
+        )
+        let data = try JSONEncoder().encode(msg)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+        XCTAssertEqual(json["type"] as? String, "audioDevices")
+        XCTAssertEqual(json["currentDeviceId"] as? String, "uid-1")
+        let devices = json["devices"] as! [[String: Any]]
+        XCTAssertEqual(devices[0]["id"] as? String, "uid-1")
+        XCTAssertEqual(devices[0]["name"] as? String, "Speakers")
+    }
+
+    func testSetAudioDeviceRoundTrip() throws {
+        let msg = ClientMessage.setAudioDevice(deviceId: "uid-2")
+        let data = try JSONEncoder().encode(msg)
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .setAudioDevice(let deviceId) = decoded else {
+            XCTFail("Expected setAudioDevice"); return
+        }
+        XCTAssertEqual(deviceId, "uid-2")
+    }
+
+    func testSetAudioDeviceJSONShape() throws {
+        let msg = ClientMessage.setAudioDevice(deviceId: "uid-2")
+        let data = try JSONEncoder().encode(msg)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+        XCTAssertEqual(json["type"] as? String, "setAudioDevice")
+        XCTAssertEqual(json["deviceId"] as? String, "uid-2")
+    }
 }

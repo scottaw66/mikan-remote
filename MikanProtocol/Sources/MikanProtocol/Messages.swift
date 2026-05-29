@@ -1,5 +1,15 @@
 import Foundation
 
+public struct AudioDevice: Codable, Sendable, Identifiable, Equatable {
+    public let id: String   // persistent CoreAudio device UID
+    public let name: String
+
+    public init(id: String, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
 public enum ClientMessage: Codable, Sendable {
     case mouseMove(deltaX: Float, deltaY: Float)
     case mouseClick
@@ -10,6 +20,7 @@ public enum ClientMessage: Codable, Sendable {
     case pairResponse(code: String)
     case updateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String)
     case updateActions(actions: [Action])
+    case setAudioDevice(deviceId: String)
 
     enum CodingKeys: String, CodingKey {
         case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions, youtubePopupMode
@@ -51,6 +62,9 @@ public enum ClientMessage: Codable, Sendable {
         case "updateActions":
             let actions = try container.decode([Action].self, forKey: .actions)
             self = .updateActions(actions: actions)
+        case "setAudioDevice":
+            let deviceId = try container.decode(String.self, forKey: .deviceId)
+            self = .setAudioDevice(deviceId: deviceId)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -94,6 +108,9 @@ public enum ClientMessage: Codable, Sendable {
         case .updateActions(let actions):
             try container.encode("updateActions", forKey: .type)
             try container.encode(actions, forKey: .actions)
+        case .setAudioDevice(let deviceId):
+            try container.encode("setAudioDevice", forKey: .type)
+            try container.encode(deviceId, forKey: .deviceId)
         }
     }
 }
@@ -105,9 +122,10 @@ public enum ServerMessage: Codable, Sendable {
     case pairAccepted
     case pairRejected(reason: String)
     case settingsSync(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String)
+    case audioDevices(devices: [AudioDevice], currentDeviceId: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, actions, connected, hostname, reason, sensitivity, cursorSize, cursorDotSize, cursorGapSize, youtubePopupMode
+        case type, actions, connected, hostname, reason, sensitivity, cursorSize, cursorDotSize, cursorGapSize, youtubePopupMode, devices, currentDeviceId
     }
 
     public init(from decoder: Decoder) throws {
@@ -135,6 +153,10 @@ public enum ServerMessage: Codable, Sendable {
             let cursorGapSize = try container.decode(Double.self, forKey: .cursorGapSize)
             let youtubePopupMode = try container.decodeIfPresent(String.self, forKey: .youtubePopupMode) ?? "auto"
             self = .settingsSync(sensitivity: sensitivity, cursorSize: cursorSize, cursorDotSize: cursorDotSize, cursorGapSize: cursorGapSize, youtubePopupMode: youtubePopupMode)
+        case "audioDevices":
+            let devices = try container.decode([AudioDevice].self, forKey: .devices)
+            let currentDeviceId = try container.decode(String.self, forKey: .currentDeviceId)
+            self = .audioDevices(devices: devices, currentDeviceId: currentDeviceId)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -167,6 +189,10 @@ public enum ServerMessage: Codable, Sendable {
             try container.encode(cursorDotSize, forKey: .cursorDotSize)
             try container.encode(cursorGapSize, forKey: .cursorGapSize)
             try container.encode(youtubePopupMode, forKey: .youtubePopupMode)
+        case .audioDevices(let devices, let currentDeviceId):
+            try container.encode("audioDevices", forKey: .type)
+            try container.encode(devices, forKey: .devices)
+            try container.encode(currentDeviceId, forKey: .currentDeviceId)
         }
     }
 }
