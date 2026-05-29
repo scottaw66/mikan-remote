@@ -109,7 +109,7 @@ final class AudioDeviceController {
         let status = AudioObjectGetPropertyData(
             AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, &dataSize, &deviceID
         )
-        return status == noErr ? deviceID : nil
+        return (status == noErr && deviceID != AudioDeviceID(kAudioObjectUnknown)) ? deviceID : nil
     }
 
     // MARK: - Per-device string properties
@@ -128,20 +128,20 @@ final class AudioDeviceController {
             mScope: kAudioObjectPropertyScopeGlobal,
             mElement: kAudioObjectPropertyElementMain
         )
-        var value: CFString = "" as CFString
-        var dataSize = UInt32(MemoryLayout<CFString>.size)
-        let status = withUnsafeMutablePointer(to: &value) { ptr -> OSStatus in
+        var ref: Unmanaged<CFString>?
+        var dataSize = UInt32(MemoryLayout<Unmanaged<CFString>?>.size)
+        let status = withUnsafeMutablePointer(to: &ref) { ptr -> OSStatus in
             AudioObjectGetPropertyData(id, &address, 0, nil, &dataSize, ptr)
         }
-        guard status == noErr else { return nil }
-        return value as String
+        guard status == noErr, let taken = ref else { return nil }
+        return taken.takeRetainedValue() as String
     }
 
     // MARK: - Live update listeners
 
     private func installListeners() {
         let block: AudioObjectPropertyListenerBlock = { [weak self] _, _ in
-            DispatchQueue.main.async { self?.onChange?() }
+            self?.onChange?()
         }
         listenerBlock = block
 
