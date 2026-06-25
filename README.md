@@ -32,7 +32,20 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
 ### Mac (MikanRemoteServer)
 
 1. (Optional but recommended) Copy `Local.xcconfig.example` to `Local.xcconfig` and set `BUNDLE_PREFIX` and `DEVELOPMENT_TEAM` so codesigning stays stable across rebuilds — otherwise macOS will keep re-prompting for Accessibility permission.
-2. Build and install:
+2. Build and install. **Recommended — signed + notarized** (survives quarantine, transfers to other Macs, keeps Accessibility permission stable):
+   ```bash
+   cd MikanRemoteServer
+   ./scripts/release.sh
+   ```
+   This archives, exports with Developer ID, notarizes, staples, and installs to `/Applications/MikanRemoteServer.app`. One-time setup per Mac: a `Developer ID Application` cert in your keychain and a `mikanremote` notarytool profile —
+   ```bash
+   xcrun notarytool store-credentials mikanremote \
+     --apple-id "<your-apple-id>" --team-id <TEAM_ID>
+   ```
+
+   <details>
+   <summary>Quick dev build (ad-hoc, local only — not notarized)</summary>
+
    ```bash
    cd MikanRemoteServer
    xcodegen generate
@@ -40,6 +53,8 @@ A simple iPhone app to remote-control a Mac over your local network. Designed fo
    APP_PATH=$(xcodebuild -scheme MikanRemoteServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
    rm -rf /Applications/MikanRemoteServer.app && cp -R "$APP_PATH/MikanRemoteServer.app" /Applications/MikanRemoteServer.app
    ```
+   Gatekeeper will flag this on any Mac it wasn't built on, and macOS may re-prompt for Accessibility permission on each rebuild.
+   </details>
 3. Launch `/Applications/MikanRemoteServer.app`. An antenna icon appears in the menu bar.
 4. **Grant Accessibility permission** (required — CGEvent calls silently fail without it):
    - Click the menu bar icon. If permission isn't granted, an orange warning panel and a **Grant Permission** button appear at the top of the menu.

@@ -20,9 +20,13 @@ Three components:
 # MikanProtocol tests
 cd MikanProtocol && swift test
 
-# MikanRemoteServer (macOS) — build and install
+# MikanRemoteServer (macOS) — signed + notarized install (preferred)
+cd MikanRemoteServer && ./scripts/release.sh
+# Archives → Developer ID export → notarize → staple → install to /Applications.
+# Needs a "mikanremote" notarytool profile (see ~/Scripts/ai/apps/CLAUDE.md).
+
+# Quick dev build (ad-hoc, local only — NOT notarized, Gatekeeper-flagged elsewhere):
 cd MikanRemoteServer && xcodegen generate && xcodebuild -scheme MikanRemoteServer -configuration Release build
-# Copy built app to /Applications:
 APP_PATH=$(xcodebuild -scheme MikanRemoteServer -configuration Release -showBuildSettings 2>/dev/null | grep " BUILT_PRODUCTS_DIR" | awk '{print $3}')
 rm -rf /Applications/MikanRemoteServer.app && cp -R "$APP_PATH/MikanRemoteServer.app" /Applications/MikanRemoteServer.app
 
