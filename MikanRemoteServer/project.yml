@@ -29,6 +29,7 @@ targets:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
         INFOPLIST_FILE: MikanRemoteServer/Info.plist
         CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: YES
       configs:
         Debug:
           ENABLE_TESTABILITY: YES
