@@ -52,6 +52,22 @@ targets:
         INFOPLIST_FILE: MikanRemote/Info.plist
         CODE_SIGN_STYLE: Automatic
         CODE_SIGN_ENTITLEMENTS: MikanRemote.entitlements
+        # The stamp-build-info script phase runs git and writes into the built
+        # bundle — both blocked by Xcode's user-script sandbox.
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+    postBuildScripts:
+      # Writes the stamp AFTER every other phase: editing Info.plist instead
+      # is a trap — ProcessInfoPlistFile runs after script phases and
+      # overwrites it. Codesign still runs last, so the file is sealed.
+      # (Same mechanism as VOB's "Stamp build info" phase.)
+      - name: Stamp build info
+        basedOnDependencyAnalysis: false
+        script: |
+          SHA=$(cd "$SRCROOT" && git rev-parse --short HEAD 2>/dev/null || echo nogit)
+          (cd "$SRCROOT" && git diff --quiet HEAD 2>/dev/null) || SHA="${SHA}+"
+          DEST="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
+          mkdir -p "$DEST"
+          printf '{"sha":"%s","date":"%s"}\n' "$SHA" "$(date '+%Y-%m-%d %H:%M')" > "$DEST/build-info.json"
 
   MikanRemoteShare:
     type: app-extension

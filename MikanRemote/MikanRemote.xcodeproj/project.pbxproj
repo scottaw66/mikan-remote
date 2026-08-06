@@ -248,6 +248,7 @@
 				92FF34F64E447096F8E0228D /* Resources */,
 				63AB6B59BF645A8485518A32 /* Frameworks */,
 				A7FA336A380316F2C332772C /* Embed Foundation Extensions */,
+				9BD93A542A4995D17740C2D7 /* Stamp build info */,
 			);
 			buildRules = (
 			);
@@ -313,6 +314,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9BD93A542A4995D17740C2D7 /* Stamp build info */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Stamp build info";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SHA=$(cd \"$SRCROOT\" && git rev-parse --short HEAD 2>/dev/null || echo nogit)\n(cd \"$SRCROOT\" && git diff --quiet HEAD 2>/dev/null) || SHA=\"${SHA}+\"\nDEST=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\nmkdir -p \"$DEST\"\nprintf '{\"sha\":\"%s\",\"date\":\"%s\"}\\n' \"$SHA\" \"$(date '+%Y-%m-%d %H:%M')\" > \"$DEST/build-info.json\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1FA7C75FD0DB232366CF07D6 /* Sources */ = {
@@ -453,6 +476,7 @@
 				CODE_SIGN_ENTITLEMENTS = MikanRemote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = MikanRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,6 +497,7 @@
 				CODE_SIGN_ENTITLEMENTS = MikanRemote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = MikanRemote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

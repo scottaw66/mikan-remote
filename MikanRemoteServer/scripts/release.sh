@@ -79,4 +79,9 @@ cp -R "$APP_PATH" "$INSTALL_DIR/"
 step "Verifying installed bundle"
 xcrun stapler validate "$INSTALL_DIR/$APP_NAME.app"
 spctl -a -vvv -t exec "$INSTALL_DIR/$APP_NAME.app"
-printf "\n\033[1;32m✓ %s notarized, stapled, installed.\033[0m\n" "$APP_NAME"
+
+step "Relaunching $APP_NAME"
+# The install step pkills the running instance; without this the user is left
+# running nothing (or a stale build if the kill failed).
+open "$INSTALL_DIR/$APP_NAME.app"
+printf "\n\033[1;32m✓ %s notarized, stapled, installed, relaunched.\033[0m\n" "$APP_NAME"

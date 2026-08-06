@@ -136,6 +136,7 @@ final class MenuBarManager {
                 NSWorkspace.shared.open(url)
             }
         case .performCommand(let command):
+            CommandDiagnostics.logCommand(command)
             handleCommand(command)
         case .hello(let deviceId):
             handleHello(deviceId)

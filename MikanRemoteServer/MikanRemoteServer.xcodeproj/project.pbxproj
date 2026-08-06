@@ -10,6 +10,7 @@
 		25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */; };
 		65CC42839C4A4E39D892CBAF /* MikanRemoteServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD3974C97729ADA9D544D2C /* MikanRemoteServerApp.swift */; };
 		687775EA770F00898BC53A87 /* ActionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACE14F5498B4541754E0759 /* ActionStore.swift */; };
+		7C7537A66010035DB29E63ED /* CommandDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D83DE6A35B587DB921D0DF /* CommandDiagnostics.swift */; };
 		805BF74E8992190810F10D1F /* MouseControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569865ED1D9CC012FF759231 /* MouseControllerTests.swift */; };
 		832B37751E61C3D7019F9412 /* WebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */; };
 		8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC48AD59969716D93A26139 /* CursorOverlayController.swift */; };
@@ -52,6 +53,7 @@
 		90E40BF2CA4614610C9CCE98 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		945842158E8327DFFC3130E9 /* ActionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStoreTests.swift; sourceTree = "<group>"; };
 		ACD3974C97729ADA9D544D2C /* MikanRemoteServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MikanRemoteServerApp.swift; sourceTree = "<group>"; };
+		B2D83DE6A35B587DB921D0DF /* CommandDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDiagnostics.swift; sourceTree = "<group>"; };
 		BE9B79B88126100A593D4752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E12BDF09E2D95EF60F60FA45 /* MikanRemoteServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MikanRemoteServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7DE477B0605E91453EF05A /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				6ACE14F5498B4541754E0759 /* ActionStore.swift */,
 				86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */,
 				1E059E6C58019686BFF6744A /* AudioDeviceController.swift */,
+				B2D83DE6A35B587DB921D0DF /* CommandDiagnostics.swift */,
 				0FC48AD59969716D93A26139 /* CursorOverlayController.swift */,
 				BE9B79B88126100A593D4752 /* Info.plist */,
 				F855696ACCDB38375D7662C7 /* LaunchAtLogin.swift */,
@@ -255,6 +258,7 @@
 				25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */,
 				687775EA770F00898BC53A87 /* ActionStore.swift in Sources */,
 				C293A3832F1951742186787C /* AudioDeviceController.swift in Sources */,
+				7C7537A66010035DB29E63ED /* CommandDiagnostics.swift in Sources */,
 				8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */,
 				9A0219F3BB9B811DF11B9946 /* LaunchAtLogin.swift in Sources */,
 				A33B08A53314994EB9036382 /* MenuBarManager.swift in Sources */,
