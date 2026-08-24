@@ -75,17 +75,33 @@ struct ContentView: View {
                 )
                 .padding(.bottom, 4)
 
-                TrackpadView(
-                    onMove: { dx, dy in
-                        connectionManager.send(.mouseMove(deltaX: dx, deltaY: dy))
-                    },
-                    onTap: {
-                        connectionManager.send(.mouseClick)
-                    },
-                    onScroll: { dx, dy in
-                        connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))
+                HStack(spacing: 8) {
+                    TrackpadView(
+                        onMove: { dx, dy in
+                            connectionManager.send(.mouseMove(deltaX: dx, deltaY: dy))
+                        },
+                        onTap: {
+                            connectionManager.send(.mouseClick)
+                        },
+                        onScroll: { dx, dy in
+                            connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))
+                        }
+                    )
+
+                    // Page scroll: reuses mouseScroll (pixel scroll under the cursor)
+                    // rather than Page Up/Down keystrokes, which die when keyboard
+                    // focus lands somewhere unexpected (see yt* diagnostics note).
+                    // Positive deltaY = natural-scroll up, matching the trackpad.
+                    VStack(spacing: 8) {
+                        PageScrollButton(icon: "chevron.up.2") {
+                            connectionManager.send(.mouseScroll(deltaX: 0, deltaY: 750))
+                        }
+                        PageScrollButton(icon: "chevron.down.2") {
+                            connectionManager.send(.mouseScroll(deltaX: 0, deltaY: -750))
+                        }
                     }
-                )
+                    .frame(width: 44)
+                }
                 .frame(maxHeight: UIScreen.main.bounds.height * 0.35)
                 .padding(.horizontal)
                 .padding(.vertical, 4)
@@ -152,6 +168,21 @@ struct ContentView: View {
         .sheet(isPresented: $showUtilities) {
             UtilitiesView(connectionManager: connectionManager)
         }
+    }
+}
+
+private struct PageScrollButton: View {
+    let icon: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.caption)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .buttonStyle(.bordered)
+        .tint(.secondary)
     }
 }
 
