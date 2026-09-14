@@ -6,12 +6,16 @@ struct TrackpadView: UIViewRepresentable {
     var onMove: (Float, Float) -> Void
     var onTap: () -> Void
     var onScroll: (Float, Float) -> Void
+    /// Fires on the first finger-down of any gesture (tap, move, scroll),
+    /// before it is classified. Used to dismiss the remote keyboard.
+    var onTouchBegan: (() -> Void)? = nil
 
     func makeUIView(context: Context) -> TrackpadUIView {
         let view = TrackpadUIView()
         view.onMove = onMove
         view.onTap = onTap
         view.onScroll = onScroll
+        view.onTouchBegan = onTouchBegan
         view.isMultipleTouchEnabled = true
         view.backgroundColor = UIColor.secondarySystemBackground
         view.layer.cornerRadius = 16
@@ -22,6 +26,7 @@ struct TrackpadView: UIViewRepresentable {
         uiView.onMove = onMove
         uiView.onTap = onTap
         uiView.onScroll = onScroll
+        uiView.onTouchBegan = onTouchBegan
     }
 }
 
@@ -29,6 +34,7 @@ final class TrackpadUIView: UIView {
     var onMove: ((Float, Float) -> Void)?
     var onTap: (() -> Void)?
     var onScroll: ((Float, Float) -> Void)?
+    var onTouchBegan: (() -> Void)?
 
     private var previousTouchLocation: CGPoint?
     private var previousScrollCenter: CGPoint?
@@ -42,6 +48,9 @@ final class TrackpadUIView: UIView {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let allTouches = event?.allTouches ?? touches
+        if allTouches.count == 1 {
+            onTouchBegan?()
+        }
         if allTouches.count == 1, let touch = touches.first {
             previousTouchLocation = touch.location(in: self)
             touchStartTime = Date()

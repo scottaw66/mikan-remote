@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var showSettings = false
     @State private var showYouTubePopup = false
     @State private var showUtilities = false
+    @State private var keyboardActive = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -85,7 +86,12 @@ struct ContentView: View {
                         },
                         onScroll: { dx, dy in
                             connectionManager.send(.mouseScroll(deltaX: dx, deltaY: dy))
-                        }
+                        },
+                        // Any touch on the trackpad puts the keyboard away —
+                        // the keyboard covers the bottom of the screen (the
+                        // layout ignores keyboard safe area on purpose so the
+                        // trackpad stays put), so the trackpad is the way out.
+                        onTouchBegan: { keyboardActive = false }
                     )
 
                     // Page scroll: reuses mouseScroll (pixel scroll under the cursor)
@@ -115,6 +121,35 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
             }
+        }
+        .ignoresSafeArea(.keyboard)
+        .safeAreaInset(edge: .bottom) {
+            if connectionManager.isConnected && connectionManager.hostname != nil && !connectionManager.pairingRequired {
+                // Remote keyboard toggle. The invisible RemoteKeyboardView
+                // behind it is what actually owns the iOS keyboard.
+                Button {
+                    keyboardActive.toggle()
+                } label: {
+                    Image(systemName: keyboardActive ? "keyboard.chevron.compact.down" : "keyboard")
+                        .font(.body)
+                        .frame(width: 56, height: 32)
+                }
+                .buttonStyle(.bordered)
+                .tint(keyboardActive ? .accentColor : .secondary)
+                .background(
+                    RemoteKeyboardView(
+                        isActive: $keyboardActive,
+                        onText: { connectionManager.send(.typeText(text: $0)) },
+                        onReturn: { connectionManager.send(.performCommand(command: "return")) },
+                        onBackspace: { connectionManager.send(.performCommand(command: "backspace")) }
+                    )
+                    .frame(width: 0, height: 0)
+                )
+                .padding(.bottom, 4)
+            }
+        }
+        .onChange(of: connectionManager.isConnected) { _, connected in
+            if !connected { keyboardActive = false }
         }
         .safeAreaInset(edge: .top) {
             if connectionManager.isConnected && connectionManager.hostname != nil {

@@ -160,6 +160,11 @@ final class MenuBarManager {
             if !audioController.setDefaultOutput(uid: deviceId) {
                 pushAudioDevices()
             }
+        case .typeText(let text):
+            // Logged like a command (focus target matters just as much here),
+            // but only the length — the text itself may be a password.
+            CommandDiagnostics.logCommand("typeText(\(text.count) chars)")
+            mouseController.typeText(text)
         }
     }
 
@@ -224,6 +229,12 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 3, flags: [.maskCommand, .maskControl])
         case "escape":
             mouseController.sendKeyPress(keyCode: 53, flags: [])
+        case "return":
+            // Remote keyboard's Return key
+            mouseController.sendKeyPress(keyCode: 36, flags: [])
+        case "backspace":
+            // Remote keyboard's delete key
+            mouseController.sendKeyPress(keyCode: 51, flags: [])
         case "volumeUp":
             mouseController.sendMediaKey(0)
         case "volumeDown":
@@ -258,6 +269,10 @@ final class MenuBarManager {
             mouseController.sendYouTubeFullscreen()
         case "ytPlayPause":
             mouseController.sendYouTubePlayPause()
+        case "ytHome":
+            // Same tab, not a new one — openURL via NSWorkspace always spawns
+            // a new tab. Trailing slash matters: see navigateCurrentTab.
+            mouseController.navigateCurrentTab(to: "https://www.youtube.com/")
         case "screenshot":
             mouseController.sendKeyPress(keyCode: 20, flags: [.maskCommand, .maskShift])
         default:

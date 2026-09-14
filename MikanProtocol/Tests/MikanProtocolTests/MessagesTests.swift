@@ -77,6 +77,18 @@ final class MessagesTests: XCTestCase {
         XCTAssertEqual(json["deltaY"] as? Double, 2.0)
     }
 
+    func testTypeTextRoundTrip() throws {
+        let msg = ClientMessage.typeText(text: "héllo wörld 🍊")
+        let data = try JSONEncoder().encode(msg)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+        XCTAssertEqual(json["type"] as? String, "typeText")
+        let decoded = try JSONDecoder().decode(ClientMessage.self, from: data)
+        guard case .typeText(let text) = decoded else {
+            XCTFail("Expected typeText"); return
+        }
+        XCTAssertEqual(text, "héllo wörld 🍊")
+    }
+
     func testPerformCommandRoundTrip() throws {
         let msg = ClientMessage.performCommand(command: "fullscreen")
         let data = try JSONEncoder().encode(msg)

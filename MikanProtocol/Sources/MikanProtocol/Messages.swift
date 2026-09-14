@@ -21,9 +21,14 @@ public enum ClientMessage: Codable, Sendable {
     case updateSettings(sensitivity: Double, cursorSize: Double, cursorDotSize: Double, cursorGapSize: Double, youtubePopupMode: String)
     case updateActions(actions: [Action])
     case setAudioDevice(deviceId: String)
+    /// Literal text typed on the iPhone keyboard, delivered to the Mac as
+    /// keystrokes to whatever has keyboard focus. Newlines and backspaces are
+    /// NOT carried here — the client sends `performCommand("return")` /
+    /// `performCommand("backspace")` for those.
+    case typeText(text: String)
 
     enum CodingKeys: String, CodingKey {
-        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions, youtubePopupMode
+        case type, deltaX, deltaY, url, command, deviceId, code, sensitivity, cursorSize, cursorDotSize, cursorGapSize, actions, youtubePopupMode, text
     }
 
     public init(from decoder: Decoder) throws {
@@ -65,6 +70,9 @@ public enum ClientMessage: Codable, Sendable {
         case "setAudioDevice":
             let deviceId = try container.decode(String.self, forKey: .deviceId)
             self = .setAudioDevice(deviceId: deviceId)
+        case "typeText":
+            let text = try container.decode(String.self, forKey: .text)
+            self = .typeText(text: text)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type, in: container,
@@ -111,6 +119,9 @@ public enum ClientMessage: Codable, Sendable {
         case .setAudioDevice(let deviceId):
             try container.encode("setAudioDevice", forKey: .type)
             try container.encode(deviceId, forKey: .deviceId)
+        case .typeText(let text):
+            try container.encode("typeText", forKey: .type)
+            try container.encode(text, forKey: .text)
         }
     }
 }

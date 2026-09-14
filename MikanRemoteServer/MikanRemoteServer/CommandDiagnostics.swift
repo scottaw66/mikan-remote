@@ -2,8 +2,8 @@ import AppKit
 import ApplicationServices
 import os
 
-/// Logs each remote `performCommand` together with where the Mac's keyboard
-/// focus is aimed at that moment (frontmost app, focused window title, focused
+/// Logs each remote `performCommand` (and `typeText`, by length only) together
+/// with where the Mac's keyboard focus is aimed at that moment (frontmost app, focused window title, focused
 /// UI element role). The yt* commands are bare keystrokes posted to whatever
 /// has focus, so when they "stop working" this is the record of where they
 /// actually landed. View in Console.app or:

@@ -35,6 +35,10 @@ struct YouTubePopupView: View {
 
                 fullWidthButton(label: "Play / Pause", icon: "playpause.fill", command: "ytPlayPause")
 
+                // Navigates the *current* tab to youtube.com (server types the
+                // URL into the address bar). Not openURL — that opens a new tab.
+                fullWidthButton(label: "YouTube Home", icon: "house.fill", command: "ytHome")
+
                 Spacer()
             }
             .padding()
@@ -73,8 +77,14 @@ struct YouTubePopupView: View {
     }
 
     private func fullWidthButton(label: String, icon: String, command: String) -> some View {
+        fullWidthButton(label: label, icon: icon) { onCommand(command) }
+    }
+
+    private func fullWidthButton(label: String, icon: String, action: @escaping () -> Void) -> some View {
         Button {
-            tap(command)
+            feedbackGenerator.impactOccurred()
+            feedbackGenerator.prepare()
+            action()
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: icon)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04987FBA29AB0B4430C952AA /* RemoteKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D1860BC38121E609F09FE /* RemoteKeyboardView.swift */; };
 		30021887D818403D6C45093B /* TopBarIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB70C39A5737463E6AF2D578 /* TopBarIconStyle.swift */; };
 		33EA3B525051DB9455E94E3A /* PendingShareDispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826E63103069F11D44CEC988 /* PendingShareDispatcherTests.swift */; };
 		38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */; };
@@ -80,6 +81,7 @@
 		B74459A8BCFA8F0BCA56610B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C658FD130883DAE53A7B72B9 /* MikanRemote.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MikanRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C852A67ED137F850C7C29B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DA2D1860BC38121E609F09FE /* RemoteKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteKeyboardView.swift; sourceTree = "<group>"; };
 		DBB3B9666FAF9C28B56FC062 /* TrackpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadView.swift; sourceTree = "<group>"; };
 		E1F8BB5314DA0BA205726D1C /* ActionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonsView.swift; sourceTree = "<group>"; };
 		E377BCE8B22A5397EE719DBC /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				16C11006B0EF45589B98CFFB /* Info.plist */,
 				4B32F668EA57D99A12C48EC8 /* MikanRemoteApp.swift */,
 				2E4AC5AC7567B6E76F30542F /* PendingShareDispatcher.swift */,
+				DA2D1860BC38121E609F09FE /* RemoteKeyboardView.swift */,
 				7985E1BE5CEDFED0D60DE403 /* ServerPickerView.swift */,
 				B74459A8BCFA8F0BCA56610B /* SettingsView.swift */,
 				EB70C39A5737463E6AF2D578 /* TopBarIconStyle.swift */,
@@ -366,6 +369,7 @@
 				E14ECC0280D45AE98CDA75CB /* ContentView.swift in Sources */,
 				AE50597783BBC65EFE2646E0 /* MikanRemoteApp.swift in Sources */,
 				EB1A713A28442676E9731A0C /* PendingShareDispatcher.swift in Sources */,
+				04987FBA29AB0B4430C952AA /* RemoteKeyboardView.swift in Sources */,
 				38515082DFB8482222AB4284 /* ServerPickerView.swift in Sources */,
 				5A1CABC6444D42A0C5DD1BD5 /* SettingsView.swift in Sources */,
 				EDE757073B2B242B5DD579E3 /* SharedDefaults.swift in Sources */,

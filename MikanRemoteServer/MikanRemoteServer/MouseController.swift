@@ -67,6 +67,50 @@ final class MouseController {
         }
     }
 
+    // MARK: - Remote keyboard
+
+    /// Types literal text into whatever has keyboard focus. Each character is
+    /// posted as its own key-down/key-up pair carrying the Unicode string
+    /// (`keyboardSetUnicodeString`), so layout-independent characters, accents
+    /// and emoji all arrive as typed. The virtual key code is a dummy — apps
+    /// read the Unicode payload, not the key — which is why this is only for
+    /// text; Return/Backspace go through `sendKeyPress` with real key codes
+    /// (36 / 51) so apps that act on the key rather than the character see them.
+    func typeText(_ text: String) {
+        for scalar in text.unicodeScalars {
+            var utf16 = Array(String(scalar).utf16)
+            guard let down = CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: true),
+                  let up = CGEvent(keyboardEventSource: nil, virtualKey: 0, keyDown: false) else { continue }
+            down.flags = []
+            up.flags = []
+            down.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: &utf16)
+            up.keyboardSetUnicodeString(stringLength: utf16.count, unicodeString: &utf16)
+            down.post(tap: .cghidEventTap)
+            up.post(tap: .cghidEventTap)
+        }
+    }
+
+    /// Navigates the frontmost browser's *current* tab to `url` using only
+    /// keystrokes, so it works in any browser without Apple Events permission:
+    /// Cmd+L focuses the address bar, the URL is typed, one Backspace removes
+    /// the inline autocompletion Safari/Chrome select after the typed text
+    /// (which would otherwise send Return to e.g. a remembered /watch?v= URL;
+    /// with no completion it just trims the trailing "/"), then Return loads
+    /// it. Steps are spaced out with asyncAfter because the address bar needs
+    /// a moment to take focus before typed text lands in it.
+    func navigateCurrentTab(to url: String) {
+        sendKeyPress(keyCode: 37, flags: [.maskCommand])   // Cmd+L
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [self] in
+            typeText(url)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [self] in
+                sendKeyPress(keyCode: 51, flags: [])       // Backspace
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                    sendKeyPress(keyCode: 36, flags: [])   // Return
+                }
+            }
+        }
+    }
+
     // MARK: - YouTube web-player shortcuts
 
     // Virtual key codes (HIToolbox / Carbon):
