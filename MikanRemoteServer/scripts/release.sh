@@ -34,10 +34,11 @@ fail() { printf "\n\033[1;31m✗ %s\033[0m\n" "$*" >&2; exit 1; }
 
 step "Pre-flight"
 command -v xcodegen >/dev/null || fail "xcodegen not installed (brew install xcodegen)."
-# Local.xcconfig (gitignored) picks the signing team for the archive; it must be
-# the team this script exports and notarizes as, or the export fails late.
-grep -Eq "^[[:space:]]*DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*$TEAM_ID[[:space:]]*$" Local.xcconfig 2>/dev/null \
-  || fail "Local.xcconfig must set DEVELOPMENT_TEAM = $TEAM_ID (and BUNDLE_PREFIX = com.bluedragonfly)."
+# ../Local.xcconfig (gitignored, at the repo root, shared with the iPhone app)
+# picks the signing team for the archive; it must be the team this script
+# exports and notarizes as, or the export fails late.
+grep -Eq "^[[:space:]]*DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*$TEAM_ID[[:space:]]*$" ../Local.xcconfig 2>/dev/null \
+  || fail "../Local.xcconfig must set DEVELOPMENT_TEAM = $TEAM_ID (and BUNDLE_PREFIX = com.bluedragonfly)."
 if ! xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1; then
   fail "notarytool profile '$NOTARY_PROFILE' missing. Create with:
   xcrun notarytool store-credentials $NOTARY_PROFILE --apple-id 'you@example.com' --team-id $TEAM_ID --password 'app-specific-pw'"
