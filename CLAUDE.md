@@ -20,9 +20,15 @@ Three components:
 # MikanProtocol tests
 cd MikanProtocol && swift test
 
-# MikanRemoteServer (macOS) — signed + notarized install (preferred)
-cd MikanRemoteServer && ./scripts/release.sh
-# Archives → Developer ID export → notarize → staple → install to /Applications.
+# MikanRemoteServer (macOS) — ship (bump MikanRemoteServer/project.yml's version first)
+cd MikanRemoteServer && MIKAN_SKIP_INSTALL=1 ./scripts/release.sh
+# Archives → Developer ID export (BlueDragonfly LLC, team RP42XZ2CW9, since 1.2.0) →
+# notarize (shared bluedragonfly-notary profile) → staple → DMG + tag mikanremote-v<version>
+# → publish-update.sh uploads zip/DMG/appcast.json to the unlisted
+# u/aed9f2bf6a11b1df8dccc3ad/mikanremote/ folder on mikansoftware.app. Run it from a
+# Terminal-panel tab (the upload's SSH key is in 1Password). Scott installs through the
+# server's own updater (menu-bar window → Updates); without the variable it installs to
+# /Applications and relaunches.
 # Needs a "mikanremote" notarytool profile (see ~/Scripts/ai/apps/CLAUDE.md).
 
 # Quick dev build (ad-hoc, local only — NOT notarized, Gatekeeper-flagged elsewhere):
@@ -36,6 +42,8 @@ cd MikanRemote && xcodegen generate && open MikanRemote.xcodeproj
 ```
 
 ## Important: Accessibility Permission
+
+Since 1.2.0 (2026-10-16) the bundle prefix is `com.bluedragonfly` (was `blue.dragonfly`, team CK52C8CDVM), set in the gitignored root `Local.xcconfig` for both apps; the server copies its old settings once (`LegacyMigration.swift`), and its menu shows Updates and "Version x (b) · commit". The iPhone app is a new app to iOS (new App Group), so it pairs again.
 
 MikanRemoteServer requires Accessibility permission for mouse/keyboard control. Grant it once in System Settings > Privacy & Security > Accessibility. If trackpad control silently stops working after a rebuild, try toggling the permission OFF then ON.
 

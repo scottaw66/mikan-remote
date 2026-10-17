@@ -2,7 +2,20 @@ import SwiftUI
 
 @main
 struct MikanRemoteServerApp: App {
-    @State private var manager = MenuBarManager()
+    @State private var manager: MenuBarManager
+
+    init() {
+        // Before MenuBarManager reads UserDefaults: carry the settings over
+        // from the pre-1.2.0 bundle ID once.
+        LegacyMigration.run()
+        _manager = State(initialValue: MenuBarManager())
+        Task { @MainActor in
+            // From the disk image, offer to move to /Applications (where the
+            // updater can replace the app), then start the daily update check.
+            Updater.shared.offerMoveToApplications()
+            Updater.shared.start()
+        }
+    }
 
     var body: some Scene {
         MenuBarExtra {
@@ -212,6 +225,21 @@ private struct MenuBarContentView: View {
             Toggle("Launch at Login", isOn: $manager.launchAtLogin)
                 .toggleStyle(.switch)
                 .controlSize(.small)
+
+            Divider()
+
+            // Updates (since 1.2.0) and "Version x (b) · commit".
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Updates").font(.caption).foregroundStyle(.secondary)
+                UpdatesControls()
+                    .controlSize(.small)
+                Text(BuildInfo.summary())
+                    .font(.caption2).foregroundStyle(.secondary)
+                    .textSelection(.enabled)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            Divider()
 
             Button("Quit") {
                 manager.server.stop()

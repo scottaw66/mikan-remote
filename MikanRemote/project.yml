@@ -9,6 +9,13 @@ configFiles:
   Debug: ../Project.xcconfig
   Release: ../Project.xcconfig
 
+# The app and its Share extension carry one version (they must match). Info.plists
+# said 1.0 (1) through the bare v1.1.0 tag; 1.1.0 (1) is that.
+settings:
+  base:
+    MARKETING_VERSION: "1.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
 packages:
   MikanProtocol:
     path: ../MikanProtocol
@@ -64,7 +71,7 @@ targets:
         basedOnDependencyAnalysis: false
         script: |
           SHA=$(cd "$SRCROOT" && git rev-parse --short HEAD 2>/dev/null || echo nogit)
-          (cd "$SRCROOT" && git diff --quiet HEAD 2>/dev/null) || SHA="${SHA}+"
+          (cd "$SRCROOT" && git diff --quiet HEAD 2>/dev/null) || SHA="${SHA}-dirty"
           DEST="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
           mkdir -p "$DEST"
           printf '{"sha":"%s","date":"%s"}\n' "$SHA" "$(date '+%Y-%m-%d %H:%M')" > "$DEST/build-info.json"

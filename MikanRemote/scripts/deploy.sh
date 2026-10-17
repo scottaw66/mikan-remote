@@ -14,7 +14,7 @@ set -euo pipefail
 
 SCHEME="MikanRemote"
 PROJECT="MikanRemote.xcodeproj"
-BUNDLE_ID="blue.dragonfly.MikanRemote"
+BUNDLE_ID="com.bluedragonfly.MikanRemote"   # BlueDragonfly LLC team since 1.2.0 (was blue.dragonfly.*)
 CONFIG="Release"
 DERIVED="build/derived"
 

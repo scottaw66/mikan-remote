@@ -220,12 +220,16 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    LabeledContent("Version", value: AppBuildInfo.versionString)
-                    LabeledContent("Build", value: AppBuildInfo.buildStamp)
+                    // "Version 1.2.0 (2) · 1a2b3c4", one line as in every app
+                    // (Scott, 2026-10-15).
+                    Text(AppBuildInfo.summary)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
                 } header: {
                     Text("About")
                 } footer: {
-                    Text("The build is the git commit this app was compiled from; + means it included uncommitted changes.")
+                    Text("The commit is the one this app was compiled from; -dirty means it included uncommitted changes.")
                 }
             }
             .navigationTitle("Settings")
@@ -252,8 +256,8 @@ struct SettingsView: View {
 /// is answerable from the Settings screen. The git SHA and build date come
 /// from build-info.json, written into the bundle by the "Stamp build info"
 /// build phase in project.yml (NOT Info.plist — ProcessInfoPlistFile runs
-/// after script phases and overwrites any stamp there). A trailing "+" on
-/// the SHA means the working tree had uncommitted changes.
+/// after script phases and overwrites any stamp there). A trailing "-dirty"
+/// on the SHA ("+" before 1.2.0) means the working tree had uncommitted changes.
 enum AppBuildInfo {
     private static let stamp: [String: String] = {
         guard let url = Bundle.main.url(forResource: "build-info", withExtension: "json"),
@@ -263,18 +267,12 @@ enum AppBuildInfo {
         return dict
     }()
 
-    /// "0.1.0 (1)"
-    static var versionString: String {
+    /// "Version 1.2.0 (2) · bd7b38b" (or "unstamped" for builds that skipped
+    /// the stamp phase).
+    static var summary: String {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?"
         let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "?"
-        return "\(version) (\(build))"
-    }
-
-    /// "bd7b38b — 2026-08-05 23:30" (or "unstamped" for builds that skipped
-    /// the stamp phase).
-    static var buildStamp: String {
-        guard let sha = stamp["sha"] else { return "unstamped" }
-        return stamp["date"].map { "\(sha) — \($0)" } ?? sha
+        return "Version \(version) (\(build)) · \(stamp["sha"] ?? "unstamped")"
     }
 }
 
