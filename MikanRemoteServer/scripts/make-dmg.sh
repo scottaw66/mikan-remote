@@ -5,7 +5,7 @@
 # run on its own at any time.
 #
 # A DMG is a build that leaves this Mac, so it must carry a version that has never
-# shipped (see "Versioning" in ~/Documents/Brain/Areas/Apps/CLAUDE.md). Before doing any work it
+# shipped (see "Versioning" in ~/Brain/Areas/Apps/CLAUDE.md). Before doing any work it
 # exits with status 3 if the tree is dirty, if tag mikanremote-v<version> is already on
 # another commit, or if the build number isn't above every earlier release's;
 # release.sh treats 3 as "skip the DMG", not as a failure. After the DMG is

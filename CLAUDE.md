@@ -29,7 +29,7 @@ cd MikanRemoteServer && MIKAN_SKIP_INSTALL=1 ./scripts/release.sh
 # Terminal-panel tab (the upload's SSH key is in 1Password). Scott installs through the
 # server's own updater (menu-bar window → Updates); without the variable it installs to
 # /Applications and relaunches.
-# Needs a "mikanremote" notarytool profile (see ~/Documents/Brain/Areas/Apps/CLAUDE.md).
+# Needs a "mikanremote" notarytool profile (see ~/Brain/Areas/Apps/CLAUDE.md).
 
 # Quick dev build (ad-hoc, local only — NOT notarized, Gatekeeper-flagged elsewhere):
 cd MikanRemoteServer && xcodegen generate && xcodebuild -scheme MikanRemoteServer -configuration Release build
