@@ -27,6 +27,12 @@
 # Notes: MIKAN_RELEASE_NOTES="…" overrides the default one-liner.
 
 set -euo pipefail
+# Python: Homebrew's, by full path. A bare python3 is Apple's 3.9 in a bare-PATH shell,
+# and Scott never uses 3.9 (rule since 2026-11-01; set here 2026-11-03). Every app's
+# publish-update.sh sets it the same way: to change it, change this line in each one
+# (~/Brain/Areas/Apps/CLAUDE.md, "Release scripts' Python"), or set PUBLISH_PYTHON for one run.
+PYTHON="${PUBLISH_PYTHON:-/opt/homebrew/bin/python3}"
+[ -x "$PYTHON" ] || { echo "publish-update: no Python at $PYTHON" >&2; exit 1; }
 cd "$(dirname "$0")/.."
 
 SITE="https://mikansoftware.app"
@@ -64,7 +70,7 @@ xcrun stapler validate "$DMG_PATH" >/dev/null || fail "$DMG_PATH isn't notarized
 [[ "$(basename "$DMG_PATH")" == "MikanRemoteServer-$VERSION.dmg" ]] || fail "$DMG_PATH isn't MikanRemoteServer-$VERSION.dmg."
 
 # Never go backwards: the live feed must name a lower build than this one.
-live_build=$(curl -fsS "$BASE_URL/appcast.json" 2>/dev/null | python3 -I -c 'import json,sys; print(json.load(sys.stdin)["build"])' 2>/dev/null || echo 0)
+live_build=$(curl -fsS "$BASE_URL/appcast.json" 2>/dev/null | "$PYTHON" -I -c 'import json,sys; print(json.load(sys.stdin)["build"])' 2>/dev/null || echo 0)
 [ "$BUILD" -gt "$live_build" ] || fail "The live feed already offers build $live_build; this is build $BUILD."
 
 OUT="build/publish-$VERSION"
@@ -77,7 +83,7 @@ cp "$DMG_PATH" "$OUT/files/$DMG_NAME"
 SHA=$(shasum -a 256 "$OUT/files/$ZIP_NAME" | awk '{print $1}')
 
 NOTES="${MIKAN_RELEASE_NOTES:-MikanRemoteServer $VERSION.}"
-python3 -I - "$OUT/appcast.json" "$VERSION" "$BUILD" "$BASE_URL/$ZIP_NAME" "$SHA" "$NOTES" "$MIN_MACOS" <<'EOF'
+"$PYTHON" -I - "$OUT/appcast.json" "$VERSION" "$BUILD" "$BASE_URL/$ZIP_NAME" "$SHA" "$NOTES" "$MIN_MACOS" <<'EOF'
 import json, sys
 path, version, build, url, sha, notes, minimum = sys.argv[1:]
 with open(path, "w") as f:
@@ -98,7 +104,7 @@ RSYNC=(rsync -rt --perms --rsync-path="mkdir -p '$remote_dir' && chmod 755 '$rem
 
 step "Checking the public URLs"
 feed=$(curl -fsS -H 'Cache-Control: no-cache' "$BASE_URL/appcast.json") || fail "$BASE_URL/appcast.json doesn't load."
-[ "$(python3 -I -c 'import json,sys; print(json.load(sys.stdin)["build"])' <<<"$feed")" = "$BUILD" ] \
+[ "$("$PYTHON" -I -c 'import json,sys; print(json.load(sys.stdin)["build"])' <<<"$feed")" = "$BUILD" ] \
   || fail "The public feed doesn't show build $BUILD (a cache in front of the server?)."
 [ "$(curl -fsS "$BASE_URL/$ZIP_NAME" | shasum -a 256 | awk '{print $1}')" = "$SHA" ] || fail "The public zip doesn't match."
 curl -fsSI "$BASE_URL/$DMG_NAME" >/dev/null || fail "The public DMG doesn't load."
