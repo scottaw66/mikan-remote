@@ -1,18 +1,18 @@
 ---
 app: mikanremote
 name: MikanRemote
-status: building
+status: private
 platforms: [mac, ios]
 channel: [dmg-self-update, devicectl]
-owner: mikan
+owner: internal
 site: ""
 next: ""
-updated: 2026-11-03
+updated: 2026-11-05
 ---
 
 # MikanRemote: status
 
-Mikan Remote turns an iPhone into a trackpad and button remote for a Mac playing video, over the local network. Latest tag: `mikanremote-v1.2.0` (2026-10-16); the Mac server and the iPhone client are both 1.2.0 (build 2).
+Mikan Remote turns an iPhone into a trackpad and button remote for a Mac playing video, over the local network. Latest tag: `mikanremote-v1.2.0` (2026-10-16); the Mac server and the iPhone client are both 1.2.0 (build 2). It's Scott's own tool and private: not something he'll release (Scott, 2026-11-05).
 
 ## Where things are
 
