@@ -198,7 +198,8 @@ The icon picker is a fixed list of SF Symbols (Apple TV, Play, Film, Music Note,
 - `MikanRemote/` — iOS app (Xcode project)
 - `MikanProtocol/` — Shared Swift Package defining WebSocket message types and the `Action` model
 - `docs/testing-guide.md` — Detailed end-to-end test procedure
-- `docs/superpowers/` — Design specs and implementation plans
+- `docs/specs/` — Design specs
+- `docs/plans/` — Implementation plans
 
 Both Xcode projects are generated from `project.yml` via `xcodegen` — edit the YAML, regenerate, then build.
 

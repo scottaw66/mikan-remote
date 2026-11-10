@@ -8,7 +8,7 @@
 
 **Tech Stack:** Swift 5.9+, SwiftUI, UIKit (multi-touch), Network.framework (WebSocket), CoreGraphics (CGEvent), MikanProtocol (shared Swift Package), xcodegen.
 
-**Spec:** `docs/superpowers/specs/2026-05-06-youtube-controls-design.md`
+**Spec:** `docs/specs/2026-05-06-youtube-controls-design.md`
 
 **Branch:** `yt-buttons` (already checked out).
 

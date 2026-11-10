@@ -79,8 +79,8 @@ MikanRemoteServer requires Accessibility permission for mouse/keyboard control. 
 
 ## Key Files
 
-- Design specs: `docs/superpowers/specs/`
-- Implementation plans: `docs/superpowers/plans/`
+- Design specs: `docs/specs/`
+- Implementation plans: `docs/plans/`
 - Testing guide: `docs/testing-guide.md`
 
 ## Project layout (iPhone target)

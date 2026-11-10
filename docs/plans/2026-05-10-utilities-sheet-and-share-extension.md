@@ -12,7 +12,7 @@
 
 ## Spec
 
-`docs/superpowers/specs/2026-05-10-utilities-sheet-and-share-extension-design.md` is the source of truth for behavior. This plan implements it.
+`docs/specs/2026-05-10-utilities-sheet-and-share-extension-design.md` is the source of truth for behavior. This plan implements it.
 
 ## File Structure
 

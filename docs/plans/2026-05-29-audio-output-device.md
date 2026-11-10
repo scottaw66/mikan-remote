@@ -8,7 +8,7 @@
 
 **Tech Stack:** Swift, CoreAudio (AudioToolbox HAL), Network.framework WebSocket, SwiftUI, XCTest, xcodegen.
 
-**Reference spec:** `docs/superpowers/specs/2026-05-29-audio-output-device-design.md`
+**Reference spec:** `docs/specs/2026-05-29-audio-output-device-design.md`
 
 ---
 
