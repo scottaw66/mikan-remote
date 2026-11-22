@@ -49,6 +49,7 @@ final class MenuBarManager {
     private var suppressSettingsSync = false
     private let mouseController = MouseController()
     private let audioController = AudioDeviceController()
+    private let browserActivator = BrowserActivator()
     private let cursorOverlay = CursorOverlayController()
     private var pairingPanel: NSPanel?
     private var accessibilityTimer: Timer?
@@ -249,6 +250,10 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 33, flags: [.maskCommand, .maskShift])
         case "nextTab":
             mouseController.sendKeyPress(keyCode: 30, flags: [.maskCommand, .maskShift])
+        case "activateBrowser":
+            // Brings the browser in use (last frontmost browser) to the
+            // front, fullscreen video window first; see BrowserActivator.
+            browserActivator.activate()
         case "browserBack":
             mouseController.sendBrowserBack()
         case "browserForward":
