@@ -161,6 +161,16 @@ struct ContentView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    // Brings the Mac's browser to the front: every keystroke
+                    // command lands in whatever is frontmost, so this is the
+                    // way back when something else has come forward.
+                    Button {
+                        connectionManager.send(.performCommand(command: "activateBrowser"))
+                    } label: {
+                        Image(systemName: "safari")
+                            .topBarIcon(tint: .blue)
+                    }
+                    .padding(.trailing, 8)
                     if YouTubeVisibility.effectiveYouTubeButtonVisible(
                         mode: connectionManager.youtubePopupMode,
                         actions: connectionManager.actions

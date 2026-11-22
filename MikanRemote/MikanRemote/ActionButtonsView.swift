@@ -5,51 +5,43 @@ import MikanProtocol
 struct VolumeButtonsView: View {
     let onCommand: (String) -> Void
 
+    // Seven buttons share the width equally (fixed widths overflowed the
+    // screen once back/forward joined, 1.3.0). Three groups, told apart by
+    // glyph family, not by position: squared chevrons switch tabs, U-turn
+    // arrows move through the current tab's history, speakers are volume.
     var body: some View {
         HStack(spacing: 6) {
-            Button { onCommand("closeTab") } label: {
-                Image(systemName: "xmark.square")
-                    .font(.caption)
-                    .frame(width: 40, height: 36)
-            }
-            .buttonStyle(.bordered)
-            .tint(.secondary)
+            RowButton(icon: "xmark.square") { onCommand("closeTab") }
+            RowButton(icon: "chevron.left.square") { onCommand("prevTab") }
+            RowButton(icon: "chevron.right.square") { onCommand("nextTab") }
 
-            Button { onCommand("prevTab") } label: {
-                Image(systemName: "chevron.left.square")
-                    .font(.caption)
-                    .frame(width: 40, height: 36)
-            }
-            .buttonStyle(.bordered)
-            .tint(.secondary)
+            Spacer().frame(width: 6)
 
-            Button { onCommand("nextTab") } label: {
-                Image(systemName: "chevron.right.square")
-                    .font(.caption)
-                    .frame(width: 40, height: 36)
-            }
-            .buttonStyle(.bordered)
-            .tint(.secondary)
+            RowButton(icon: "arrow.uturn.backward") { onCommand("browserBack") }
+            RowButton(icon: "arrow.uturn.forward") { onCommand("browserForward") }
 
-            Spacer()
+            Spacer().frame(width: 6)
 
-            Button { onCommand("volumeDown") } label: {
-                Image(systemName: "speaker.minus")
-                    .font(.caption)
-                    .frame(width: 48, height: 36)
-            }
-            .buttonStyle(.bordered)
-            .tint(.secondary)
-
-            Button { onCommand("volumeUp") } label: {
-                Image(systemName: "speaker.plus")
-                    .font(.caption)
-                    .frame(width: 48, height: 36)
-            }
-            .buttonStyle(.bordered)
-            .tint(.secondary)
+            RowButton(icon: "speaker.minus") { onCommand("volumeDown") }
+            RowButton(icon: "speaker.plus") { onCommand("volumeUp") }
         }
         .padding(.horizontal)
+    }
+}
+
+private struct RowButton: View {
+    let icon: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.caption)
+                .frame(maxWidth: .infinity)
+                .frame(height: 36)
+        }
+        .buttonStyle(.bordered)
+        .tint(.secondary)
     }
 }
 

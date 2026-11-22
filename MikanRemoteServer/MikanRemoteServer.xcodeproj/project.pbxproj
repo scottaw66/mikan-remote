@@ -26,6 +26,7 @@
 		AF6E8F52F56276059B542289 /* PairingCodeWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3CFE07ABFA2D84E80D7CE4 /* PairingCodeWindow.swift */; };
 		C19B5D725A1E1808A4E03543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */; };
 		C293A3832F1951742186787C /* AudioDeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E059E6C58019686BFF6744A /* AudioDeviceController.swift */; };
+		C35F281F3FF0E1A265021735 /* BrowserActivator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6414EB7AA0621D87EA7FC05E /* BrowserActivator.swift */; };
 		D04362032E4864D0C58CFE81 /* MikanProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = 385464561B5FC3CF8F084DD8 /* MikanProtocol */; };
 		E9082534B6B47BEA5977CCAF /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F64D045945A007F757FBCBB /* MouseController.swift */; };
 		F041E21F76E1D20946EAA156 /* ActionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945842158E8327DFFC3130E9 /* ActionStoreTests.swift */; };
@@ -51,6 +52,7 @@
 		365D7A95760BF4952A07DA15 /* MikanRemoteServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MikanRemoteServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55EC7EBC5AD64B7716D96F29 /* WebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServer.swift; sourceTree = "<group>"; };
 		569865ED1D9CC012FF759231 /* MouseControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseControllerTests.swift; sourceTree = "<group>"; };
+		6414EB7AA0621D87EA7FC05E /* BrowserActivator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserActivator.swift; sourceTree = "<group>"; };
 		6ACE14F5498B4541754E0759 /* ActionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStore.swift; sourceTree = "<group>"; };
 		6F64D045945A007F757FBCBB /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
 		7B308A82A6C848EE6C6671F5 /* ActionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEditorView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				6ACE14F5498B4541754E0759 /* ActionStore.swift */,
 				86D4BEF3784A8F3E525E46E8 /* Assets.xcassets */,
 				1E059E6C58019686BFF6744A /* AudioDeviceController.swift */,
+				6414EB7AA0621D87EA7FC05E /* BrowserActivator.swift */,
 				29CEC83D9662BFE5AF845907 /* BuildInfo.swift */,
 				B2D83DE6A35B587DB921D0DF /* CommandDiagnostics.swift */,
 				0FC48AD59969716D93A26139 /* CursorOverlayController.swift */,
@@ -293,6 +296,7 @@
 				25B8C6879FF82C8906106AF8 /* ActionEditorView.swift in Sources */,
 				687775EA770F00898BC53A87 /* ActionStore.swift in Sources */,
 				C293A3832F1951742186787C /* AudioDeviceController.swift in Sources */,
+				C35F281F3FF0E1A265021735 /* BrowserActivator.swift in Sources */,
 				7BEE95AC2B6BB1E10C6E996B /* BuildInfo.swift in Sources */,
 				7C7537A66010035DB29E63ED /* CommandDiagnostics.swift in Sources */,
 				8E1116455066FF8FF46CAD9E /* CursorOverlayController.swift in Sources */,
@@ -326,7 +330,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = MikanRemoteServer/Info.plist;
@@ -335,7 +339,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServer";
 				PRODUCT_NAME = MikanRemoteServer;
 				SDKROOT = macosx;
@@ -368,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -378,7 +382,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_PREFIX).MikanRemoteServer";
 				PRODUCT_NAME = MikanRemoteServer;
 				SDKROOT = macosx;
