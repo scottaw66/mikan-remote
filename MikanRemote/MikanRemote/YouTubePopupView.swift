@@ -38,6 +38,14 @@ struct YouTubePopupView: View {
 
                     fullWidthButton(label: "Play / Pause", icon: "playpause.fill", command: "ytPlayPause")
 
+                    // Navigates the *current* tab to youtube.com (server types the
+                    // URL into the address bar). Not openURL — that opens a new tab.
+                    fullWidthButton(label: "YouTube Home", icon: "house.fill", command: "ytHome")
+
+                    // Last row, with a gap above it, so nothing sits under
+                    // Save / Unsave: when this row was above YouTube Home,
+                    // taps landed on YouTube Home and the video was gone
+                    // (2026-11-22, seen in the server's command log).
                     HStack(spacing: 12) {
                         // The Watch Later playlist, in the current tab (same
                         // address-bar route as YouTube Home).
@@ -48,10 +56,7 @@ struct YouTubePopupView: View {
                         // on the Mac's screen, not here.
                         pairedButton(label: "Save / Unsave", icon: "clock.badge.checkmark", command: "ytToggleWatchLater")
                     }
-
-                    // Navigates the *current* tab to youtube.com (server types the
-                    // URL into the address bar). Not openURL — that opens a new tab.
-                    fullWidthButton(label: "YouTube Home", icon: "house.fill", command: "ytHome")
+                    .padding(.top, 20)
                 }
                 .padding()
             }
