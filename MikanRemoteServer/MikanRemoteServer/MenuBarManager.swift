@@ -249,6 +249,10 @@ final class MenuBarManager {
             mouseController.sendKeyPress(keyCode: 33, flags: [.maskCommand, .maskShift])
         case "nextTab":
             mouseController.sendKeyPress(keyCode: 30, flags: [.maskCommand, .maskShift])
+        case "browserBack":
+            mouseController.sendBrowserBack()
+        case "browserForward":
+            mouseController.sendBrowserForward()
         case "playPause":
             mouseController.sendMediaKey(16)
         case "ytPrevVideo":
@@ -273,6 +277,14 @@ final class MenuBarManager {
             // Same tab, not a new one — openURL via NSWorkspace always spawns
             // a new tab. Trailing slash matters: see navigateCurrentTab.
             mouseController.navigateCurrentTab(to: "https://www.youtube.com/")
+        case "ytWatchLater":
+            // The Watch Later playlist, in the current tab. The trailing "&"
+            // is the character navigateCurrentTab's Backspace may eat.
+            mouseController.navigateCurrentTab(to: "https://www.youtube.com/playlist?list=WL&")
+        case "ytToggleWatchLater":
+            // Handled on the page by the Watch Later Solo extension, which
+            // adds or removes the open video; see sendWatchLaterToggle.
+            mouseController.sendWatchLaterToggle()
         case "screenshot":
             mouseController.sendKeyPress(keyCode: 20, flags: [.maskCommand, .maskShift])
         default:

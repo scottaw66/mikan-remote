@@ -33,6 +33,26 @@ struct VolumeButtonsView: View {
 
             Spacer()
 
+            // Browser history (Cmd+[ / Cmd+]), as opposed to the squared
+            // chevrons on the left, which switch tabs.
+            Button { onCommand("browserBack") } label: {
+                Image(systemName: "arrow.backward")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Button { onCommand("browserForward") } label: {
+                Image(systemName: "arrow.forward")
+                    .font(.caption)
+                    .frame(width: 40, height: 36)
+            }
+            .buttonStyle(.bordered)
+            .tint(.secondary)
+
+            Spacer()
+
             Button { onCommand("volumeDown") } label: {
                 Image(systemName: "speaker.minus")
                     .font(.caption)

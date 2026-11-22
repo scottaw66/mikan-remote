@@ -94,10 +94,12 @@ final class MouseController {
     /// keystrokes, so it works in any browser without Apple Events permission:
     /// Cmd+L focuses the address bar, the URL is typed, one Backspace removes
     /// the inline autocompletion Safari/Chrome select after the typed text
-    /// (which would otherwise send Return to e.g. a remembered /watch?v= URL;
-    /// with no completion it just trims the trailing "/"), then Return loads
-    /// it. Steps are spaced out with asyncAfter because the address bar needs
-    /// a moment to take focus before typed text lands in it.
+    /// (which would otherwise send Return to e.g. a remembered /watch?v= URL),
+    /// then Return loads it. With no completion that Backspace deletes the
+    /// LAST CHARACTER OF `url` instead, so callers end the URL with a character
+    /// it can lose: the "/" of "https://www.youtube.com/", the "&" of
+    /// "...playlist?list=WL&". Steps are spaced out with asyncAfter because the
+    /// address bar needs a moment to take focus before typed text lands in it.
     func navigateCurrentTab(to url: String) {
         sendKeyPress(keyCode: 37, flags: [.maskCommand])   // Cmd+L
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [self] in
@@ -109,6 +111,31 @@ final class MouseController {
                 }
             }
         }
+    }
+
+    // MARK: - Browser history
+
+    func sendBrowserBack() {
+        // Cmd+[ — back in the current tab's history (Safari, Chrome, Firefox)
+        sendKeyPress(keyCode: 33, flags: [.maskCommand])
+    }
+
+    func sendBrowserForward() {
+        // Cmd+] — forward in the current tab's history
+        sendKeyPress(keyCode: 30, flags: [.maskCommand])
+    }
+
+    // MARK: - Watch Later Solo (Safari extension)
+
+    /// Ctrl+Option+Shift+W. Nothing in macOS or Safari binds this chord, so
+    /// the page gets it: on youtube.com the Watch Later Solo extension
+    /// (~/Developer/Apps/watch-later-solo, its watch-later-toggle.js) listens
+    /// for exactly this chord and adds the open video to Watch Later, or
+    /// removes it, then shows the result on the page. Without the extension
+    /// the chord does nothing. Like every keystroke command it assumes the
+    /// browser is frontmost.
+    func sendWatchLaterToggle() {
+        sendKeyPress(keyCode: 13, flags: [.maskControl, .maskAlternate, .maskShift])
     }
 
     // MARK: - YouTube web-player shortcuts
