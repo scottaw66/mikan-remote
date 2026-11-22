@@ -12,7 +12,7 @@ updated: 2026-11-22
 
 # MikanRemote: status
 
-Mikan Remote turns an iPhone into a trackpad and button remote for a Mac playing video, over the local network. Latest tag: `mikanremote-v1.3.0` (2026-11-22); the Mac server and the iPhone client are both 1.3.0 (build 3). It's Scott's own tool and private: not something he'll release (Scott, 2026-11-05).
+Mikan Remote turns an iPhone into a trackpad and button remote for a Mac playing video, over the local network. Latest tag: `mikanremote-v1.3.0` (2026-11-22); the Mac server is 1.3.0 (build 3) and the iPhone client 1.3.1 (build 4), an iPhone-only layout fix the same day (the two share a version line in spirit, but an iPhone-only change doesn't ship a Mac release). It's Scott's own tool and private: not something he'll release (Scott, 2026-11-05).
 
 ## Where things are
 
